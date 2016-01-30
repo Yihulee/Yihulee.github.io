@@ -1,0 +1,11 @@
+#+TITLE:       Hi
+#+AUTHOR:      
+#+EMAIL:       Administrator@ACER
+#+DATE:        2016-01-30 周六
+#+URI:         /blog/%y/%m/%d/hi
+#+KEYWORDS:    Hi
+#+TAGS:        Hi
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: Hello
+大家好！，这是测试用的！
