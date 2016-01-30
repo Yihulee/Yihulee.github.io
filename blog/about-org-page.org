@@ -66,5 +66,12 @@ directory where repository will be initialized."
     (error "Fatal: Failed to initialize new git repository '%s'." repo-dir)))
 #+END_SRC
 
-在上面的文件中，我发现了一个很有趣的东西，那就是作者写的elisp文件更像是一个脚本，只是通过执行相应的命令，然后比对命令输出的结果，来判断命令执行是否正确，看到这里，我知道为什么我的ubuntu kylin系统执行op/new-repository命令老是出错了，因为它的git命令是中文的：
-[[http://img3.douban.com/icon/u3288655-41.jpg]
+在上面的文件中，我发现了一个很有趣的东西，那就是作者写的=elisp=文件更像是一个脚本，只是通过执行相应的命令，然后比对命令输出的结果，来判断命令执行是否正确，看到这里，我知道为什么我的ubuntu kylin系统执行=op/new-repository=命令老是出错了，因为它的git命令是中文的，就是这么奇葩。
+
+所以我立马把kylin系统里面的中文删掉了，然后按照说明来配置，果然成功了。
+
+我其实也很想在linux下面生活，但是linux就是一个坑，我下了一个emacs，居然无法使用中文，真是日了狗了，好吧，linux还是活在我的远程连接里面吧！
+
+有了这个经验，我就在win7下面配置起了=org-page=,果然又是一个坑，又不行，我将语言换成了英文也不行，那么怎么办呢？好吧，我居然玩起了调试这玩意，使用edebug-defun命令调试起了源码。后来跟踪了一段，发现在提交的时候老是出错的原因是，没有配置邮箱和用户名。
+
+
