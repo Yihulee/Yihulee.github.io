@@ -2,7 +2,7 @@
 #+AUTHOR:      
 #+EMAIL:       Administrator@ACER
 #+DATE:        2016-01-30 周六
-#+URI:         /blog/%y/%m/%d/关于org-page的配置
+#+URI:         /blog/%y/%m/%d/about-org-page
 #+KEYWORDS:    技巧
 #+TAGS:        技巧
 #+LANGUAGE:    en
