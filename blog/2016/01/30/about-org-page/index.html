@@ -35,7 +35,7 @@
 <h2 id="orgheadline1">坑在哪里？</h2>
 <div class="outline-text-2" id="text-orgheadline1">
 <p>
-  之前我配置过一个 <b>hexo</b> 博客,大概花了一个多小时，一个多小时后，我就安心用 <b>markdown</b> 来写博文，发布了，好吧，本来也就那样啦，不过，一不小心看到了 <b>org-page</b> ,当时的第一印象是字体真他妈漂亮，回来再看看自己那个博客，觉得虽然效果非常炫丽，但是其实没什么用。所以就想尝试一下 <b>org-page</b> 。
+  之前我配置过一个 <b>hexo</b> 博客,大概花了一个多小时，一个多小时后，我就安心用 <b>markdown</b> 来写博文，发布了，好吧，本来也就那样啦，不过，一不小心看到了 <b>org-page</b> ,当时的第一印象是字体真他妈漂亮，回来再看看自己那个博客，觉得虽然效果非常炫丽，但其实是华而不实的东西。所以就想尝试一下 <b>org-page</b> 。
 </p>
 
 <p>
@@ -47,7 +47,7 @@
 </p>
 
 <p>
-  1.命令的执行的过程中没有丝毫的提示，只是报错，而且报的错我是压根就不知道错在了哪里。
+  1.命令的执行的过程中提示的信息非常少，只是报错，而且报的错对于小白来说简直就是不知所云。
 </p>
 
 <p>
@@ -65,12 +65,12 @@
 
 <div class="org-src-container">
 
-<pre class="src src-shell">Failed to change branch to source of repository
+<pre class="src src-shell">Failed to change branch  XXX to source of repository
 </pre>
 </div>
 
 <p>
-  无法转换到 <b>source</b> 分支，什么鬼？怎么会出这个错误？如果用户是小白，直接懵逼了。
+  无法转换到 <b>source</b> 分支，什么鬼？怎么会出这个错误？哪里出错了？
 </p>
 
 <p>
@@ -91,8 +91,15 @@
 <h2 id="orgheadline2">解决方案  </h2>
 <div class="outline-text-2" id="text-orgheadline2">
 <p>
-  
-  我突然很好奇，这玩意，究竟怎么弄的，一会儿好一会儿不好的。索性就去看了一下源代码，还好代码不是很难，还带了一点注释，不然就真的没法玩了，下面的这段大概是 <code>op/new-repository</code> 的源码：
+  *linux* 用户一般使用这个东西问题不大。 <b>windows</b> 用户碰到的问题应该会有很多，我恰好用的是 <b>windows</b> ,这里记录一下我的解决方案。
+</p>
+
+<p>
+  *windows* 系统出错，主要是在 <b>git</b> 命令上,是在不行，直接看源代码吧！
+</p>
+
+<p>
+  比如说,我执行 <code>op/new-repository</code> 命令老是出错，那么就到目录下面找到 <code>org-page.el</code> 文件的 <code>op/new-repository</code> 的源码：
 </p>
 
 <div class="org-src-container">
@@ -120,7 +127,7 @@ perfectly manipulated by org-page."
 </p>
 
 <p>
-  我大概地看了一下 <code>op/git-int-repo</code> 函数：
+  一些与 <b>git</b> 相关的函数都定义 <code>op-git.el</code> 文件之中，下面是初始化 <b>git</b> 的命令 <code>op/git-int-repo</code> ：
 </p>
 
 <div class="org-src-container">
@@ -138,7 +145,8 @@ directory where repository will be initialized."
 
 
 <p>
-  在上面的文件中，我发现了一个很有趣的东西，那就是作者写的 <b>elisp</b> 文件更像是一个脚本，只是通过执行相应的命令，然后比对命令输出的结果，来判断命令执行是否正确，看到这里，我知道为什么我的 <code>ubuntu kylin</code> 系统执行 <code>op/new-repository</code> 命令老是出错了，因为它的git命令是中文的，就是这么奇葩。
+  在上面的文件中，我发现了一个很有趣的东西，那就是作者写的 <b>elisp</b> 文件更像是一个脚本，只是通过执行相应的命令，然后比对命令输出的结果，来判断命令执行是否正确，看到这里，我知道为什么我的 <code>ubuntu kylin</code> 系统执行 <code>op/new-repository</code> 命令老是出错了，因为它的git命令是中文的，而作者的代码比对的是英文的结果，就是这么奇葩。
+<img src="http://7xq7hx.com1.z0.glb.clouddn.com/git/git-commit.jpg" alt="git-commit.jpg" />
 </p>
 
 <p>
