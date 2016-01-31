@@ -91,11 +91,11 @@
 <h2 id="orgheadline2">解决方案  </h2>
 <div class="outline-text-2" id="text-orgheadline2">
 <p>
-  *linux* 用户一般使用这个东西问题不大。 <b>windows</b> 用户碰到的问题应该会有很多，我恰好用的是 <b>windows</b> ,这里记录一下我的解决方案。
+   <b>linux</b> 用户一般使用这个东西问题不大。 <b>windows</b> 用户碰到的问题应该会有很多，我恰好用的是 <b>windows</b> ,这里记录一下我的解决方案。
 </p>
 
 <p>
-  *windows* 系统出错，主要是在 <b>git</b> 命令上,是在不行，直接看源代码吧！
+   <b>windows</b> 系统出错，主要是在 <b>git</b> 命令上,是在不行，直接看源代码吧！
 </p>
 
 <p>
@@ -183,7 +183,7 @@ REPO-DIR, MESSAGE is the commit message."
 </div>
 
 <p>
-  我单步执行了一下，执行到 =git commit -m "XXX"= 发现了一个很大的问题,实际上这条命令返回的结果是：
+  我单步执行了一下，执行到 <code>git commit -m XXX</code> 发现了一个很大的问题,实际上这条命令返回的结果是：
 </p>
 
 <div class="org-src-container">
@@ -231,8 +231,66 @@ REPO-DIR, MESSAGE is the commit message."
 </div>
 
 <div id="outline-container-orgheadline3" class="outline-2">
-<h2 id="orgheadline3">我的建议</h2>
+<h2 id="orgheadline3">我是这样配置的：</h2>
 <div class="outline-text-2" id="text-orgheadline3">
+<div class="org-src-container">
+
+<pre class="src src-elisp">;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 设置org-page
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(require 'org-page)
+
+;; repository-directory 是你的本地仓库的地址，如下面的配置，我的博客放在"C:/emacs/Yihulee"目录下
+(setq op/repository-directory "C:/emacs/Yihulee")
+
+;; 下面是你的博客的地址
+(setq op/site-domain "http://Yihulee.github.io")
+
+;; 你的github的地址
+(setq op/personal-github-link "https://github.com/Yihulee") ; if you want to show a personal github link 
+
+;; 主 title
+(setq op/site-main-title "Yihulee's world!")
+
+;; 副 title
+(setq op/site-sub-title "=========&gt;易燃又美味！")
+
+;; 多说
+(setq op/personal-duoshuo-shortname "lishuhuakai") ; use for duoshuo comments
+</pre>
+</div>
+<p>
+  上面的配置，你只需要照猫画虎即可。
+</p>
+
+<p>
+  使用 <code>op/new-repository</code> 命令一般要指定文件夹，这个文件夹建议指定你上面配置的地址，如我指定的是 <code>C:/emacs/Yihulee</code> ,如果你想直接用 <code>op/do-publication</code> 命令直接发布到你的博客，恐怕你还得自己做一下指定。我这里以 <b>github</b> 为例做一下演示。
+</p>
+
+<p>
+   <code>op/new-repository</code> 命令执行完了以后，如果一切正常，你的目录下面应该是如此：
+<a href="http://7xq7hx.com1.z0.glb.clouddn.com/git/git-init.">http://7xq7hx.com1.z0.glb.clouddn.com/git/git-init.</a>
+</p>
+
+<p>
+   <code>.git</code> 是个隐藏的目录，你的电脑里面可能看不见，然后关联一下你的远程仓库：
+</p>
+<div class="org-src-container">
+
+<pre class="src src-git">git remote add origin git@github.com:Yihulee/Yihulee.github.io.git
+</pre>
+</div>
+<p>
+  上面是我的博客的 <code>git</code> 项目的地址,当然，要能把git项目推到远程仓库中去的话，你要有github的账号，并且要关联你的 <code>ssh-key</code> ，然后调用 <code>op/do-publication</code> 命令，且你选择了推送到远程仓库的时候，该命令生成网页后，会执行 <code>git push -u orign master</code> ，当然 <b>origin</b> 可以换成任意的你添加的 <b>remote</b> 。
+  
+  差不多就是这样啦，不过也别太相信这两个命令，在命令执行不成功的时候，要手动纠错。
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline4" class="outline-2">
+<h2 id="orgheadline4">我的建议</h2>
+<div class="outline-text-2" id="text-orgheadline4">
 <p>
   这个东西，估计不会有很多人玩得转。真的，要用 <code>org-page</code> 来写博客并且发表的话，要求挺高的，首先，你要懂 <b>emacs</b> 的一些基本操作,其次， <b>git</b> 的一些命令，你要玩得特别转，最后你还要会用 <code>org-mode</code> ,当然不用很精通。最好的，你还要会点 <code>elisp</code> 。
 </p>
