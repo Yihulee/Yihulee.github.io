@@ -80,12 +80,11 @@ directory where repository will be initialized."
   在上面的文件中，我发现了一个很有趣的东西，那就是作者写的 *elisp* 文件更像是一个脚本，只是通过执行相应的命令，然后比对命令输出的结果，来判断命令执行是否正确，看到这里，我知道为什么我的 =ubuntu kylin= 系统执行 =op/new-repository= 命令老是出错了，因为它的git命令是中文的，而作者的代码比对的是英文的结果，就是这么奇葩。
 [[http://7xq7hx.com1.z0.glb.clouddn.com/git%2Fgit-chinese.jpg]]
 
-  所以我立马把 *kylin* 系统里面的中文删掉了，然后按照说明来配置，果然成功了。
+  所以我立马把 *kylin* 系统里面的中文删掉了，换成了英文，然后按照说明来配置，果然成功了。
 
-  我其实也很想在 *linux* 下面生活，但是 *linux* 就是一个坑，我下了一个 *emacs* ，居然无法使用中文，真是日了狗了，好吧，*linux* 还是活在我的远程连接里面吧！
+  然而，在 *linux* 下面写博客真心不太容易，虽然我也很想在 *linux* 下面生活，但是 *linux* 就是一个坑，我下了一个 *emacs* ，居然无法使用中文输入，当然办法肯定有的，但是非常麻烦，要是这么弄的话，我宁愿用这玩意了，并且 *linux* 下输入法的效果也没有 *windows* 下面好，好吧，*linux* 还是活在我的远程连接里面吧！
 
-  有了这个经验，我就在 *win7* 下面配置起了 =org-page=,果然又是一个坑，又不行，我将语言换成了英文也不行，那么怎么办呢？
-好吧，学过一段时间 *scheme* 的我居然玩起了 *elisp* 调试这玩意，使用 *edebug-defun* 命令调试起了源码。后来跟踪了一段，发现在提交的时候老是出错的原因是，没有配置邮箱和用户名。
+  有了成功的经验，我就在 *win7* 下面配置起了 =org-page=,果然又是一个坑，又不行，我将语言换成了英文也不行，那么怎么办呢？也没有什么好办法，只能看源码，好在学过一段时间 *scheme* ，索性玩起了 *elisp* 调试，使用 *edebug-defun* 命令调试起了源码。后来跟踪了一段，发现在提交的时候老是出错的原因是， *没有配置邮箱和用户名* 。
 
   我重点检查了这一段：
 #+BEGIN_SRC elisp
@@ -137,9 +136,18 @@ REPO-DIR, MESSAGE is the commit message."
 
   执行完上面的操作之后，我运行 =op/new-repository= 命令就正常了。
 
+  还有一种方法，其实我也没试过，不过我记录在这里，那就是直接在你的 *emacs* 配置里面设置：
+#+BEGIN_SRC elisp
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 设置有用的个人信息
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(setq user-full-name "Yihulee")
+(setq user-mail-address "Yihulee@gmail.com")
+#+END_SRC
+
 * 我是这样配置的：
 
-  首先，你要在你的emacs配置文件中添加这么一段：
+  首先，你要在你的 *emacs* 配置文件中添加下面的代码，主要是用于告诉 *emacs* 到哪里去找 =org-page= 包。
 #+BEGIN_SRC elisp
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; package
@@ -182,7 +190,7 @@ REPO-DIR, MESSAGE is the commit message."
 #+END_SRC
   上面的配置，你只需要照猫画虎即可。
 
-  使用 =op/new-repository= 命令一般要指定文件夹，这个文件夹建议指定你上面配置的地址，如我指定的是 =C:/emacs/Yihulee= ,如果你想直接用 =op/do-publication= 命令直接发布到你的博客，恐怕你还得自己做一下指定。我这里以 *github* 为例做一下演示。
+  使用 =op/new-repository= 命令一般要指定文件夹，将这个文件夹作为你本地的仓库，这个文件夹建议指定你上面配置的地址(你调用 =op/new-post= 写博客,该博客的 *org* 文件会自动保存到你上面配置的本地仓库的 *blog* 文件夹下面,使用 =op/do-publication= 命令发布的时候，渲染的也是你上面指定的本地仓库地址里的 *org* 文件)，如我指定的是 =C:/emacs/Yihulee= ,如果你想直接用 =op/do-publication= 命令直接发布到你的博客，恐怕你还得为之前设置的本地仓库关联上远程的仓库。我这里以 *github* 为例做一下演示。
 
    =op/new-repository= 命令执行完了以后，如果一切正常，你的目录下面应该是如此：
 [[http://7xq7hx.com1.z0.glb.clouddn.com/git%2Fgit-init.png]]
@@ -196,9 +204,20 @@ git remote add origin git@github.com:Yihulee/Yihulee.github.io.git
 
   调用 =op/do-publication= 命令，并且你选择了推送到远程仓库的时候，该命令生成网页后，会自动执行与 =git push -u orign master= 类似的命令，将你的文件推送到远程仓库。
 
-  差不多就是这样啦，不过也别太相信这两个命令，在命令执行不成功的时候，要手动纠错。
+  差不多就是这样啦，不过也别太相信这两个命令，在命令执行不成功的时候，要手动纠错,正如前面所说，作者写的代码还是不够健壮，无法应对很多意想不到的情况。
 
   总之我经常手动纠错啦，比如说，每次写完一篇博客后，我都要自己提交，然后才执行 =op/do-publication= 命令，这样发布才正确。
+
+  这里对本地仓库做一下说明，仓库有两个分支，一个是 *master* ,一个是 *source* 分支，*master* 里面是生成的网页， *source* 分支里面是 *org* 源文件，被推送到 *github* 的是 *master* 分支。
+
+**　一些常用的git命令
+#+BEGIN_QUOTE
+git remote 查看分支
+git add . 添加文件夹中所有的东西到git中
+git commit -m "remark" 提交
+git checkout branch-name 切换到某个分支
+git log 查看提交日志
+#+END_QUOTE
 
 * 我的建议
   这个东西，估计不会有很多人玩得转。真的，要用 =org-page= 来写博客并且发表的话，要求挺高的，首先，你要懂 *emacs* 的一些基本操作,其次， *git* 的一些命令，你要玩得特别转，最后你还要会用 =org-mode= ,当然不用很精通。最好的，你还要会点 =elisp= 。
