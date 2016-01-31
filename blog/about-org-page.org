@@ -25,7 +25,7 @@ op/new-repository
   命令的时候， *emacs* 经常会给我报如下的错误：
 
 #+BEGIN_SRC shell
-Failed to change branch  XXX to source of repository
+Failed to change branch to 'source' of repository XXX
 #+END_SRC
 
   无法转换到 *source* 分支，什么鬼？怎么会出这个错误？哪里出错了？简直不知道这东西在报什么鬼。
