@@ -175,7 +175,6 @@ git remote add origin git@github.com:Yihulee/Yihulee.github.io.git
 #+END_SRC
   上面是我的博客的 =git= 项目的地址,当然，要能把git项目推到远程仓库中去的话，你要有github的账号，并且要关联你的 =ssh-key= ，然后调用 =op/do-publication= 命令，且你选择了推送到远程仓库的时候，该命令生成网页后，会执行 =git push -u orign master= ，当然 *origin* 可以换成任意的你添加的 *remote* 。
 
-  
   差不多就是这样啦，不过也别太相信这两个命令，在命令执行不成功的时候，要手动纠错。
 
 * 我的建议
