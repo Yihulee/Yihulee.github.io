@@ -167,7 +167,7 @@ REPO-DIR, MESSAGE is the commit message."
   使用 =op/new-repository= 命令一般要指定文件夹，这个文件夹建议指定你上面配置的地址，如我指定的是 =C:/emacs/Yihulee= ,如果你想直接用 =op/do-publication= 命令直接发布到你的博客，恐怕你还得自己做一下指定。我这里以 *github* 为例做一下演示。
 
    =op/new-repository= 命令执行完了以后，如果一切正常，你的目录下面应该是如此：
-[[http://7xq7hx.com1.z0.glb.clouddn.com/git%2Fgit-init.]]
+[[http://7xq7hx.com1.z0.glb.clouddn.com/git%2Fgit-init.png]]
 
    =.git= 是个隐藏的目录，你的电脑里面可能看不见，然后关联一下你的远程仓库：
 #+BEGIN_SRC git
