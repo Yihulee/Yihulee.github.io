@@ -39,7 +39,7 @@ Failed to change branch to 'source' of repository XXX
 * 解决方案  
    *linux* 用户一般使用这个东西问题不大。 *windows* 用户碰到的问题应该会有很多，我恰好用的是 *windows* ,这里记录一下我的解决方案。
 
-   *windows* 系统出错，主要是在 *git* 命令上,如果被坑的次数多了哇，说实话，看源码其实更加实在。
+   *windows* 系统出错，主要是在 *git* 命令上,如果被坑的次数多了话，说实话，看源码其实更加实在，更加快。
 
   比如说,我执行 =op/new-repository= 命令老是出错，那么就到目录下面找到 =org-page.el= 文件的 =op/new-repository= 的源码：
 
