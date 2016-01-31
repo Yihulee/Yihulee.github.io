@@ -16,15 +16,13 @@
   我来小小地吐槽一下我碰到的坑。
 
   1.命令的执行的过程中没有丝毫的提示，只是报错，而且报的错我是压根就不知道错在了哪里。
-  
-  
 
   一个很简单的例子，我在执行:
 #+BEGIN_SRC lisp
 op/new-repository
 #+END_SRC
 
-  命令的时候，*emacs* 经常会给我报如下的错误：
+  命令的时候， *emacs* 经常会给我报如下的错误：
 
 #+BEGIN_SRC shell
 Failed to change branch to source of repository
@@ -136,6 +134,6 @@ REPO-DIR, MESSAGE is the commit message."
   执行完上面的操作之后，我运行 =op/new-repository= 命令就正常了。
 
 * 我的建议
-  这个东西，估计不会有很多人玩得转。真的，要用 =org-page= 来写博客并且发表的话，要求挺高的，首先，你要懂 *emacs* 的一些基本操作,其次，git的一些命令，你要玩得特别转，最后你还要会用 =org-mode= ,当然不用很精通。最好的，你还要会点 =elisp= 。
+  这个东西，估计不会有很多人玩得转。真的，要用 =org-page= 来写博客并且发表的话，要求挺高的，首先，你要懂 *emacs* 的一些基本操作,其次， *git* 的一些命令，你要玩得特别转，最后你还要会用 =org-mode= ,当然不用很精通。最好的，你还要会点 =elisp= 。
 
   好吧，小白就别玩这种东西啦，去用 =hexo= 吧！傻瓜化的配置。你只要安心写好你的 =markdown= 就行了。
