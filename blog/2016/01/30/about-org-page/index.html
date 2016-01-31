@@ -35,7 +35,7 @@
 <h2 id="orgheadline1">坑在哪里？</h2>
 <div class="outline-text-2" id="text-orgheadline1">
 <p>
-之前我配置过一个*hexo*博客,大概花了一个多小时，一个多小时后，我就安心用markdown来写博文，发布了，好吧，本来也就那样啦，不过，一不小心看到了org-page,当时的第一印象是字体真他妈漂亮，回来再看看自己那个博客，觉得虽然效果非常炫丽，但是其实没什么用。所以就想尝试一下org-page。
+之前我配置过一个 <b>hexo</b> 博客,大概花了一个多小时，一个多小时后，我就安心用markdown来写博文，发布了，好吧，本来也就那样啦，不过，一不小心看到了org-page,当时的第一印象是字体真他妈漂亮，回来再看看自己那个博客，觉得虽然效果非常炫丽，但是其实没什么用。所以就想尝试一下org-page。
 </p>
 
 <p>
@@ -72,7 +72,7 @@
 </p>
 
 <p>
-对，刚开始的我也是这样的。我在自己的win7上试了几遍，每次都报错，我怀疑，作者设计的这个东西只能用在linux上面？我换了ubuntu kylin去尝试，依旧问题不断，我配着配着感到很恶心，停止了一段时间。
+对，刚开始的我也是这样的。我在自己的 <i>win7</i> 上试了几遍，每次都报错，我怀疑，作者设计的这个东西只能用在linux上面？我换了ubuntu kylin去尝试，依旧问题不断，我配着配着感到很恶心，停止了一段时间。
 </p>
 
 <p>
@@ -103,8 +103,8 @@ perfectly manipulated by org-page."
 </div>
 
 <p>
-上面大概就是op/new-repository函数所干的事情。
-我大概地看了一下op/git-int-repo函数：
+上面大概就是 <code>op/new-repository</code> 函数所干的事情。
+我大概地看了一下 <code>op/git-int-repo</code> 函数：
 </p>
 <div class="org-src-container">
 
@@ -120,7 +120,7 @@ directory where repository will be initialized."
 </div>
 
 <p>
-在上面的文件中，我发现了一个很有趣的东西，那就是作者写的=elisp=文件更像是一个脚本，只是通过执行相应的命令，然后比对命令输出的结果，来判断命令执行是否正确，看到这里，我知道为什么我的ubuntu kylin系统执行=op/new-repository=命令老是出错了，因为它的git命令是中文的，就是这么奇葩。
+在上面的文件中，我发现了一个很有趣的东西，那就是作者写的 <code>elisp</code> 文件更像是一个脚本，只是通过执行相应的命令，然后比对命令输出的结果，来判断命令执行是否正确，看到这里，我知道为什么我的 <code>ubuntu kylin</code> 系统执行 <code>op/new-repository</code> 命令老是出错了，因为它的git命令是中文的，就是这么奇葩。
 </p>
 
 <p>
