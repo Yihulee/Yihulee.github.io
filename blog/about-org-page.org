@@ -78,7 +78,7 @@ directory where repository will be initialized."
 
 
   在上面的文件中，我发现了一个很有趣的东西，那就是作者写的 *elisp* 文件更像是一个脚本，只是通过执行相应的命令，然后比对命令输出的结果，来判断命令执行是否正确，看到这里，我知道为什么我的 =ubuntu kylin= 系统执行 =op/new-repository= 命令老是出错了，因为它的git命令是中文的，而作者的代码比对的是英文的结果，就是这么奇葩。
-[[http://7xq7hx.com1.z0.glb.clouddn.com/git%2Fgit-commit.jpg]]
+[[http://7xq7hx.com1.z0.glb.clouddn.com/git%2Fgit-chinese.jpg]]
 
   所以我立马把 *kylin* 系统里面的中文删掉了，然后按照说明来配置，果然成功了。
 
@@ -138,6 +138,24 @@ REPO-DIR, MESSAGE is the commit message."
   执行完上面的操作之后，我运行 =op/new-repository= 命令就正常了。
 
 * 我是这样配置的：
+
+  首先，你要在你的emacs配置文件中添加这么一段：
+#+BEGIN_SRC elisp
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; package
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(require 'package)
+(package-initialize)
+(add-to-list 'package-archives
+           '("melpa" . "http://melpa.milkbox.net/packages/") t)
+#+END_SRC
+  然后执行安装包的命令 =M-x package-list-packages=,然后 *emacs* 会显示一大堆的包，用 =C-s org-page= 来寻找 =org-page= 包:
+[[http://7xq7hx.com1.z0.glb.clouddn.com/install-org-page.png]]
+
+  点击安装：
+[[http://7xq7hx.com1.z0.glb.clouddn.com/install-org-page-2.png]]
+
+  安装完成后，你要进行一些配置，下面是我的关于 =org-page= 的配置
 #+BEGIN_SRC elisp
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 设置org-page
@@ -173,9 +191,14 @@ REPO-DIR, MESSAGE is the commit message."
 #+BEGIN_SRC git
 git remote add origin git@github.com:Yihulee/Yihulee.github.io.git
 #+END_SRC
-  上面是我的博客的 =git= 项目的地址,当然，要能把git项目推到远程仓库中去的话，你要有github的账号，并且要关联你的 =ssh-key= ，然后调用 =op/do-publication= 命令，且你选择了推送到远程仓库的时候，该命令生成网页后，会执行 =git push -u orign master= ，当然 *origin* 可以换成任意的你添加的 *remote* 。
+
+  上面是我的博客的 =git= 项目的地址,当然，要能把git项目推到远程仓库中去的话，你要有github的账号，并且账号要关联你的 =ssh-key= ，你才可以推送。
+
+  调用 =op/do-publication= 命令，并且你选择了推送到远程仓库的时候，该命令生成网页后，会自动执行与 =git push -u orign master= 类似的命令，将你的文件推送到远程仓库。
 
   差不多就是这样啦，不过也别太相信这两个命令，在命令执行不成功的时候，要手动纠错。
+
+  总之我经常手动纠错啦，比如说，每次写完一篇博客后，我都要自己提交，然后才执行 =op/do-publication= 命令，这样发布才正确。
 
 * 我的建议
   这个东西，估计不会有很多人玩得转。真的，要用 =org-page= 来写博客并且发表的话，要求挺高的，首先，你要懂 *emacs* 的一些基本操作,其次， *git* 的一些命令，你要玩得特别转，最后你还要会用 =org-mode= ,当然不用很精通。最好的，你还要会点 =elisp= 。
