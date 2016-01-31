@@ -200,7 +200,7 @@ git remote add origin git@github.com:Yihulee/Yihulee.github.io.git
 
   差不多就是这样啦，不过也别太相信这两个命令，在命令执行不成功的时候，要手动纠错,正如前面所说，作者写的代码还是不够健壮，无法应对很多意想不到的情况。
 
-  总之我经常手动纠错啦，比如说，每次写完一篇博客后，我都要自己提交，然后才执行 =op/do-publication= 命令，这样发布才正确, 否则的话，我写完一篇新博客直接用 =op/do-publication= 命令的话，一般会报错(*window* 下) =Failed to change branch to 'master' of repository XXX= ,原因是发布的时候source分支没有自动提交更改，自己要手动执行添加更改:
+  总之我经常手动纠错啦，比如说，每次写完一篇博客后，我都要自己提交，然后才执行 =op/do-publication= 命令，这样发布才正确, 否则的话，我写完一篇新博客直接用 =op/do-publication= 命令的话，一般会报错(*window* 下) =Failed to change branch to 'master' of repository XXX= ,原因是发布的时候 *source* 分支没有自动提交更改，自己要手动执行添加更改:
 #+BEGIN_SRC shell
 git add .
 
