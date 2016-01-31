@@ -1,5 +1,5 @@
 #+TITLE:       关于org-page的配置
-#+AUTHOR:      
+#+AUTHOR:      Yihulee
 #+EMAIL:       Administrator@ACER
 #+DATE:        2016-01-30 周六
 #+URI:         /blog/%y/%m/%d/about-org-page
@@ -9,31 +9,36 @@
 #+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
 #+DESCRIPTION: 好吧！我觉得好坑的一件事情！
 * 坑在哪里？
-之前我配置过一个 *hexo* 博客,大概花了一个多小时，一个多小时后，我就安心用 *markdown* 来写博文，发布了，好吧，本来也就那样啦，不过，一不小心看到了 *org-page* ,当时的第一印象是字体真他妈漂亮，回来再看看自己那个博客，觉得虽然效果非常炫丽，但是其实没什么用。所以就想尝试一下 *org-page*。
+  之前我配置过一个 *hexo* 博客,大概花了一个多小时，一个多小时后，我就安心用 *markdown* 来写博文，发布了，好吧，本来也就那样啦，不过，一不小心看到了 *org-page* ,当时的第一印象是字体真他妈漂亮，回来再看看自己那个博客，觉得虽然效果非常炫丽，但是其实没什么用。所以就想尝试一下 *org-page*。
 
-我真的有些佩服自己，干啥不好，喜欢折腾这个鬼东西。我花了多久才折腾好这个博客呢？大概两天。请对比一下前面的一个小时，看看这个东西坑在哪里。
+  我真的有些佩服自己，干啥不好，喜欢折腾这个鬼东西。我花了多久才折腾好这个博客呢？大概两天。请对比一下前面的一个小时，看看这个东西坑在哪里。
 
-我来小小地吐槽一下我碰到的坑。
+  我来小小地吐槽一下我碰到的坑。
 
-1.命令的执行的过程中没有丝毫的提示，只是报错，而且报的错我是压根就不知道错在了哪里。
-一个很简单的例子，我在执行:
+  1.命令的执行的过程中没有丝毫的提示，只是报错，而且报的错我是压根就不知道错在了哪里。
+  一个很简单的例子，我在执行:
 #+BEGIN_SRC lisp
 op/new-repository
 #+END_SRC
 
-命令的时候，*emacs* 经常会给我报如下的错误：
+  命令的时候，*emacs* 经常会给我报如下的错误：
 
 #+BEGIN_SRC shell
 Failed to change branch to source of repository
 #+END_SRC
 
-无法转换到 *source* 分支，什么鬼？怎么会出这个错误？如果用户是小白，立马懵逼了。
+  无法转换到 *source* 分支，什么鬼？怎么会出这个错误？如果用户是小白，直接懵逼了。
 
-对，刚开始的我也是这样的。我在自己的 *win7* 上试了几遍，每次都报错，我怀疑，作者设计的这个东西只能用在 *linux* 上面？我换了 *ubuntu kylin* 去尝试，依旧问题不断，我配着配着感到很恶心，停止了一段时间。
+  对，刚开始的我也是这样的。我在自己的 *win7* 上试了几遍，每次都报错，我怀疑，作者设计的这个东西只能用在 *linux* 上面？我换了 *ubuntu kylin* 去尝试，依旧问题不断，我配着配着时间一长就感到很恶心，休停了几天。
 
-然而转机还是出现了，我不知道发了什么疯，居然想到了到虚拟机上的linux主机上去配置，居然一次就成功了，真够神奇的。然后又跑到自己的win7和ubuntu kylin上去配置，居然又失败了。
+  然而转机还是出现了，我不知道发了什么疯，居然想到了到虚拟机上的 *linux* 主机上去配置，居然一次就成功了，真够神奇的。然后又跑到自己的 *win7* 和 *ubuntu kylin* 上去配置，居然又失败了,这个时候我的感觉是，作者写的代码很不健壮。
 
-我突然很好奇，这玩意，究竟怎么弄的，一会儿好一会儿不好的。索性就去看了一下源代码，还好代码不是很难，还带了一点注释，不然就真的没法玩了，下面的这段大概是 =op/new-repository= 的源码：
+  2. =org-page= 的说明文档少得可怜，这我也没什么好说的，毕竟只是一个很小众的东西。可是这东西，如果真的要给人用的话，请写得详细一点，最好还配置一个图文教程，否则，这个东西永远都是小众的东西。
+
+* 解决方案  
+  
+  我突然很好奇，这玩意，究竟怎么弄的，一会儿好一会儿不好的。索性就去看了一下源代码，还好代码不是很难，还带了一点注释，不然就真的没法玩了，下面的这段大概是 =op/new-repository= 的源码：
+
 #+BEGIN_SRC elisp
 (defun op/new-repository (repo-dir)
   "Generate a new git repository in directory REPO-DIR, which can be
@@ -52,8 +57,9 @@ perfectly manipulated by org-page."
   (mkdir (expand-file-name "blog/" repo-dir) t)) ; 新建 blog 文件夹
 #+END_SRC
 
-上面大概就是 =op/new-repository= 函数所干的事情。
-我大概地看了一下 =op/git-int-repo= 函数：
+  上面大概就是 =op/new-repository= 函数所干的事情。
+  我大概地看了一下 =op/git-int-repo= 函数：
+
 #+BEGIN_SRC elisp
 (defun op/git-init-repo (repo-dir)
   "This function will initialize a new empty git repository. REPO-DIR is the
@@ -65,16 +71,17 @@ directory where repository will be initialized."
     (error "Fatal: Failed to initialize new git repository '%s'." repo-dir)))
 #+END_SRC
 
-在上面的文件中，我发现了一个很有趣的东西，那就是作者写的 *elisp* 文件更像是一个脚本，只是通过执行相应的命令，然后比对命令输出的结果，来判断命令执行是否正确，看到这里，我知道为什么我的 =ubuntu kylin= 系统执行 =op/new-repository= 命令老是出错了，因为它的git命令是中文的，就是这么奇葩。
 
-所以我立马把 *kylin* 系统里面的中文删掉了，然后按照说明来配置，果然成功了。
+  在上面的文件中，我发现了一个很有趣的东西，那就是作者写的 *elisp* 文件更像是一个脚本，只是通过执行相应的命令，然后比对命令输出的结果，来判断命令执行是否正确，看到这里，我知道为什么我的 =ubuntu kylin= 系统执行 =op/new-repository= 命令老是出错了，因为它的git命令是中文的，就是这么奇葩。
 
-我其实也很想在 *linux* 下面生活，但是 *linux* 就是一个坑，我下了一个 *emacs* ，居然无法使用中文，真是日了狗了，好吧，*linux* 还是活在我的远程连接里面吧！
+  所以我立马把 *kylin* 系统里面的中文删掉了，然后按照说明来配置，果然成功了。
 
-有了这个经验，我就在 *win7* 下面配置起了 =org-page=,果然又是一个坑，又不行，我将语言换成了英文也不行，那么怎么办呢？
+  我其实也很想在 *linux* 下面生活，但是 *linux* 就是一个坑，我下了一个 *emacs* ，居然无法使用中文，真是日了狗了，好吧，*linux* 还是活在我的远程连接里面吧！
+
+  有了这个经验，我就在 *win7* 下面配置起了 =org-page=,果然又是一个坑，又不行，我将语言换成了英文也不行，那么怎么办呢？
 好吧，学过一段时间 *scheme* 的我居然玩起了 *elisp* 调试这玩意，使用 *edebug-defun* 命令调试起了源码。后来跟踪了一段，发现在提交的时候老是出错的原因是，没有配置邮箱和用户名。
 
-我重点检查了这一段：
+  我重点检查了这一段：
 #+BEGIN_SRC elisp
 (defun op/git-commit-changes (repo-dir message)
   "This function will commit uncommitted changes to git repository presented by
@@ -89,9 +96,11 @@ REPO-DIR, MESSAGE is the commit message."
       (error "Failed to commit changes on current branch of repository '%s'."
              repo-dir))))
 #+END_SRC
-我单步执行了一下，执行到 =git commit -m "XXX"= 发现了一个很大的问题,实际上这条命令返回的结果是：
+
+  我单步执行了一下，执行到 =git commit -m "XXX"= 发现了一个很大的问题,实际上这条命令返回的结果是：
+
 #+BEGIN_SRC shell
-*** Please tell me who you are.
+\*\*\* Please tell me who you are.
 
 Run
    git config --global user.email "you@example.com"
@@ -99,7 +108,9 @@ Run
 
 to set your account's default identity.
 #+END_SRC
-这个结果显然和作者预定的东西不匹配，因此就有了错误。解决方法很简单，无非就是自己照猫画虎，添加了下面的两句话：
+
+  这个结果显然和作者预定的东西不匹配，因此就有了错误。解决方法很简单，无非就是自己照猫画虎，添加了下面的两句话：
+
 #+BEGIN_SRC shell
 (defun op/git-commit-changes (repo-dir message)
   "This function will commit uncommitted changes to git repository presented by
@@ -116,5 +127,9 @@ REPO-DIR, MESSAGE is the commit message."
       (error "Failed to commit changes on current branch of repository '%s'."
              repo-dir))))
 #+END_SRC
-运行一遍之后删除原来的两句话即可，此时在 *emacs* 的目录下多了一个 =.gitconfig= 文件，里面记录了你的邮箱和用户名。
-执行完上面的操作之后，我运行 =op/new-repository= 命令就正常了。
+  运行一遍之后删除原来的两句话即可，此时在 *emacs* 的目录下多了一个 =.gitconfig= 文件，里面记录了你的邮箱和用户名。
+  执行完上面的操作之后，我运行 =op/new-repository= 命令就正常了。
+
+* 我的建议
+  这个东西，估计不会有很多人玩得转。真的，要用 =org-page= 来写博客并且发表的话，要求挺高的，首先，你要懂 *emacs* 的一些基本操作,其次，git的一些命令，你要玩得特别转，最后你还要会用 =org-mode= ,当然不用很精通。最好的，你还要会点 =elisp= 。
+  好吧，小白就别玩这种东西啦，去用 =hexo= 吧！傻瓜化的配置。你只要安心写好你的 =markdown= 就行了。
