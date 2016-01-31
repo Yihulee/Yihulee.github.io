@@ -150,16 +150,15 @@ directory where repository will be initialized."
 </p>
 
 <p>
-  所以我立马把 <b>kylin</b> 系统里面的中文删掉了，然后按照说明来配置，果然成功了。
+  所以我立马把 <b>kylin</b> 系统里面的中文删掉了，换成了英文，然后按照说明来配置，果然成功了。
 </p>
 
 <p>
-  我其实也很想在 <b>linux</b> 下面生活，但是 <b>linux</b> 就是一个坑，我下了一个 <b>emacs</b> ，居然无法使用中文，真是日了狗了，好吧，*linux* 还是活在我的远程连接里面吧！
+  然而，在 <b>linux</b> 下面写博客真心不太容易，虽然我也很想在 <b>linux</b> 下面生活，但是 <b>linux</b> 就是一个坑，我下了一个 <b>emacs</b> ，居然无法使用中文输入，当然办法肯定有的，但是非常麻烦，要是这么弄的话，我宁愿用这玩意了，并且 <b>linux</b> 下输入法的效果也没有 <b>windows</b> 下面好，好吧，*linux* 还是活在我的远程连接里面吧！
 </p>
 
 <p>
-  有了这个经验，我就在 <b>win7</b> 下面配置起了 <code>org-page</code>,果然又是一个坑，又不行，我将语言换成了英文也不行，那么怎么办呢？
-好吧，学过一段时间 <b>scheme</b> 的我居然玩起了 <b>elisp</b> 调试这玩意，使用 <b>edebug-defun</b> 命令调试起了源码。后来跟踪了一段，发现在提交的时候老是出错的原因是，没有配置邮箱和用户名。
+  有了成功的经验，我就在 <b>win7</b> 下面配置起了 <code>org-page</code>,果然又是一个坑，又不行，我将语言换成了英文也不行，那么怎么办呢？也没有什么好办法，只能看源码，好在学过一段时间 <b>scheme</b> ，索性玩起了 <b>elisp</b> 调试，使用 <b>edebug-defun</b> 命令调试起了源码。后来跟踪了一段，发现在提交的时候老是出错的原因是， <b>没有配置邮箱和用户名</b> 。
 </p>
 
 <p>
@@ -215,7 +214,7 @@ REPO-DIR, MESSAGE is the commit message."
 	  (op/shell-command repo-dir
 			    (format "git commit -m \"%s\"" message)
 			    t))
-    (when (not (string-match "\\[.* .*\\]" output))
+     (when (not (string-match "\\[.* .*\\]" output))
       (error "Failed to commit changes on current branch of repository '%s'."
 	     repo-dir))))
 </pre>
@@ -227,6 +226,19 @@ REPO-DIR, MESSAGE is the commit message."
 <p>
   执行完上面的操作之后，我运行 <code>op/new-repository</code> 命令就正常了。
 </p>
+
+<p>
+  还有一种方法，其实我也没试过，不过我记录在这里，那就是直接在你的 <b>emacs</b> 配置里面设置：
+</p>
+<div class="org-src-container">
+
+<pre class="src src-elisp">;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 设置有用的个人信息
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(setq user-full-name "Yihulee")
+(setq user-mail-address "Yihulee@gmail.com")
+</pre>
+</div>
 </div>
 </div>
 
@@ -234,7 +246,7 @@ REPO-DIR, MESSAGE is the commit message."
 <h2 id="orgheadline3">我是这样配置的：</h2>
 <div class="outline-text-2" id="text-orgheadline3">
 <p>
-  首先，你要在你的emacs配置文件中添加这么一段：
+  首先，你要在你的 <b>emacs</b> 配置文件中添加下面的代码，主要是用于告诉 <b>emacs</b> 到哪里去找 <code>org-page</code> 包。
 </p>
 <div class="org-src-container">
 
@@ -291,7 +303,7 @@ REPO-DIR, MESSAGE is the commit message."
 </p>
 
 <p>
-  使用 <code>op/new-repository</code> 命令一般要指定文件夹，这个文件夹建议指定你上面配置的地址，如我指定的是 <code>C:/emacs/Yihulee</code> ,如果你想直接用 <code>op/do-publication</code> 命令直接发布到你的博客，恐怕你还得自己做一下指定。我这里以 <b>github</b> 为例做一下演示。
+  使用 <code>op/new-repository</code> 命令一般要指定文件夹，将这个文件夹作为你本地的仓库，这个文件夹建议指定你上面配置的地址(你调用 <code>op/new-post</code> 写博客,该博客的 <b>org</b> 文件会自动保存到你上面配置的本地仓库的 <b>blog</b> 文件夹下面,使用 <code>op/do-publication</code> 命令发布的时候，渲染的也是你上面指定的本地仓库地址里的 <b>org</b> 文件)，如我指定的是 <code>C:/emacs/Yihulee</code> ,如果你想直接用 <code>op/do-publication</code> 命令直接发布到你的博客，恐怕你还得为之前设置的本地仓库关联上远程的仓库。我这里以 <b>github</b> 为例做一下演示。
 </p>
 
 <p>
@@ -317,12 +329,29 @@ REPO-DIR, MESSAGE is the commit message."
 </p>
 
 <p>
-  差不多就是这样啦，不过也别太相信这两个命令，在命令执行不成功的时候，要手动纠错。
+  差不多就是这样啦，不过也别太相信这两个命令，在命令执行不成功的时候，要手动纠错,正如前面所说，作者写的代码还是不够健壮，无法应对很多意想不到的情况。
 </p>
 
 <p>
   总之我经常手动纠错啦，比如说，每次写完一篇博客后，我都要自己提交，然后才执行 <code>op/do-publication</code> 命令，这样发布才正确。
 </p>
+
+<p>
+  这里对本地仓库做一下说明，仓库有两个分支，一个是 <b>master</b> ,一个是 <b>source</b> 分支，*master* 里面是生成的网页， <b>source</b> 分支里面是 <b>org</b> 源文件，被推送到 <b>github</b> 的是 <b>master</b> 分支。
+</p>
+
+<p>
+**　一些常用的git命令
+</p>
+<blockquote>
+<p>
+git remote 查看分支
+git add . 添加文件夹中所有的东西到git中
+git commit -m "remark" 提交
+git checkout branch-name 切换到某个分支
+git log 查看提交日志
+</p>
+</blockquote>
 </div>
 </div>
 
