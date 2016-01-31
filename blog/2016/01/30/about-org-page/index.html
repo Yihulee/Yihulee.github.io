@@ -70,15 +70,15 @@
 </div>
 
 <p>
-  无法转换到 <b>source</b> 分支，什么鬼？怎么会出这个错误？哪里出错了？
+  无法转换到 <b>source</b> 分支，什么鬼？怎么会出这个错误？哪里出错了？简直不知道这东西在报什么鬼。
 </p>
 
 <p>
-  对，刚开始的我也是这样的。我在自己的 <b>win7</b> 上试了几遍，每次都报错，我怀疑，作者设计的这个东西只能用在 <b>linux</b> 上面？我换了 <b>ubuntu kylin</b> 去尝试，依旧问题不断，我配着配着时间一长就感到很恶心，休停了几天。
+  对，刚开始的我也是这样的。我在自己的 <b>win7</b> 上试了几遍，每次都报错，我怀疑，作者设计的这个东西只能用在 <b>linux</b> 上面？我换了 <b>ubuntu kylin</b> 去尝试，依旧问题不断，我配了一段时间，不过老是出错挺打击人的。
 </p>
 
 <p>
-  然而转机还是出现了，我不知道发了什么疯，居然想到了到虚拟机上的 <b>linux</b> 主机上去配置，居然一次就成功了，真够神奇的。然后又跑到自己的 <b>win7</b> 和 <b>ubuntu kylin</b> 上去配置，居然又失败了,这个时候我的感觉是，作者写的代码很不健壮。
+  然而转机终于还是出现了，在某个点，我不知道发了什么疯，居然想到了到虚拟机上的 <b>linux</b> 主机上去配置，居然一次就成功了，真够神奇的。然后又跑到自己的 <b>win7</b> 和 <b>ubuntu kylin</b> 上去配置，居然又失败了,这个时候我的感觉是，作者写的代码很不健壮，出了问题自己很难解决。
 </p>
 
 <p>
@@ -95,7 +95,7 @@
 </p>
 
 <p>
-   <b>windows</b> 系统出错，主要是在 <b>git</b> 命令上,是在不行，直接看源代码吧！
+   <b>windows</b> 系统出错，主要是在 <b>git</b> 命令上,如果被坑的次数多了哇，说实话，看源码其实更加实在。
 </p>
 
 <p>
@@ -123,11 +123,11 @@ perfectly manipulated by org-page."
 </div>
 
 <p>
-  上面大概就是 <code>op/new-repository</code> 函数所干的事情。
+  上面的注释写明了 <code>op/new-repository</code> 函数所干的事情，我们可以单步执行。
 </p>
 
 <p>
-  一些与 <b>git</b> 相关的函数都定义 <code>op-git.el</code> 文件之中，下面是初始化 <b>git</b> 的命令 <code>op/git-int-repo</code> ：
+  一些与 <b>git</b> 相关的函数都定义 <code>op-git.el</code> 文件之中，下面是初始化 <b>git</b> 的命令 <code>op/git-int-repo</code> 的源代码：
 </p>
 
 <div class="org-src-container">
@@ -145,7 +145,7 @@ directory where repository will be initialized."
 
 
 <p>
-  在上面的文件中，我发现了一个很有趣的东西，那就是作者写的 <b>elisp</b> 文件更像是一个脚本，只是通过执行相应的命令，然后比对命令输出的结果，来判断命令执行是否正确，看到这里，我知道为什么我的 <code>ubuntu kylin</code> 系统执行 <code>op/new-repository</code> 命令老是出错了，因为它的git命令是中文的，而作者的代码比对的是英文的结果，就是这么奇葩。
+  在上面的文件中，我发现了一个很有趣的东西，那就是作者写的 <b>elisp</b> 文件更像是一个脚本，只是通过执行相应的命令，然后比对命令输出的结果，来判断命令执行是否正确，看到这里，我知道为什么我的 <code>ubuntu kylin</code> 系统执行 <code>op/new-repository</code> 命令老是出错了，因为它的git命令是中文的，而作者的代码比对的是英文的结果，自然会出错。
 <img src="http://7xq7hx.com1.z0.glb.clouddn.com/git/git-chinese.jpg" alt="git-chinese.jpg" />
 </p>
 
@@ -154,7 +154,7 @@ directory where repository will be initialized."
 </p>
 
 <p>
-  然而，在 <b>linux</b> 下面写博客真心不太容易，虽然我也很想在 <b>linux</b> 下面生活，但是 <b>linux</b> 就是一个坑，我下了一个 <b>emacs</b> ，居然无法使用中文输入，当然办法肯定有的，但是非常麻烦，要是这么弄的话，我宁愿用这玩意了，并且 <b>linux</b> 下输入法的效果也没有 <b>windows</b> 下面好，好吧，*linux* 还是活在我的远程连接里面吧！
+  然而，在 <b>linux</b> 下面写博客真心不太容易，虽然我也很想在 <b>linux</b> 下面生活，但是 <b>linux</b> 就是一个坑，我下了一个 <b>emacs</b> ，居然无法使用中文输入，当然办法肯定有的，但是非常麻烦，要是这么弄的话，我宁愿不用这玩意了，并且 <b>linux</b> 下输入法的效果也没有 <b>windows</b> 下面好，好吧，*linux* 还是活在我的远程连接里面吧！
 </p>
 
 <p>
@@ -210,13 +210,7 @@ REPO-DIR, MESSAGE is the commit message."
     (op/shell-command repo-dir "git add ." t)
     (op/shell-command repo-dir "git config --global user.email \"lishuhuakai@gmail.com\"" t) ; 此处换成你的邮箱
     (op/shell-command repo-dir "git config --global user.name \"lishuhuakai\"" t) ; 此处换成你的名字
-    (setq output 
-	  (op/shell-command repo-dir
-			    (format "git commit -m \"%s\"" message)
-			    t))
-     (when (not (string-match "\\[.* .*\\]" output))
-      (error "Failed to commit changes on current branch of repository '%s'."
-	     repo-dir))))
+     ....))
 </pre>
 </div>
 <p>
@@ -333,11 +327,29 @@ REPO-DIR, MESSAGE is the commit message."
 </p>
 
 <p>
-  总之我经常手动纠错啦，比如说，每次写完一篇博客后，我都要自己提交，然后才执行 <code>op/do-publication</code> 命令，这样发布才正确。
+  总之我经常手动纠错啦，比如说，每次写完一篇博客后，我都要自己提交，然后才执行 <code>op/do-publication</code> 命令，这样发布才正确, 否则的话，我写完一篇新博客直接用 <code>op/do-publication</code> 命令的话，一般会报错(<b>window</b> 下) <code>Failed to change branch to 'master' of repository XXX</code> ,原因是发布的时候source分支没有自动提交更改，自己要手动执行添加更改:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-shell">git add .
+
+git commit "xxx"
+</pre>
+</div>
+<p>
+  当然，有时候将 <b>master</b> 分支推送到远程仓库的命令也不灵，这个时候你可以手动推送:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-shell">git push -u origin master
+</pre>
+</div>
+<p>
+  我手动推送几次之后，远程推送的功能突然又好了，我一直不明白，也不想明白各中缘由。
 </p>
 
 <p>
-  这里对本地仓库做一下说明，仓库有两个分支，一个是 <b>master</b> ,一个是 <b>source</b> 分支，*master* 里面是生成的网页， <b>source</b> 分支里面是 <b>org</b> 源文件，被推送到 <b>github</b> 的是 <b>master</b> 分支。
+  这里对本地仓库做一下说明，仓库有两个分支，一个是 <b>master</b> ,一个是 <b>source</b> 分支，*master* 里面是生成的网页， <b>source</b> 分支里面是 <b>org</b> 源文件，被推送到 <b>github</b> 的是 <b>master</b> 分支,而 <b>source</b> 分支不会被推送到远程的仓库去。
 </p>
 
 <p>
@@ -346,9 +358,21 @@ REPO-DIR, MESSAGE is the commit message."
 <blockquote>
 <p>
 git remote 查看分支
+</p>
+
+<p>
 git add . 添加文件夹中所有的东西到git中
+</p>
+
+<p>
 git commit -m "remark" 提交
+</p>
+
+<p>
 git checkout branch-name 切换到某个分支
+</p>
+
+<p>
 git log 查看提交日志
 </p>
 </blockquote>
@@ -373,7 +397,7 @@ git log 查看提交日志
     <div>
       <div class="post-meta">
         <span title="post date" class="post-info">2016-01-30</span>
-        <span title="last modification date" class="post-info">2016-01-31</span>
+        <span title="last modification date" class="post-info">2016-02-01</span>
         <span title="tags" class="post-info"><a href="/tags/技巧/">技巧</a></span>
         <span title="author" class="post-info">Yihulee</span>
       </div>
