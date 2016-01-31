@@ -9,7 +9,7 @@
 #+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
 #+DESCRIPTION: 好吧！我觉得好坑的一件事情！
 * 坑在哪里？
-之前我配置过一个*hexo*博客,大概花了一个多小时，一个多小时后，我就安心用markdown来写博文，发布了，好吧，本来也就那样啦，不过，一不小心看到了org-page,当时的第一印象是字体真他妈漂亮，回来再看看自己那个博客，觉得虽然效果非常炫丽，但是其实没什么用。所以就想尝试一下org-page。
+之前我配置过一个 *hexo* 博客,大概花了一个多小时，一个多小时后，我就安心用markdown来写博文，发布了，好吧，本来也就那样啦，不过，一不小心看到了org-page,当时的第一印象是字体真他妈漂亮，回来再看看自己那个博客，觉得虽然效果非常炫丽，但是其实没什么用。所以就想尝试一下org-page。
 
 我真的有些佩服自己，干啥不好，喜欢折腾这个鬼东西。我花了多久才折腾好这个博客呢？大概两天。请对比一下前面的一个小时，看看这个东西坑在哪里。
 
@@ -30,7 +30,7 @@ Failed to change branch to source of repository
 
 无法转换到source分支，什么鬼？怎么会出这个错误？如果用户是小白，立马懵逼了。
 
-对，刚开始的我也是这样的。我在自己的win7上试了几遍，每次都报错，我怀疑，作者设计的这个东西只能用在linux上面？我换了ubuntu kylin去尝试，依旧问题不断，我配着配着感到很恶心，停止了一段时间。
+对，刚开始的我也是这样的。我在自己的 /win7/ 上试了几遍，每次都报错，我怀疑，作者设计的这个东西只能用在linux上面？我换了ubuntu kylin去尝试，依旧问题不断，我配着配着感到很恶心，停止了一段时间。
 
 然而转机还是出现了，我不知道发了什么疯，居然想到了到虚拟机上的linux主机上去配置，居然一次就成功了，真够神奇的。然后又跑到自己的win7和ubuntu kylin上去配置，居然又失败了。
 
@@ -53,8 +53,8 @@ perfectly manipulated by org-page."
   (mkdir (expand-file-name "blog/" repo-dir) t)) ; 新建 blog 文件夹
 #+END_SRC
 
-上面大概就是op/new-repository函数所干的事情。
-我大概地看了一下op/git-int-repo函数：
+上面大概就是 =op/new-repository= 函数所干的事情。
+我大概地看了一下 =op/git-int-repo= 函数：
 #+BEGIN_SRC elisp
 (defun op/git-init-repo (repo-dir)
   "This function will initialize a new empty git repository. REPO-DIR is the
@@ -66,7 +66,7 @@ directory where repository will be initialized."
     (error "Fatal: Failed to initialize new git repository '%s'." repo-dir)))
 #+END_SRC
 
-在上面的文件中，我发现了一个很有趣的东西，那就是作者写的=elisp=文件更像是一个脚本，只是通过执行相应的命令，然后比对命令输出的结果，来判断命令执行是否正确，看到这里，我知道为什么我的ubuntu kylin系统执行=op/new-repository=命令老是出错了，因为它的git命令是中文的，就是这么奇葩。
+在上面的文件中，我发现了一个很有趣的东西，那就是作者写的 =elisp= 文件更像是一个脚本，只是通过执行相应的命令，然后比对命令输出的结果，来判断命令执行是否正确，看到这里，我知道为什么我的 =ubuntu kylin= 系统执行 =op/new-repository= 命令老是出错了，因为它的git命令是中文的，就是这么奇葩。
 
 所以我立马把kylin系统里面的中文删掉了，然后按照说明来配置，果然成功了。
 
