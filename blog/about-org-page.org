@@ -37,9 +37,9 @@ Failed to change branch  XXX to source of repository
   2. =org-page= 的说明文档少得可怜，这我也没什么好说的，毕竟只是一个很小众的东西。可是这东西，如果真的要给人用的话，请写得详细一点，最好还配置一个图文教程，否则，这个东西永远都是小众的东西。
 
 * 解决方案  
-  *linux* 用户一般使用这个东西问题不大。 *windows* 用户碰到的问题应该会有很多，我恰好用的是 *windows* ,这里记录一下我的解决方案。
+   *linux* 用户一般使用这个东西问题不大。 *windows* 用户碰到的问题应该会有很多，我恰好用的是 *windows* ,这里记录一下我的解决方案。
 
-  *windows* 系统出错，主要是在 *git* 命令上,是在不行，直接看源代码吧！
+   *windows* 系统出错，主要是在 *git* 命令上,是在不行，直接看源代码吧！
 
   比如说,我执行 =op/new-repository= 命令老是出错，那么就到目录下面找到 =org-page.el= 文件的 =op/new-repository= 的源码：
 
@@ -103,7 +103,7 @@ REPO-DIR, MESSAGE is the commit message."
              repo-dir))))
 #+END_SRC
 
-  我单步执行了一下，执行到 =git commit -m "XXX"= 发现了一个很大的问题,实际上这条命令返回的结果是：
+  我单步执行了一下，执行到 =git commit -m XXX= 发现了一个很大的问题,实际上这条命令返回的结果是：
 
 #+BEGIN_SRC shell
  Please tell me who you are.
@@ -136,6 +136,46 @@ REPO-DIR, MESSAGE is the commit message."
   运行一遍之后删除原来的两句话即可，此时在 *emacs* 的目录下多了一个 =.gitconfig= 文件，里面记录了你的邮箱和用户名。
 
   执行完上面的操作之后，我运行 =op/new-repository= 命令就正常了。
+
+* 我是这样配置的：
+#+BEGIN_SRC elisp
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 设置org-page
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(require 'org-page)
+
+;; repository-directory 是你的本地仓库的地址，如下面的配置，我的博客放在"C:/emacs/Yihulee"目录下
+(setq op/repository-directory "C:/emacs/Yihulee")
+
+;; 下面是你的博客的地址
+(setq op/site-domain "http://Yihulee.github.io")
+
+;; 你的github的地址
+(setq op/personal-github-link "https://github.com/Yihulee") ; if you want to show a personal github link 
+
+;; 主 title
+(setq op/site-main-title "Yihulee's world!")
+
+;; 副 title
+(setq op/site-sub-title "=========>易燃又美味！")
+
+;; 多说
+(setq op/personal-duoshuo-shortname "lishuhuakai") ; use for duoshuo comments
+#+END_SRC
+  上面的配置，你只需要照猫画虎即可。
+
+  使用 =op/new-repository= 命令一般要指定文件夹，这个文件夹建议指定你上面配置的地址，如我指定的是 =C:/emacs/Yihulee= ,如果你想直接用 =op/do-publication= 命令直接发布到你的博客，恐怕你还得自己做一下指定。我这里以 *github* 为例做一下演示。
+
+   =op/new-repository= 命令执行完了以后，如果一切正常，你的目录下面应该是如此：
+[[http://7xq7hx.com1.z0.glb.clouddn.com/git%2Fgit-init.]]
+
+   =.git= 是个隐藏的目录，你的电脑里面可能看不见，然后关联一下你的远程仓库：
+#+BEGIN_SRC git
+git remote add origin git@github.com:Yihulee/Yihulee.github.io.git
+#+END_SRC
+  上面是我的博客的 =git= 项目的地址,当然，要能把git项目推到远程仓库中去的话，你要有github的账号，并且要关联你的 =ssh-key= ，然后调用 =op/do-publication= 命令，且你选择了推送到远程仓库的时候，该命令生成网页后，会执行 =git push -u orign master= ，当然 *origin* 可以换成任意的你添加的 *remote* 。
+  
+  差不多就是这样啦，不过也别太相信这两个命令，在命令执行不成功的时候，要手动纠错。
 
 * 我的建议
   这个东西，估计不会有很多人玩得转。真的，要用 =org-page= 来写博客并且发表的话，要求挺高的，首先，你要懂 *emacs* 的一些基本操作,其次， *git* 的一些命令，你要玩得特别转，最后你还要会用 =org-mode= ,当然不用很精通。最好的，你还要会点 =elisp= 。
