@@ -1,9 +1,9 @@
 #+TITLE: Index
 * 我的博客
 
-  之前配置过一个 *hexo* 博客,[(lishuhuakai's world!)[http://lishuhuakai.github.io]]
+  之前配置过一个 *hexo* 博客,[[http://lishuhuakai.github.io][lishuhuakai's world!]]
 
-  更早之前，有过一个 *CSDN* 博客，[(lishuhuakai!)[http://blog.csdn.net/lishuhuakai]]
+  更早之前，有过一个 *CSDN* 博客，[[http://blog.csdn.net/lishuhuakai][lishuhuakai!]]
 
 * 名句
   日日深杯酒满，朝朝小圃花开。自歌自舞自开怀，无拘无束无碍。
