@@ -35,7 +35,7 @@
 <h2 id="orgheadline1">坑在哪里？</h2>
 <div class="outline-text-2" id="text-orgheadline1">
 <p>
-之前我配置过一个 <b>hexo</b> 博客,大概花了一个多小时，一个多小时后，我就安心用markdown来写博文，发布了，好吧，本来也就那样啦，不过，一不小心看到了org-page,当时的第一印象是字体真他妈漂亮，回来再看看自己那个博客，觉得虽然效果非常炫丽，但是其实没什么用。所以就想尝试一下org-page。
+之前我配置过一个 <b>hexo</b> 博客,大概花了一个多小时，一个多小时后，我就安心用 <b>markdown</b> 来写博文，发布了，好吧，本来也就那样啦，不过，一不小心看到了 <b>org-page</b> ,当时的第一印象是字体真他妈漂亮，回来再看看自己那个博客，觉得虽然效果非常炫丽，但是其实没什么用。所以就想尝试一下 *org-page*。
 </p>
 
 <p>
@@ -50,7 +50,6 @@
 1.命令的执行的过程中没有丝毫的提示，只是报错，而且报的错我是压根就不知道错在了哪里。
 一个很简单的例子，我在执行:
 </p>
-
 <div class="org-src-container">
 
 <pre class="src src-lisp">op/new-repository
@@ -58,7 +57,7 @@
 </div>
 
 <p>
-命令的时候，emacs进常会给我报如下的错误：
+命令的时候，*emacs* 经常会给我报如下的错误：
 </p>
 
 <div class="org-src-container">
@@ -68,11 +67,11 @@
 </div>
 
 <p>
-无法转换到source分支，什么鬼？怎么会出这个错误？如果用户是小白，立马懵逼了。
+无法转换到 <b>source</b> 分支，什么鬼？怎么会出这个错误？如果用户是小白，立马懵逼了。
 </p>
 
 <p>
-对，刚开始的我也是这样的。我在自己的 <i>win7</i> 上试了几遍，每次都报错，我怀疑，作者设计的这个东西只能用在linux上面？我换了ubuntu kylin去尝试，依旧问题不断，我配着配着感到很恶心，停止了一段时间。
+对，刚开始的我也是这样的。我在自己的 <b>win7</b> 上试了几遍，每次都报错，我怀疑，作者设计的这个东西只能用在 <b>linux</b> 上面？我换了 <b>ubuntu kylin</b> 去尝试，依旧问题不断，我配着配着感到很恶心，停止了一段时间。
 </p>
 
 <p>
@@ -80,7 +79,7 @@
 </p>
 
 <p>
-我突然很好奇，这玩意，究竟怎么弄的，一会儿好一会儿不好的。索性就去看了一下源代码，还好代码不是很难，还带了一点注释，不然就真的没法玩了，下面的这段大概是op/new-repository的源码：
+我突然很好奇，这玩意，究竟怎么弄的，一会儿好一会儿不好的。索性就去看了一下源代码，还好代码不是很难，还带了一点注释，不然就真的没法玩了，下面的这段大概是 <code>op/new-repository</code> 的源码：
 </p>
 <div class="org-src-container">
 
@@ -120,20 +119,83 @@ directory where repository will be initialized."
 </div>
 
 <p>
-在上面的文件中，我发现了一个很有趣的东西，那就是作者写的 <code>elisp</code> 文件更像是一个脚本，只是通过执行相应的命令，然后比对命令输出的结果，来判断命令执行是否正确，看到这里，我知道为什么我的 <code>ubuntu kylin</code> 系统执行 <code>op/new-repository</code> 命令老是出错了，因为它的git命令是中文的，就是这么奇葩。
+在上面的文件中，我发现了一个很有趣的东西，那就是作者写的 <b>elisp</b> 文件更像是一个脚本，只是通过执行相应的命令，然后比对命令输出的结果，来判断命令执行是否正确，看到这里，我知道为什么我的 <code>ubuntu kylin</code> 系统执行 <code>op/new-repository</code> 命令老是出错了，因为它的git命令是中文的，就是这么奇葩。
 </p>
 
 <p>
-所以我立马把kylin系统里面的中文删掉了，然后按照说明来配置，果然成功了。
+所以我立马把 <b>kylin</b> 系统里面的中文删掉了，然后按照说明来配置，果然成功了。
 </p>
 
 <p>
-我其实也很想在linux下面生活，但是linux就是一个坑，我下了一个emacs，居然无法使用中文，真是日了狗了，好吧，linux还是活在我的远程连接里面吧！
+我其实也很想在 <b>linux</b> 下面生活，但是 <b>linux</b> 就是一个坑，我下了一个 <b>emacs</b> ，居然无法使用中文，真是日了狗了，好吧，*linux* 还是活在我的远程连接里面吧！
 </p>
 
 <p>
-有了这个经验，我就在win7下面配置起了=org-page=,果然又是一个坑，又不行，我将语言换成了英文也不行，那么怎么办呢？好吧，我居然玩起了调试这玩意，使用edebug-defun命令调试起了源码。后来跟踪了一段，发现在提交的时候老是出错的原因是，没有配置邮箱和用户名。
+有了这个经验，我就在 <b>win7</b> 下面配置起了 <code>org-page</code>,果然又是一个坑，又不行，我将语言换成了英文也不行，那么怎么办呢？
+好吧，学过一段时间 <b>scheme</b> 的我居然玩起了 <b>elisp</b> 调试这玩意，使用 <b>edebug-defun</b> 命令调试起了源码。后来跟踪了一段，发现在提交的时候老是出错的原因是，没有配置邮箱和用户名。
 </p>
+
+<p>
+我重点检查了这一段：
+</p>
+<div class="org-src-container">
+
+<pre class="src src-elisp">(defun op/git-commit-changes (repo-dir message)
+  "This function will commit uncommitted changes to git repository presented by
+REPO-DIR, MESSAGE is the commit message."
+  (let ((repo-dir (file-name-as-directory repo-dir)) output)
+    (op/shell-command repo-dir "git add ." t) ; 执行git add . 命令
+    (setq output
+	  (op/shell-command repo-dir
+			    (format "git commit -m \"%s\"" message) ; 提交命令
+			    t))
+    (when (not (string-match "\\[.* .*\\]" output))
+      (error "Failed to commit changes on current branch of repository '%s'."
+	     repo-dir))))
+</pre>
+</div>
+<p>
+我单步执行了一下，执行到 =git commit -m "XXX"= 发现了一个很大的问题,实际上这条命令返回的结果是：
+#+BEGIN_SRC shell
+</p>
+</div>
+<div id="outline-container-orgheadline2" class="outline-4">
+<h4 id="orgheadline2">Please tell me who you are.</h4>
+<div class="outline-text-4" id="text-orgheadline2">
+<p>
+Run
+   git config --global user.email "you@example.com"
+   git config --global user.name "Your name"
+</p>
+
+<p>
+to set your account's default identity.
+#+END_SRC
+这个结果显然和作者预定的东西不匹配，因此就有了错误。解决方法很简单，无非就是自己照猫画虎，添加了下面的两句话：
+</p>
+<div class="org-src-container">
+
+<pre class="src src-shell">(defun op/git-commit-changes (repo-dir message)
+  "This function will commit uncommitted changes to git repository presented by
+REPO-DIR, MESSAGE is the commit message."
+  (let ((repo-dir (file-name-as-directory repo-dir)) output)
+    (op/shell-command repo-dir "git add ." t)
+    (op/shell-command repo-dir "git config --global user.email \"lishuhuakai@gmail.com\"" t) ; 此处换成你的邮箱
+    (op/shell-command repo-dir "git config --global user.name \"lishuhuakai\"" t) ; 此处换成你的名字
+    (setq output 
+	  (op/shell-command repo-dir
+			    (format "git commit -m \"%s\"" message)
+			    t))
+    (when (not (string-match "\\[.* .*\\]" output))
+      (error "Failed to commit changes on current branch of repository '%s'."
+	     repo-dir))))
+</pre>
+</div>
+<p>
+运行一遍之后删除原来的两句话即可，此时在 <b>emacs</b> 的目录下多了一个 <code>.gitconfig</code> 文件，里面记录了你的邮箱和用户名。
+执行完上面的操作之后，我运行 <code>op/new-repository</code> 命令就正常了。
+</p>
+</div>
 </div>
 </div>
 
