@@ -14,9 +14,7 @@
 * The Little Schemer
 
   就是这本：
-#+BEGIN_CENTER
 [[http://7xq7hx.com1.z0.glb.clouddn.com/books%2FThe-little-schemer.pn]]g
-#+END_CENTER
 
   这本是 =scheme= 的入门书籍，非常简单，恩，那是说前面的几章，到了后面的图灵停机问题以及 =y Combinator= ，你估计就要好好理解啦，后面的两个问题我花了几天才弄懂。
 
