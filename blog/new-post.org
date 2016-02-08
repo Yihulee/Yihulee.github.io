@@ -8,4 +8,8 @@
 #+LANGUAGE:    en
 #+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
 #+DESCRIPTION: Hello
-大家好！，这是测试用的！
+
+#+BEGIN_QUOTE
+光阴似箭，日月如梭。
+#+END_QUOTE
+
