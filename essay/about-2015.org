@@ -5,7 +5,39 @@
 #+URI:         /blog/%y/%m/%d/2015年下半年总结
 #+KEYWORDS:    总结
 #+TAGS:        杂谈
-#+LANGUAGE:    en** 眼界的一些变化
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: 好吧，我在扯淡！
+
+** 读过的一些书
+
+这半年，恰好有一些空闲的时间，恶补了一些东西，读了下面的一些书，书不多，大概30来本。
+
+<泛型编程与stl> <stl源码剖析> <C++标准程序库> 
+
+<python简明教程> <python源码剖析> 
+
+<数据库设计step by step> <数据库系统概念> <Mysql技术内幕 innodb存储引擎> <Mysql必知必会>
+
+<htdp> <sicp> <The Little schemer>
+
+<apue> <unp> <csapp>
+
+<tcp/ip卷详解一> <计算机网络 自顶向下方法>
+
+<浪潮之巅> <黑客与画家>
+
+<算法导论>
+
+<git教程> <The practice of programming> <正则表达式必知必会> <跟我一起写makefile> <编码的奥秘>
+
+<Head First HTML与CSS>
+
+还有一些杂七杂八的书，有的只看了一部分，懒得列出来了。其实这些东西，本科的时候就应该弄完，不难，但是非常有必要读。
+
+看完了这些书，突然觉得，其实读一本好书，是学习知识的最快最好的方式，相比较而言，看视频倒是要慢上不少。这学期的理论堆积得倒是挺多的，实践的方面倒是要少了不少。下学期的话，没事的话，开始弄编译器了。
+
+** 眼界的一些变化
 
 这半年，自己的视野也随着读书的增多而变得宽广了起来。随便举几个例子。
 
