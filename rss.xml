@@ -4,88 +4,14 @@
     <title>Yihulee&#39;s world!</title>
     <link>http://Yihulee.github.io</link>
     <description>=========&gt;易燃又美味！</description>
-    <pubDate>周一, 22 二月 2016 00:18:14 China Standard Time</pubDate>
-    <lastBuildDate>周一, 22 二月 2016 00:18:14 China Standard Time</lastBuildDate>
+    <pubDate>周一, 22 二月 2016 00:20:23 China Standard Time</pubDate>
+    <lastBuildDate>周一, 22 二月 2016 00:20:23 China Standard Time</lastBuildDate>
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>Org-page static site generator (https://github.com/kelvinh/org-page)</generator>
     <item>
       <title>2015年下半年总结</title>
       <link>http://Yihulee.github.io/blog/2016/02/03/2015年下半年总结</link>
-      <description><![CDATA[<div>
-<div class="post">
-<h1>2015年下半年总结</h1>
-<div id="table-of-contents">
-<h2>Table of Contents</h2>
-<div id="text-table-of-contents">
-<ul>
-<li><a href="#orgheadline1">1. 编程语言之争</a></li>
-<li><a href="#orgheadline2">2. 关于课程</a></li>
-</ul>
-</div>
-</div>
-<p>
-这半年，自己的视野也随着读书的增多而变得宽广了起来。随便举几个例子。
-</p>
-
-<div id="outline-container-orgheadline1" class="outline-2">
-<h2 id="orgheadline1"><span class="section-number-2">1</span> 编程语言之争</h2>
-<div class="outline-text-2" id="text-1">
-<p>
-大学四年用的多的是C/C++，然后自己狭隘地认为，C/C++优于其他的一些语言，特别是JAVA，不知道为什么，编C++的人总看不起写JAVA的，我承认，之前我也有点，原因嘛，JAVA貌似太弱了，泛型搞不过C++，效率搞不过C++，JAVA存在的意义嘛，就是降低编程的难度，拉低编程的准入门槛。
-</p>
-
-<p>
-我想广大的C/C++程序员或许对JAVA都有一点莫名的高贵感吧。C++语言才是高手的语言,其他语言，你们都弱爆了。这半年，我逐渐认识到，有这种思想的人，大概是中了固步自封的毒了。以偏概全，眼界狭窄，是这种观点的错误之处。我在大学四年压根就不知道有lisp，hsakell之类的语言，压根不知道还有所谓的函数式编程，甚至连动态语言这个东西也仅仅停留在概念阶段，在我的眼里，所有的编程语言应该都和C长得差不多的样子，事实上，在本科阶段我所见识到的东西里，这个观点绝对正确。你们可以看到，我本科接受到的教育有多么狭隘。
-</p>
-
-<blockquote>
-<p>
-你用什么语言不重要，重要的是你的思想。
-</p>
-</blockquote>
-
-<p>
-我以前一直将这句话奉为圭臬，可是我发现，这句话存在着一些问题。用什么语言真的不重要吗？那你为什么不用机器码呢？不用汇编呢？我想说的是，使用什么语言很重要，因为这些语言会影响到你思维的方式。一个很简单的例子，在汇编中压根就没有递归的概念，你能想象在C中不使用递归能编程？同时，在lisp之类的语言中，一个函数可以很轻易地根据输入参数的不同而返回不同的函数，你用习惯了这些特性之后，你能忍受C中函数不能动态产生的事实？
-</p>
-
-<p>
-另外还有一点，在C++之类特别复杂的语言之中，即使是表达及其简单的思想，新手也往往会由于过度复杂的特性而淹死在语法的深海里，所以C++就一定不是一门入门的语言。而JAVA，python之类的语言是非常时候入门的。Scheme也不错，国外的书htdp和sicp用的都是scheme，有兴趣的读者真的可以去学一学scheme，虽然在工作中，你几乎没有可能用到这个东西。
-</p>
-
-
-<p>
-很久以前，我看见过这么一句话。
-</p>
-<blockquote>
-<p>
-底层很重要，汇编语言要学好。
-</p>
-</blockquote>
-<p>
-这句话本身没有什么错误，但是只是对于一部分人来说的，准确地来说，是对于底层的人来说的。如果你作为一个应用开发人员，你不会汇编问题也不会很大。计算机几十年的发展实在是太快了，人们很难做到从底至上，每一层都精通。这样耗费的精力是十分巨大的。
-</p>
-
-<p>
-对于底层，上层的开发人员只需要了解一些即可，不需精通，我们要感谢那些构建抽象的人们，他们从底层不断抽象，最终形成了我们现在好用的上层。先辈们做的工作，就是为后来者奠基，屏蔽了底层，上层直接使用下层的服务。抽象带来效率的巨大提升。
-</p>
-</div>
-</div>
-
-<div id="outline-container-orgheadline2" class="outline-2">
-<h2 id="orgheadline2"><span class="section-number-2">2</span> 关于课程</h2>
-<div class="outline-text-2" id="text-2">
-<p>
-其实网上还是有很多的优质的课程视频的，很多讲得比自己大学里的老师讲得还好（总之，我对大学里的课程水平表示很担忧，可能是我读的学校差吧，上课什么的，我某一天发现还不如自己去看书呢，在这里，一门操作性很强的课程往往到了最后会因为考试的缘故变成一门文科课程，在这里，多半的时间我在自学），关键是自由，什么时候听课，什么时候不听，自由随意。
-</p>
-
-<p>
-慕课，coursera都是不错的选择，有些大学甚至会有免费的公开课，推荐的是国外的课程，所以英语很重要。
-</p>
-</div>
-</div>
-
-</div>
-</div>]]></description>
+      <description><![CDATA[好吧，我在扯淡！]]></description>
       <pubDate>2016-02-22</pubDate>
       <guid>http://Yihulee.github.io/blog/2016/02/03/2015年下半年总结</guid>
     </item>
