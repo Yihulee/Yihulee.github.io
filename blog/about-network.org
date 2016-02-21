@@ -1,13 +1,14 @@
+
 #+TITLE:       网络方面的书籍推荐
 #+AUTHOR:      Yihulee
 #+EMAIL:       Yihulee@gmail.com
-#+DATE:        2016-02-21 周日
-#+URI:         /blog/%y/%m/%d/网络方面的书籍推荐
+#+DATE:        2016-02-13 周六
+#+URI:         /blog/%y/%m/%d/about-network
 #+KEYWORDS:    书单
 #+TAGS:        书单
 #+LANGUAGE:    en
 #+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
-#+DESCRIPTION: 当然，我在扯淡
+#+DESCRIPTION: 自己读过的一些好书
 还是那句话，我只推荐自己读过的那些好书，其余的不做太多的评价。
 
 * 计算机网络，谢希仁版
