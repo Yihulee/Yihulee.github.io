@@ -41,6 +41,13 @@
 <li><a href="#orgheadline3">我是这样配置的：</a></li>
 <li><a href="#orgheadline4">我的建议</a></li>
 <li><a href="#orgheadline5">最后再给一个参考资料</a></li>
+<li><a href="#orgheadline9">最后要注意的地方</a>
+<ul>
+<li><a href="#orgheadline6">如何显示toc呢？</a></li>
+<li><a href="#orgheadline7">对于一个特定目录下面的文章，如何设置特定的属性？</a></li>
+<li><a href="#orgheadline8">为什么我写的博文没有被发布？</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -417,6 +424,69 @@ git log 查看提交日志
 <p>
   参考了我的配置，然后参考了上面我给的链接，相信你应该能够配置出 <b>org-page</b> 啦!
 </p>
+</div>
+</div>
+<div id="outline-container-orgheadline9" class="outline-2">
+<h2 id="orgheadline9">最后要注意的地方</h2>
+<div class="outline-text-2" id="text-orgheadline9">
+</div><div id="outline-container-orgheadline6" class="outline-3">
+<h3 id="orgheadline6">如何显示toc呢？</h3>
+<div class="outline-text-3" id="text-orgheadline6">
+<p>
+  toc是什么？toc就是这个页面右上角的目录。默认的，这个选项是关闭的。在你写org文件的时候，你应该可以看到这么一行：
+</p>
+<div class="org-src-container">
+
+<pre class="src src-shell">#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t &lt;:t
+</pre>
+</div>
+<p>
+  现在，我们稍微改动一下即可，看我的：
+</p>
+<div class="org-src-container">
+
+<pre class="src src-shell">#+OPTIONS:     H:3 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t &lt;:t
+</pre>
+</div>
+<p>
+  现在就可以了！
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline7" class="outline-3">
+<h3 id="orgheadline7">对于一个特定目录下面的文章，如何设置特定的属性？</h3>
+<div class="outline-text-3" id="text-orgheadline7">
+<p>
+  这里看我的一段代码：
+</p>
+<div class="org-src-container">
+
+<pre class="src src-elisp">;; t 代表true，而nil代表false
+(setq op/category-config-alist
+      (cons '("essay" ;; 目录的名字
+	      :show-meta t ;; 是否显示摘要的信息，即文章下方的发表时间，修改时间，所属类别等信息
+	      :show-comment t ;; 是否显示评论信息，这很好懂，如我的多说
+	      :uri-generator op/generate-uri ;; 这个照抄即可
+	      :uri-template "/essay/%y/%m/%d/%t/"
+	      :sort-by :date     ;; index文件如何排序文章
+	      :category-index t) ;; 是否生成目录以及index文件
+	    op/category-config-alist))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgheadline8" class="outline-3">
+<h3 id="orgheadline8">为什么我写的博文没有被发布？</h3>
+<div class="outline-text-3" id="text-orgheadline8">
+<p>
+  请自习检查，是否org文件的名字是中文，改成英文或者数字即可。
+</p>
+
+<p>
+  上面，就是关于 <b>org-page</b> 的全部的故事啦！
+</p>
+</div>
 </div>
 </div>
 
