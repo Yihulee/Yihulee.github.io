@@ -6,7 +6,7 @@
 #+KEYWORDS:    书单
 #+TAGS:        书单
 #+LANGUAGE:    en
-#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+OPTIONS:     H:3 num:t toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
 #+DESCRIPTION: 自己读过的一些好书
 还是那句话，我只推荐自己读过的那些好书，其余的不做太多的评价。
 
