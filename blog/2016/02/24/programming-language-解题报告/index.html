@@ -36,17 +36,18 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgheadline2">1. homework1</a>
+<li><a href="#orgheadline3">1. homework1</a>
 <ul>
 <li><a href="#orgheadline1">1.1. is_older.sml</a></li>
+<li><a href="#orgheadline2">1.2. number_in_month.sml</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgheadline2" class="outline-2">
-<h2 id="orgheadline2"><span class="section-number-2">1</span> homework1</h2>
+<div id="outline-container-orgheadline3" class="outline-2">
+<h2 id="orgheadline3"><span class="section-number-2">1</span> homework1</h2>
 <div class="outline-text-2" id="text-1">
 </div><div id="outline-container-orgheadline1" class="outline-3">
 <h3 id="orgheadline1"><span class="section-number-3">1.1</span> is_older.sml</h3>
@@ -62,6 +63,22 @@
   else if (#3 date1) &lt;&gt; (#3 date2) (* 天数不同 *)
   then (#3 date1) &lt; (#3 date2)
   else false (* 到这里表示两个日期相同,返回false *)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgheadline2" class="outline-3">
+<h3 id="orgheadline2"><span class="section-number-3">1.2</span> number_in_month.sml</h3>
+<div class="outline-text-3" id="text-1-2">
+<div class="org-src-container">
+
+<pre class="src src-sml">fun number_in_month (dl : (int * int * int) list, month : int) =
+  (* 参数是一个 list of dates 和一个 month,要返回的结果是在指定的这个月里，这个dates中月份等于该month的一共有多少个 *)
+  if null dl
+  then 0
+  else if (#2 (hd dl)) = month
+  then 1 + number_in_month(tl dl, month)
+  else number_in_month(tl dl, month)
 </pre>
 </div>
 </div>
