@@ -36,21 +36,24 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgheadline3">1. homework1</a>
+<li><a href="#orgheadline6">1. homework1</a>
 <ul>
-<li><a href="#orgheadline1">1.1. is_older.sml</a></li>
-<li><a href="#orgheadline2">1.2. number_in_month.sml</a></li>
+<li><a href="#orgheadline1">1.1. is_older</a></li>
+<li><a href="#orgheadline2">1.2. number_in_month</a></li>
+<li><a href="#orgheadline3">1.3. number_in_months</a></li>
+<li><a href="#orgheadline4">1.4. dates_in_month</a></li>
+<li><a href="#orgheadline5">1.5. dates_in_months</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgheadline3" class="outline-2">
-<h2 id="orgheadline3"><span class="section-number-2">1</span> homework1</h2>
+<div id="outline-container-orgheadline6" class="outline-2">
+<h2 id="orgheadline6"><span class="section-number-2">1</span> homework1</h2>
 <div class="outline-text-2" id="text-1">
 </div><div id="outline-container-orgheadline1" class="outline-3">
-<h3 id="orgheadline1"><span class="section-number-3">1.1</span> is_older.sml</h3>
+<h3 id="orgheadline1"><span class="section-number-3">1.1</span> is_older</h3>
 <div class="outline-text-3" id="text-1-1">
 <div class="org-src-container">
 
@@ -68,7 +71,7 @@
 </div>
 </div>
 <div id="outline-container-orgheadline2" class="outline-3">
-<h3 id="orgheadline2"><span class="section-number-3">1.2</span> number_in_month.sml</h3>
+<h3 id="orgheadline2"><span class="section-number-3">1.2</span> number_in_month</h3>
 <div class="outline-text-3" id="text-1-2">
 <div class="org-src-container">
 
@@ -79,6 +82,50 @@
   else if (#2 (hd dl)) = month
   then 1 + number_in_month(tl dl, month)
   else number_in_month(tl dl, month)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline3" class="outline-3">
+<h3 id="orgheadline3"><span class="section-number-3">1.3</span> number_in_months</h3>
+<div class="outline-text-3" id="text-1-3">
+<div class="org-src-container">
+
+<pre class="src src-sml">fun number_in_months(dl : (int * int * int) list, ml : int list) =
+  if null ml
+  then []
+  else number_in_month(dl, hd ml)::number_in_months(dl, tl ml)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline4" class="outline-3">
+<h3 id="orgheadline4"><span class="section-number-3">1.4</span> dates_in_month</h3>
+<div class="outline-text-3" id="text-1-4">
+<div class="org-src-container">
+
+<pre class="src src-sml">fun dates_in_month(dl : (int * int * int) list, m : int) =
+  if null dl
+  then []
+  else if (#2 (hd dl)) = m
+  then (hd dl)::dates_in_month(tl dl, m)
+  else dates_in_month(tl dl, m)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline5" class="outline-3">
+<h3 id="orgheadline5"><span class="section-number-3">1.5</span> dates_in_months</h3>
+<div class="outline-text-3" id="text-1-5">
+<div class="org-src-container">
+
+<pre class="src src-sml">fun dates_in_months(dl : (int * int * int) list, ml : int list) =
+  if null ml
+  then []
+  else [dates_in_month(dl, hd ml)] @ dates_in_months(dl, tl ml)
 </pre>
 </div>
 </div>
