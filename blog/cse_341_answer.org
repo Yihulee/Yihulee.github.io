@@ -59,3 +59,88 @@ fun dates_in_months(dl : (int * int * int) list, ml : int list) =
   else [dates_in_month(dl, hd ml)] @ dates_in_months(dl, tl ml)
 
 #+END_SRC
+
+** get_nth
+#+BEGIN_SRC sml
+fun get_nth (sl : string list , nth : int) =
+  (* 题目里的说明是不用担心sl太短，这样的话，函数就可以变得很简洁了*)
+  if nth = 1
+  then hd sl
+  else get_nth(tl sl, nth - 1)
+#+END_SRC
+
+** date_to_string
+#+BEGIN_SRC sml
+fun date_to_string (date : (int * int * int)) =
+  let val ml = ["January", "February", "March",
+	  "April", "May", "June", "July",
+	  "August", "September", "October",
+	  "November", "December"]
+  in
+     get_nth(ml, (#2 date)) ^ " " ^Int.toString((#3 date)) ^ ", " ^ Int.toString((#1 date))
+  end
+#+END_SRC
+
+** number_before_reaching_sum
+#+BEGIN_SRC sml
+fun number_before_reaching_sum (sum : int, il : int list) =
+  (* 这玩意挺爽的一点是，里面可以做辅助函数 *)
+  let
+      fun helper (il : int list, sum_of_n_items : int, n_item : int) = (* sum_of_n_items是前面的n项的和，n_item是第n项*)
+	if sum_of_n_items >= sum
+	then n_item
+	else helper(tl il, sum_of_n_items + hd il, n_item + 1)
+  in
+      helper(il, 0, 0)
+  end
+#+END_SRC
+
+** what_month
+#+BEGIN_SRC sml
+fun what_month (day : int) =
+  (* 这是一个简化版的程序，忽略了闰年 *)
+  let
+      val day_of_each_month = [31, 28, 31, 30,
+			       31, 30, 31, 31,
+			       30, 31, 30, 31] (* 每个月的天数 *)
+      fun count_days (rest_days : int, day_of_each_month : int list, nth : int) =
+	if rest_days <=  hd day_of_each_month
+	then nth
+	else count_days(rest_days - hd day_of_each_month, tl day_of_each_month, nth + 1)
+  in
+      count_days(day, day_of_each_month, 1)
+  end
+
+#+END_SRC
+
+** month_range
+#+BEGIN_SRC sml
+fun month_range (day1 : int, day2 : int) =
+  if day1 > day2
+  then []
+  else if day1 = day2
+  then [what_month(day2)]
+  else what_month(day1)::month_range(day1 + 1, day2)
+#+END_SRC
+
+** oldest
+#+BEGIN_SRC sml
+fun oldest (dl : (int * int * int) list) =
+  if null dl
+  then NONE
+  else let
+      fun oldest_date(dl : (int * int * int) list) =
+	if null (tl dl)
+	then hd dl
+	else let val dl_ans = oldest_date(tl dl)
+	     in
+		 if is_older(dl_ans, hd dl)
+		 then hd dl
+		 else dl_ans
+	     end
+  in
+      SOME(oldest_date(dl))
+  end
+
+
+#+END_SRC
