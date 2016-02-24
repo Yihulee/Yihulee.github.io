@@ -36,21 +36,27 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgheadline6">1. homework1</a>
+<li><a href="#orgheadline12">1. homework1</a>
 <ul>
 <li><a href="#orgheadline1">1.1. is_older</a></li>
 <li><a href="#orgheadline2">1.2. number_in_month</a></li>
 <li><a href="#orgheadline3">1.3. number_in_months</a></li>
 <li><a href="#orgheadline4">1.4. dates_in_month</a></li>
 <li><a href="#orgheadline5">1.5. dates_in_months</a></li>
+<li><a href="#orgheadline6">1.6. get_nth</a></li>
+<li><a href="#orgheadline7">1.7. date_to_string</a></li>
+<li><a href="#orgheadline8">1.8. number_before_reaching_sum</a></li>
+<li><a href="#orgheadline9">1.9. what_month</a></li>
+<li><a href="#orgheadline10">1.10. month_range</a></li>
+<li><a href="#orgheadline11">1.11. oldest</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgheadline6" class="outline-2">
-<h2 id="orgheadline6"><span class="section-number-2">1</span> homework1</h2>
+<div id="outline-container-orgheadline12" class="outline-2">
+<h2 id="orgheadline12"><span class="section-number-2">1</span> homework1</h2>
 <div class="outline-text-2" id="text-1">
 </div><div id="outline-container-orgheadline1" class="outline-3">
 <h3 id="orgheadline1"><span class="section-number-3">1.1</span> is_older</h3>
@@ -126,6 +132,124 @@
   if null ml
   then []
   else [dates_in_month(dl, hd ml)] @ dates_in_months(dl, tl ml)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline6" class="outline-3">
+<h3 id="orgheadline6"><span class="section-number-3">1.6</span> get_nth</h3>
+<div class="outline-text-3" id="text-1-6">
+<div class="org-src-container">
+
+<pre class="src src-sml">fun get_nth (sl : string list , nth : int) =
+  (* 题目里的说明是不用担心sl太短，这样的话，函数就可以变得很简洁了*)
+  if nth = 1
+  then hd sl
+  else get_nth(tl sl, nth - 1)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline7" class="outline-3">
+<h3 id="orgheadline7"><span class="section-number-3">1.7</span> date_to_string</h3>
+<div class="outline-text-3" id="text-1-7">
+<div class="org-src-container">
+
+<pre class="src src-sml">fun date_to_string (date : (int * int * int)) =
+  let val ml = ["January", "February", "March",
+	  "April", "May", "June", "July",
+	  "August", "September", "October",
+	  "November", "December"]
+  in
+     get_nth(ml, (#2 date)) ^ " " ^Int.toString((#3 date)) ^ ", " ^ Int.toString((#1 date))
+  end
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline8" class="outline-3">
+<h3 id="orgheadline8"><span class="section-number-3">1.8</span> number_before_reaching_sum</h3>
+<div class="outline-text-3" id="text-1-8">
+<div class="org-src-container">
+
+<pre class="src src-sml">fun number_before_reaching_sum (sum : int, il : int list) =
+  (* 这玩意挺爽的一点是，里面可以做辅助函数 *)
+  let
+      fun helper (il : int list, sum_of_n_items : int, n_item : int) = (* sum_of_n_items是前面的n项的和，n_item是第n项*)
+	if sum_of_n_items &gt;= sum
+	then n_item
+	else helper(tl il, sum_of_n_items + hd il, n_item + 1)
+  in
+      helper(il, 0, 0)
+  end
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline9" class="outline-3">
+<h3 id="orgheadline9"><span class="section-number-3">1.9</span> what_month</h3>
+<div class="outline-text-3" id="text-1-9">
+<div class="org-src-container">
+
+<pre class="src src-sml">fun what_month (day : int) =
+  (* 这是一个简化版的程序，忽略了闰年 *)
+  let
+      val day_of_each_month = [31, 28, 31, 30,
+			       31, 30, 31, 31,
+			       30, 31, 30, 31] (* 每个月的天数 *)
+      fun count_days (rest_days : int, day_of_each_month : int list, nth : int) =
+	if rest_days &lt;=  hd day_of_each_month
+	then nth
+	else count_days(rest_days - hd day_of_each_month, tl day_of_each_month, nth + 1)
+  in
+      count_days(day, day_of_each_month, 1)
+  end
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline10" class="outline-3">
+<h3 id="orgheadline10"><span class="section-number-3">1.10</span> month_range</h3>
+<div class="outline-text-3" id="text-1-10">
+<div class="org-src-container">
+
+<pre class="src src-sml">fun month_range (day1 : int, day2 : int) =
+  if day1 &gt; day2
+  then []
+  else if day1 = day2
+  then [what_month(day2)]
+  else what_month(day1)::month_range(day1 + 1, day2)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline11" class="outline-3">
+<h3 id="orgheadline11"><span class="section-number-3">1.11</span> oldest</h3>
+<div class="outline-text-3" id="text-1-11">
+<div class="org-src-container">
+
+<pre class="src src-sml">fun oldest (dl : (int * int * int) list) =
+  if null dl
+  then NONE
+  else let
+      fun oldest_date(dl : (int * int * int) list) =
+	if null (tl dl)
+	then hd dl
+	else let val dl_ans = oldest_date(tl dl)
+	     in
+		 if is_older(dl_ans, hd dl)
+		 then hd dl
+		 else dl_ans
+	     end
+  in
+      SOME(oldest_date(dl))
+  end
 </pre>
 </div>
 </div>
