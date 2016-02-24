@@ -10,7 +10,7 @@
 #+DESCRIPTION: 解题报告
 
 * homework1
-** is_older.sml
+** is_older
 #+BEGIN_SRC sml
 fun is_older (date1 : (int * int * int), date2 : (int * int * int)) =
   (*这个函数的要求是判断date1是否比date2更早，其实非常好判断，直接按照年月日判断即可*)
@@ -22,7 +22,7 @@ fun is_older (date1 : (int * int * int), date2 : (int * int * int)) =
   then (#3 date1) < (#3 date2)
   else false (* 到这里表示两个日期相同,返回false *)
 #+END_SRC
-** number_in_month.sml
+** number_in_month
 #+BEGIN_SRC sml
 fun number_in_month (dl : (int * int * int) list, month : int) =
   (* 参数是一个 list of dates 和一个 month,要返回的结果是在指定的这个月里，这个dates中月份等于该month的一共有多少个 *)
@@ -31,4 +31,31 @@ fun number_in_month (dl : (int * int * int) list, month : int) =
   else if (#2 (hd dl)) = month
   then 1 + number_in_month(tl dl, month)
   else number_in_month(tl dl, month)
+#+END_SRC
+
+** number_in_months
+#+BEGIN_SRC sml
+fun number_in_months(dl : (int * int * int) list, ml : int list) =
+  if null ml
+  then []
+  else number_in_month(dl, hd ml)::number_in_months(dl, tl ml)
+#+END_SRC
+
+** dates_in_month
+#+BEGIN_SRC sml
+fun dates_in_month(dl : (int * int * int) list, m : int) =
+  if null dl
+  then []
+  else if (#2 (hd dl)) = m
+  then (hd dl)::dates_in_month(tl dl, m)
+  else dates_in_month(tl dl, m)
+#+END_SRC
+
+** dates_in_months
+#+BEGIN_SRC sml
+fun dates_in_months(dl : (int * int * int) list, ml : int list) =
+  if null ml
+  then []
+  else [dates_in_month(dl, hd ml)] @ dates_in_months(dl, tl ml)
+
 #+END_SRC

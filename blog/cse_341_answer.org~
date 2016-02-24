@@ -22,3 +22,13 @@ fun is_older (date1 : (int * int * int), date2 : (int * int * int)) =
   then (#3 date1) < (#3 date2)
   else false (* 到这里表示两个日期相同,返回false *)
 #+END_SRC
+** number_in_month.sml
+#+BEGIN_SRC sml
+fun number_in_month (dl : (int * int * int) list, month : int) =
+  (* 参数是一个 list of dates 和一个 month,要返回的结果是在指定的这个月里，这个dates中月份等于该month的一共有多少个 *)
+  if null dl
+  then 0
+  else if (#2 (hd dl)) = month
+  then 1 + number_in_month(tl dl, month)
+  else number_in_month(tl dl, month)
+#+END_SRC
