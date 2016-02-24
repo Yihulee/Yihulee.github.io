@@ -1,0 +1,24 @@
+#+TITLE:       Programming language 解题报告
+#+AUTHOR:      Yihulee
+#+EMAIL:       Yihulee@gmail.com
+#+DATE:        2016-02-24 周三
+#+URI:         /blog/%y/%m/%d/programming-language-解题报告
+#+KEYWORDS:    Programming Language
+#+TAGS:        wiki
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:t toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: 解题报告
+
+* homework1
+** is_older.sml
+#+BEGIN_SRC sml
+fun is_older (date1 : (int * int * int), date2 : (int * int * int)) =
+  (*这个函数的要求是判断date1是否比date2更早，其实非常好判断，直接按照年月日判断即可*)
+  if (#1 date1) <> (#1 date2) (* 年的值不同 *)
+  then (#1 date1) < (#1 date2)
+  else if (#2 date1) <> (#2 date2) (* 月的值不同 *)
+  then (#2 date1) < (#2 date2)
+  else if (#3 date1) <> (#3 date2) (* 天数不同 *)
+  then (#3 date1) < (#3 date2)
+  else false (* 到这里表示两个日期相同,返回false *)
+#+END_SRC
