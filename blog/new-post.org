@@ -13,3 +13,80 @@
 光阴似箭，日月如梭。
 #+END_QUOTE
 
+#+BEGIN_SRC c++
+#include <errno.h>
+#include <stdarg.h>
+#include "ourhdr.h"
+
+char *pname = NULL; //调用者通过argv[0]来设置这个东西
+static void err_doit(int, const char *, va_list);
+
+/*和系统相关的非致命错误,输出信息,返回*/
+void err_ret(const char *fmt, ...)
+{
+    va_list ap;
+    va_start(ap, fmt);
+    err_doit(1, fmt, ap);
+    va_end(ap);
+    return;
+}
+
+static void err_doit(int errnoflag, const char *fmt, va_list ap)
+{
+    int errno_save;
+    char buf[MAXLINE];
+    errno_save = errno; //将错误码存储起来
+    vsprintf(buf, fmt, ap);//将流写入到buf里面
+
+    if (errnoflag)
+        sprintf(buf + strlen(buf), ": %s", strerror(errno_save));
+    strcat(buf, "\n"); //在buf后面加一个\n
+    fflush(stdout); //刷新/更新标准输出
+    fputs(buf, stderr);//将buf中的数据写入到标准出错中去
+    fflush(NULL); //刷新所有的stdio输出流
+    return;
+}
+
+/*和系统调用无关的致命错误,输出信息,并终止*/
+void err_quit(const char *fmt, ...)
+{
+    va_list ap;
+    va_start(ap, fmt);
+    err_doit(0, fmt, ap);
+    va_end(ap);
+    exit(1); //退出整个程序
+}
+
+/*关于系统调用的致命错误,输出信息,并且退出*/
+void err_sys(const char *fmt, ...)
+{
+    va_list ap;
+    va_start(ap, fmt);
+    err_doit(1, fmt, ap);
+    va_end(ap);
+    exit(1);
+
+}
+
+/*关于系统调用的致命错误,输出信息,倾倒core文件,退出*/
+void err_dump(const char *fmt, ...)
+{
+    va_list ap;
+    err_doit(1, fmt, ap);
+    va_end(ap);
+    abort(); //异常终止,倾倒core文件
+    exit(1); //程序应该运行不到这里
+
+}
+
+/*关于系统调用的非致命的错误,输出信息,返回*/
+void err_msg(const char *fmt, ...)
+{
+    va_list ap;
+    va_start(ap, fmt);
+    err_doit(0, fmt, ap);
+    va_end(ap);
+    exit(1);
+}
+
+#+END_SRC
