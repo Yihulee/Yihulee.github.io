@@ -239,6 +239,7 @@ table th.right, table td.right {
 }
 /* post */
 .post {
+
     position: relative;
 }
 .post:after {
@@ -294,6 +295,7 @@ table th.right, table td.right {
 
 /* table of content */
 #table-of-contents {
+background-color: #ffffff;
     position: fixed;
     right: 0em;
     top: 0em;
