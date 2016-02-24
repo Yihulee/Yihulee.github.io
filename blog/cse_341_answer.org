@@ -181,3 +181,46 @@ fun number_in_months_challenge (dl : (int * int * int) list, ml : int list) =
       number_in_months(dl, reverse_list(filter_dup(ml, [])))
   end
 #+END_SRC
+** reasonable_date
+#+BEGIN_SRC sml
+(* 最后一个函数了 *)
+fun reasonable_date (date : (int * int * int)) =
+  if (#1 date) <= 0
+  then false
+  else if (# 2 date) > 12 orelse (#2 date) < 1
+  then false
+  else
+      let
+	  fun is_leap_year(year : int) =
+	    (* 判断某年是否为闰年 *)
+	    if year mod 400 = 0 orelse (year mod 4 = 0 andalso year mod 100 <> 0)
+	    then true
+	    else false
+
+	  fun get_nth(il : int list, n : int) = (* 取list表单的第n项 *)
+	     if n = 1
+	     then hd il
+	     else get_nth(tl il, n - 1)
+
+	  val day_of_each_month_in_leap_year = [31, 29, 31, 30,
+						31, 30, 31, 31,
+						30, 31, 30, 31]
+
+	  val day_of_each_month_in_ord_year = [31, 28, 31, 30,
+						31, 30, 31, 31,
+						30, 31, 30, 31]
+      in
+	  let
+	      fun is_day_right(d : int, m : int, day_of_each_month : int list) =
+		if d > 0 andalso d <= get_nth(day_of_each_month, m)
+		then true
+		else false
+	  in
+	      if is_leap_year((#1 date))
+	      then is_day_right((#3 date), (#2 date), day_of_each_month_in_leap_year) (* 如果是闰年 *)
+	      else is_day_right((#3 date), (#2 date), day_of_each_month_in_ord_year) (* 如果不是闰年 *)
+	  end
+	      
+      end
+
+#+END_SRC
