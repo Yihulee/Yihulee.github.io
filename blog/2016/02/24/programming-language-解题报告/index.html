@@ -36,7 +36,7 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgheadline12">1. homework1</a>
+<li><a href="#orgheadline13">1. homework1</a>
 <ul>
 <li><a href="#orgheadline1">1.1. is_older</a></li>
 <li><a href="#orgheadline2">1.2. number_in_month</a></li>
@@ -49,14 +49,15 @@
 <li><a href="#orgheadline9">1.9. what_month</a></li>
 <li><a href="#orgheadline10">1.10. month_range</a></li>
 <li><a href="#orgheadline11">1.11. oldest</a></li>
+<li><a href="#orgheadline12">1.12. number_in_months_challenge</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgheadline12" class="outline-2">
-<h2 id="orgheadline12"><span class="section-number-2">1</span> homework1</h2>
+<div id="outline-container-orgheadline13" class="outline-2">
+<h2 id="orgheadline13"><span class="section-number-2">1</span> homework1</h2>
 <div class="outline-text-2" id="text-1">
 </div><div id="outline-container-orgheadline1" class="outline-3">
 <h3 id="orgheadline1"><span class="section-number-3">1.1</span> is_older</h3>
@@ -249,6 +250,50 @@
 	     end
   in
       SOME(oldest_date(dl))
+  end
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline12" class="outline-3">
+<h3 id="orgheadline12"><span class="section-number-3">1.12</span> number_in_months_challenge</h3>
+<div class="outline-text-3" id="text-1-12">
+<div class="org-src-container">
+
+<pre class="src src-sml">fun number_in_months_challenge (dl : (int * int * int) list, ml : int list) =
+  (* 我们要做的是，去除重复的月份即可,使用local function *)
+  let
+      fun reverse_list(il : int list) =
+      (* 这个函数用于反转list *)
+	let
+	    fun iter (remained_list : int list, result : int list) =
+	      if null remained_list
+	      then result
+	      else iter(tl remained_list, hd remained_list :: result)
+	in
+	    iter(il, [])
+	end
+
+      fun filter_dup (il : int list, result : int list) =
+	(* 关键的问题在于如何去除重复 *)
+	if null il
+	then result
+	else if
+	    let
+		fun in_the_list (n : int , il : int list) = (* 这个函数主要用来判断n是否在il这个int list之中*)
+		  if null il
+		  then false
+		  else if n = hd il
+		  then true
+		  else in_the_list(n, tl il) (* 这个函数的定义倒是没有什么错误 *)
+	    in
+		in_the_list(hd il, result) (* 判断 hd il 是否在result之中*)
+	    end
+	then filter_dup(tl il, result) (* 在result之中，则继续迭代*)
+	else filter_dup(tl il, hd il::result) (* 不在result之中，则加入result*)
+  in
+      number_in_months(dl, reverse_list(filter_dup(ml, [])))
   end
 </pre>
 </div>
