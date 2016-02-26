@@ -224,3 +224,41 @@ fun reasonable_date (date : (int * int * int)) =
       end
 
 #+END_SRC
+* heomwork2
+** all_except_iotion
+#+BEGIN_SRC sml
+fun same_string(s1 : string, s2 : string) =
+    s1 = s2
+
+(* 不允许使用函数null, hd, tl, isSome, valOf, or # *)
+fun all_except_option (str, strl) =
+  (* 我来分析一下匹配的结果，首先，如果strl为空，自然返回NONE
+     然后，如果strl的首元素和str匹配，返回SOME，否则的话，继续递归 *)
+  (* 这里有一个假设，那就是str至多在strl中出现一次 *)
+  case strl of
+      [] => NONE
+    | x::xs' => if same_string(str, x)
+		then SOME(xs') (* 去除了str后形成的新的SOME *)
+		else
+		    let val re = all_except_option(str, xs')
+		    in
+			case re of
+			    NONE => NONE
+			 | SOME px => SOME(x::px)
+		    end
+
+#+END_SRC
+
+** get_substitutions1
+#+BEGIN_SRC sml
+fun get_substitutions1 (sll, s) =
+(* 这个函数显然要用到前面定义的辅助函数 *)
+  case sll of
+      [] => []
+    | x::xs' => let val re = all_except_option(s, x)
+		in case re of
+		       NONE => get_substitutions1(xs', s)
+		     | SOME v => v @ get_substitutions1(xs', s)
+		end
+#+END_SRC
+
