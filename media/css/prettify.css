@@ -12,17 +12,17 @@
   color: #000000; }
 
 .str {
-  color: #CC0500; }
+  color: #000000; }
 
 .kwd {
-  color: #B6365A; }
+  color: #000000; }
 
 .com {
-  color: #008D10;
-  font-style: italic; }
+  color: #000000;
+}
 
 .typ {
-  color: #0090DB; }
+  color: #000000; }
 
 .lit {
   color: #000000; }
@@ -40,19 +40,19 @@
   color: #000000; }
 
 .atn {
-  color: #FFD700; }
+  color: #000000; }
 
 .atv {
-  color: #FFD700; }
+  color: #000000; }
 
 .dec {
   color: #000000; }
 
 .var {
-  color: #FFD700; }
+  color: #000000; }
 
 .fun {
-  color: #0090DB; }
+  color: #000000; }
 
 /* Put a border around prettyprinted code snippets. */
 pre.prettyprint {
