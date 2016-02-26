@@ -333,6 +333,15 @@ fun remove_card	(cs, c, exn) =
 		  else ac :: remove_card(rc, c, exn)
     | [] => raise exn
 #+END_SRC
+** all_same_color
+#+BEGIN_SRC sml
+fun all_same_color (cs) =
+  case cs of
+      (c1, v1) :: (c2, v2) :: rc => if c1 = c2
+				    then all_same_color((c2, v2) :: rc)
+				    else false
+    | _  => true 
+#+END_SRC
 ** sum_cards
 #+BEGIN_SRC sml
 fun sum_cards (cs) =
