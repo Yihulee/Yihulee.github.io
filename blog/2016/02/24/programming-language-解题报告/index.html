@@ -53,6 +53,12 @@
 <li><a href="#orgheadline13">1.13. reasonable_date</a></li>
 </ul>
 </li>
+<li><a href="#orgheadline17">2. heomwork2</a>
+<ul>
+<li><a href="#orgheadline15">2.1. all_except_iotion</a></li>
+<li><a href="#orgheadline16">2.2. get_substitutions1</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -349,13 +355,64 @@ fun reasonable_date (date : (int * int * int)) =
 </div>
 </div>
 </div>
+<div id="outline-container-orgheadline17" class="outline-2">
+<h2 id="orgheadline17"><span class="section-number-2">2</span> heomwork2</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-orgheadline15" class="outline-3">
+<h3 id="orgheadline15"><span class="section-number-3">2.1</span> all_except_iotion</h3>
+<div class="outline-text-3" id="text-2-1">
+<div class="org-src-container">
+
+<pre class="src src-sml">fun same_string(s1 : string, s2 : string) =
+    s1 = s2
+
+(* 不允许使用函数null, hd, tl, isSome, valOf, or # *)
+fun all_except_option (str, strl) =
+  (* 我来分析一下匹配的结果，首先，如果strl为空，自然返回NONE
+     然后，如果strl的首元素和str匹配，返回SOME，否则的话，继续递归 *)
+  (* 这里有一个假设，那就是str至多在strl中出现一次 *)
+  case strl of
+      [] =&gt; NONE
+    | x::xs' =&gt; if same_string(str, x)
+		then SOME(xs') (* 去除了str后形成的新的SOME *)
+		else
+		    let val re = all_except_option(str, xs')
+		    in
+			case re of
+			    NONE =&gt; NONE
+			 | SOME px =&gt; SOME(x::px)
+		    end
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline16" class="outline-3">
+<h3 id="orgheadline16"><span class="section-number-3">2.2</span> get_substitutions1</h3>
+<div class="outline-text-3" id="text-2-2">
+<div class="org-src-container">
+
+<pre class="src src-sml">fun get_substitutions1 (sll, s) =
+(* 这个函数显然要用到前面定义的辅助函数 *)
+  case sll of
+      [] =&gt; []
+    | x::xs' =&gt; let val re = all_except_option(s, x)
+		in case re of
+		       NONE =&gt; get_substitutions1(xs', s)
+		     | SOME v =&gt; v @ get_substitutions1(xs', s)
+		end
+</pre>
+</div>
+</div>
+</div>
+</div>
 
 </div>
 </div>
     <div>
       <div class="post-meta">
         <span title="post date" class="post-info">2016-02-24</span>
-        <span title="last modification date" class="post-info">2016-02-24</span>
+        <span title="last modification date" class="post-info">2016-02-26</span>
         <span title="tags" class="post-info"><a href="/tags/wiki/">wiki</a></span>
         <span title="author" class="post-info">Yihulee</span>
       </div>
