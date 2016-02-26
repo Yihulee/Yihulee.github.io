@@ -53,10 +53,18 @@
 <li><a href="#orgheadline13">1.13. reasonable_date</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline17">2. heomwork2</a>
+<li><a href="#orgheadline25">2. homework2</a>
 <ul>
 <li><a href="#orgheadline15">2.1. all_except_iotion</a></li>
 <li><a href="#orgheadline16">2.2. get_substitutions1</a></li>
+<li><a href="#orgheadline17">2.3. get_substitutions2</a></li>
+<li><a href="#orgheadline18">2.4. similar_names</a></li>
+<li><a href="#orgheadline19">2.5. card_color</a></li>
+<li><a href="#orgheadline20">2.6. card_value</a></li>
+<li><a href="#orgheadline21">2.7. remove_card</a></li>
+<li><a href="#orgheadline22">2.8. sum_cards</a></li>
+<li><a href="#orgheadline23">2.9. score</a></li>
+<li><a href="#orgheadline24">2.10. officiate</a></li>
 </ul>
 </li>
 </ul>
@@ -355,8 +363,8 @@ fun reasonable_date (date : (int * int * int)) =
 </div>
 </div>
 </div>
-<div id="outline-container-orgheadline17" class="outline-2">
-<h2 id="orgheadline17"><span class="section-number-2">2</span> heomwork2</h2>
+<div id="outline-container-orgheadline25" class="outline-2">
+<h2 id="orgheadline25"><span class="section-number-2">2</span> homework2</h2>
 <div class="outline-text-2" id="text-2">
 </div><div id="outline-container-orgheadline15" class="outline-3">
 <h3 id="orgheadline15"><span class="section-number-3">2.1</span> all_except_iotion</h3>
@@ -401,6 +409,182 @@ fun all_except_option (str, strl) =
 		       NONE =&gt; get_substitutions1(xs', s)
 		     | SOME v =&gt; v @ get_substitutions1(xs', s)
 		end
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline17" class="outline-3">
+<h3 id="orgheadline17"><span class="section-number-3">2.3</span> get_substitutions2</h3>
+<div class="outline-text-3" id="text-2-3">
+<div class="org-src-container">
+
+<pre class="src src-sml">fun get_substitutions2 (sll, s) =
+(* 尾递归版本的替换 *)
+  let fun sub(sll, acc) =
+	case sll of
+	    [] =&gt; acc
+	  | x::xs' =&gt; let val re = all_except_option(s, x) (* 得到这个list的结果 *)
+		      in case re of
+			     NONE =&gt; sub(xs', acc) (* 继续往后面递归 *)
+			   | SOME v =&gt; sub(xs', v @ acc) (* 累积一下，继续递归 *)
+		      end
+  in
+      sub(sll, [])
+  end
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgheadline18" class="outline-3">
+<h3 id="orgheadline18"><span class="section-number-3">2.4</span> similar_names</h3>
+<div class="outline-text-3" id="text-2-4">
+<div class="org-src-container">
+
+<pre class="src src-sml">fun similar_names (sll, full_name) =
+(* 其实也是很简单的一道题目 *)
+  let
+      val {first = x, middle = y, last = z} = full_name
+      val ans = [full_name] (* 事先将full_name装入 *)
+  in
+      let
+	  val temp =  get_substitutions2(sll, x) (* 这样可以得到一个替换的结果,用first name x 去替换 *)
+	  fun sub (sl, ans) =
+	    case sl of
+		[] =&gt; ans
+	      | h::t  =&gt;  sub(t, {first = h, middle = y, last = z} :: ans)
+
+      in
+	  sub(temp, ans) (* 替换 *)
+      end
+  end
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgheadline19" class="outline-3">
+<h3 id="orgheadline19"><span class="section-number-3">2.5</span> card_color</h3>
+<div class="outline-text-3" id="text-2-5">
+<div class="org-src-container">
+
+<pre class="src src-sml">datatype suit = Clubs | Diamonds | Hearts | Spades
+datatype rank = Jack | Queen | King | Ace | Num of int 
+type card = suit * rank
+
+datatype color = Red | Black
+datatype move = Discard of card | Draw 
+
+exception IllegalMove
+
+(* put your solutions for problem 2 here *)
+fun card_color (c) =
+  case c of
+      (s, k) =&gt; k
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline20" class="outline-3">
+<h3 id="orgheadline20"><span class="section-number-3">2.6</span> card_value</h3>
+<div class="outline-text-3" id="text-2-6">
+<div class="org-src-container">
+
+<pre class="src src-sml">fun card_value (c, k) =
+  case k of
+      Ace =&gt; 11
+    | Num i =&gt; i
+    | _ =&gt; 10
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgheadline21" class="outline-3">
+<h3 id="orgheadline21"><span class="section-number-3">2.7</span> remove_card</h3>
+<div class="outline-text-3" id="text-2-7">
+<div class="org-src-container">
+
+<pre class="src src-sml">fun remove_card (cs, c, exn) =
+  case cs of
+      ac :: rc =&gt; if ac = c
+		  then rc
+		  else ac :: remove_card(rc, c, exn)
+    | [] =&gt; raise exn
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgheadline22" class="outline-3">
+<h3 id="orgheadline22"><span class="section-number-3">2.8</span> sum_cards</h3>
+<div class="outline-text-3" id="text-2-8">
+<div class="org-src-container">
+
+<pre class="src src-sml">fun sum_cards (cs) =
+  (* 需要使用到尾递归 *)
+  let
+      fun helper_sum_cards(cards, acc) =
+	case cards of
+	    c :: rc =&gt; helper_sum_cards(rc, card_value(c) + acc)
+	  | [] =&gt;  acc
+  in
+      helper_sum_cards(cs, 0)
+  end
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgheadline23" class="outline-3">
+<h3 id="orgheadline23"><span class="section-number-3">2.9</span> score</h3>
+<div class="outline-text-3" id="text-2-9">
+<div class="org-src-container">
+
+<pre class="src src-sml">fun score (cs, goal) =
+  (* 计算成绩 *)
+  let val sum = sum_cards(cs)
+  in
+      let
+	  val  reliminary_score =      
+	      if sum &gt; goal
+	      then 3 * (sum - goal)
+	      else goal - sum
+      in
+	  if all_same_color(cs) (* 如果牌是相同的颜色，那么成绩就是preliminary score除2 *)
+	  then reliminary_score
+	  else reliminary_score div 2
+      end
+  end
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline24" class="outline-3">
+<h3 id="orgheadline24"><span class="section-number-3">2.10</span> officiate</h3>
+<div class="outline-text-3" id="text-2-10">
+<div class="org-src-container">
+
+<pre class="src src-sml">fun officiate (card_list, move_list, goal) =
+  let
+      fun helper_officiate (card_list, herd_list, move_list, goal) =
+	(* card_list是牌的列表，herd_list是现在手里有的牌的列表，而move_list表示每一步应该怎样走 *)
+	case move_list of
+	    [] =&gt; score(herd_list, goal) (* 移动列表中已经没有东西了，立即返回score *)
+	  | Draw :: rest_moves =&gt; (* 这里的要求是，抓取一张牌 *) 
+	    (case card_list of 
+		 card :: rest_cards =&gt;
+		 let
+		     val new_herd_list = card :: herd_list
+		 in
+		     if sum_cards(new_herd_list) &gt; goal (* 抓牌后是的新的herd_list的分数sum超过了goal *)
+		     then score(new_herd_list, goal)
+		     else  helper_officiate(rest_cards, card :: herd_list, rest_moves, goal) 
+		 end
+	       | [] =&gt; score(herd_list, goal) (* 已经没有牌了，游戏结束，所以返回score *)
+	    )
+	 |  Discard card :: rest_moves =&gt;  helper_officiate(card_list, remove_card(herd_list, card, IllegalMove), rest_moves, goal)
+  in
+      helper_officiate(card_list, [], move_list, goal)
+  end
 </pre>
 </div>
 </div>
