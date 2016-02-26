@@ -53,7 +53,7 @@
 <li><a href="#orgheadline13">1.13. reasonable_date</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline25">2. homework2</a>
+<li><a href="#orgheadline26">2. homework2</a>
 <ul>
 <li><a href="#orgheadline15">2.1. all_except_iotion</a></li>
 <li><a href="#orgheadline16">2.2. get_substitutions1</a></li>
@@ -62,9 +62,10 @@
 <li><a href="#orgheadline19">2.5. card_color</a></li>
 <li><a href="#orgheadline20">2.6. card_value</a></li>
 <li><a href="#orgheadline21">2.7. remove_card</a></li>
-<li><a href="#orgheadline22">2.8. sum_cards</a></li>
-<li><a href="#orgheadline23">2.9. score</a></li>
-<li><a href="#orgheadline24">2.10. officiate</a></li>
+<li><a href="#orgheadline22">2.8. all_same_color</a></li>
+<li><a href="#orgheadline23">2.9. sum_cards</a></li>
+<li><a href="#orgheadline24">2.10. score</a></li>
+<li><a href="#orgheadline25">2.11. officiate</a></li>
 </ul>
 </li>
 </ul>
@@ -363,8 +364,8 @@ fun reasonable_date (date : (int * int * int)) =
 </div>
 </div>
 </div>
-<div id="outline-container-orgheadline25" class="outline-2">
-<h2 id="orgheadline25"><span class="section-number-2">2</span> homework2</h2>
+<div id="outline-container-orgheadline26" class="outline-2">
+<h2 id="orgheadline26"><span class="section-number-2">2</span> homework2</h2>
 <div class="outline-text-2" id="text-2">
 </div><div id="outline-container-orgheadline15" class="outline-3">
 <h3 id="orgheadline15"><span class="section-number-3">2.1</span> all_except_iotion</h3>
@@ -515,8 +516,23 @@ fun card_color (c) =
 </div>
 </div>
 <div id="outline-container-orgheadline22" class="outline-3">
-<h3 id="orgheadline22"><span class="section-number-3">2.8</span> sum_cards</h3>
+<h3 id="orgheadline22"><span class="section-number-3">2.8</span> all_same_color</h3>
 <div class="outline-text-3" id="text-2-8">
+<div class="org-src-container">
+
+<pre class="src src-sml">fun all_same_color (cs) =
+  case cs of
+      (c1, v1) :: (c2, v2) :: rc =&gt; if c1 = c2
+				    then all_same_color((c2, v2) :: rc)
+				    else false
+    | _  =&gt; true
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgheadline23" class="outline-3">
+<h3 id="orgheadline23"><span class="section-number-3">2.9</span> sum_cards</h3>
+<div class="outline-text-3" id="text-2-9">
 <div class="org-src-container">
 
 <pre class="src src-sml">fun sum_cards (cs) =
@@ -533,9 +549,9 @@ fun card_color (c) =
 </div>
 </div>
 </div>
-<div id="outline-container-orgheadline23" class="outline-3">
-<h3 id="orgheadline23"><span class="section-number-3">2.9</span> score</h3>
-<div class="outline-text-3" id="text-2-9">
+<div id="outline-container-orgheadline24" class="outline-3">
+<h3 id="orgheadline24"><span class="section-number-3">2.10</span> score</h3>
+<div class="outline-text-3" id="text-2-10">
 <div class="org-src-container">
 
 <pre class="src src-sml">fun score (cs, goal) =
@@ -558,9 +574,9 @@ fun card_color (c) =
 </div>
 </div>
 
-<div id="outline-container-orgheadline24" class="outline-3">
-<h3 id="orgheadline24"><span class="section-number-3">2.10</span> officiate</h3>
-<div class="outline-text-3" id="text-2-10">
+<div id="outline-container-orgheadline25" class="outline-3">
+<h3 id="orgheadline25"><span class="section-number-3">2.11</span> officiate</h3>
+<div class="outline-text-3" id="text-2-11">
 <div class="org-src-container">
 
 <pre class="src src-sml">fun officiate (card_list, move_list, goal) =
