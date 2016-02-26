@@ -224,7 +224,7 @@ fun reasonable_date (date : (int * int * int)) =
       end
 
 #+END_SRC
-* heomwork2
+* homework2
 ** all_except_iotion
 #+BEGIN_SRC sml
 fun same_string(s1 : string, s2 : string) =
@@ -262,3 +262,131 @@ fun get_substitutions1 (sll, s) =
 		end
 #+END_SRC
 
+** get_substitutions2
+#+BEGIN_SRC sml
+fun get_substitutions2 (sll, s) =
+(* 尾递归版本的替换 *)
+  let fun sub(sll, acc) =
+	case sll of
+	    [] => acc
+	  | x::xs' => let val re = all_except_option(s, x) (* 得到这个list的结果 *)
+		      in case re of
+			     NONE => sub(xs', acc) (* 继续往后面递归 *)
+			   | SOME v => sub(xs', v @ acc) (* 累积一下，继续递归 *)
+		      end
+  in
+      sub(sll, [])
+  end
+#+END_SRC
+** similar_names
+#+BEGIN_SRC sml
+fun similar_names (sll, full_name) =
+(* 其实也是很简单的一道题目 *)
+  let
+      val {first = x, middle = y, last = z} = full_name
+      val ans = [full_name] (* 事先将full_name装入 *)
+  in
+      let
+	  val temp =  get_substitutions2(sll, x) (* 这样可以得到一个替换的结果,用first name x 去替换 *)
+	  fun sub (sl, ans) =
+	    case sl of
+		[] => ans
+	      | h::t  =>  sub(t, {first = h, middle = y, last = z} :: ans)
+									
+      in
+	  sub(temp, ans) (* 替换 *)
+      end
+  end
+#+END_SRC
+** card_color
+#+BEGIN_SRC sml
+datatype suit = Clubs | Diamonds | Hearts | Spades
+datatype rank = Jack | Queen | King | Ace | Num of int 
+type card = suit * rank
+
+datatype color = Red | Black
+datatype move = Discard of card | Draw 
+
+exception IllegalMove
+
+(* put your solutions for problem 2 here *)
+fun card_color (c) =
+  case c of
+      (s, k) => k
+
+#+END_SRC
+
+** card_value
+#+BEGIN_SRC sml
+fun card_value (c, k) =
+  case k of
+      Ace => 11
+    | Num i => i
+    | _ => 10
+#+END_SRC
+** remove_card
+#+BEGIN_SRC sml
+fun remove_card	(cs, c, exn) =
+  case cs of
+      ac :: rc => if ac = c
+		  then rc
+		  else ac :: remove_card(rc, c, exn)
+    | [] => raise exn
+#+END_SRC
+** sum_cards
+#+BEGIN_SRC sml
+fun sum_cards (cs) =
+  (* 需要使用到尾递归 *)
+  let
+      fun helper_sum_cards(cards, acc) =
+	case cards of
+	    c :: rc => helper_sum_cards(rc, card_value(c) + acc)
+	  | [] =>  acc
+  in
+      helper_sum_cards(cs, 0)
+  end
+#+END_SRC
+** score
+#+BEGIN_SRC sml
+fun score (cs, goal) =
+  (* 计算成绩 *)
+  let val sum = sum_cards(cs)
+  in
+      let
+	  val  reliminary_score =      
+	      if sum > goal
+	      then 3 * (sum - goal)
+	      else goal - sum
+      in
+	  if all_same_color(cs) (* 如果牌是相同的颜色，那么成绩就是preliminary score除2 *)
+	  then reliminary_score
+	  else reliminary_score div 2
+      end
+  end
+#+END_SRC
+
+** officiate
+#+BEGIN_SRC sml
+fun officiate (card_list, move_list, goal) =
+  let
+      fun helper_officiate (card_list, herd_list, move_list, goal) =
+	(* card_list是牌的列表，herd_list是现在手里有的牌的列表，而move_list表示每一步应该怎样走 *)
+	case move_list of
+	    [] => score(herd_list, goal) (* 移动列表中已经没有东西了，立即返回score *)
+	  | Draw :: rest_moves => (* 这里的要求是，抓取一张牌 *) 
+	    (case card_list of 
+		 card :: rest_cards =>
+		 let
+		     val new_herd_list = card :: herd_list
+		 in
+		     if sum_cards(new_herd_list) > goal (* 抓牌后是的新的herd_list的分数sum超过了goal *)
+		     then score(new_herd_list, goal)
+		     else  helper_officiate(rest_cards, card :: herd_list, rest_moves, goal) 
+		 end
+	       | [] => score(herd_list, goal) (* 已经没有牌了，游戏结束，所以返回score *)
+	    )
+	 |  Discard card :: rest_moves =>  helper_officiate(card_list, remove_card(herd_list, card, IllegalMove), rest_moves, goal)
+  in
+      helper_officiate(card_list, [], move_list, goal)
+  end
+#+END_SRC
