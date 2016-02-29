@@ -399,3 +399,202 @@ fun officiate (card_list, move_list, goal) =
       helper_officiate(card_list, [], move_list, goal)
   end
 #+END_SRC
+* homework3
+  这次的东西确实有一点难度!
+#+BEGIN_SRC sml
+(* Dan Grossman, CSE341 Spring 2013, HW3 Provided Code *)
+exception NoAnswer
+
+datatype pattern = Wildcard
+		 | Variable of string
+		 | UnitP
+		 | ConstP of int
+		 | TupleP of pattern list
+		 | ConstructorP of string * pattern
+
+datatype valu = Const of int
+	      | Unit
+	      | Tuple of valu list
+	      | Constructor of string * valu
+
+fun g f1 f2 p =
+    let 
+	val r = g f1 f2 (* partial function *)
+    in
+	case p of (* p的类型是pattern *)
+	    Wildcard          => f1 ()
+	  | Variable x        => f2 x
+	  | TupleP ps         => List.foldl (fn (p,i) => (r p) + i) 0 ps (* ps是一个list，r是一个函数，使用一个参数，返回int *)
+	  | ConstructorP(_,p) => r p (* 只是要干什么呀 *)
+	  | _                 => 0
+    end
+
+(* 题目要求是使用g来count_wildcards *)
+#+END_SRC
+
+** count_wildcards
+					   
+#+BEGIN_SRC sml
+fun count_wildcards p =
+  case p of
+      ConstructorP (_, np) => count_wildcards np (* np也是一个pattern *)
+    | Wildcard => 1
+    | TupleP plist => (case plist of
+			   x::(y::xs') => count_wildcards x + count_wildcards (TupleP (y::xs'))
+			 | x::[] => count_wildcards x)
+    | _ => 0
+(*
+    | ConstP _ => 0
+    | UnitP => 0
+    | Variable _ => 0 
+*)
+
+#+END_SRC
+
+** count_wildcards_e
+					   
+#+BEGIN_SRC sml
+fun count_wildcards_e p =
+  g (fn x => 1) (fn x => 0) p
+#+END_SRC
+
+** count_wild_and_variable_lengths
+					   
+#+BEGIN_SRC sml
+fun count_wild_and_variable_lengths p =
+  g (fn x => 1) (fn x => String.size x) p
+
+#+END_SRC
+
+** count_some_var
+					   
+#+BEGIN_SRC sml
+fun count_some_var s p =
+  g (fn x => 0) (fn x => if x = s then 1 else 0) p
+
+#+END_SRC
+
+** check_pat
+					   
+#+BEGIN_SRC sml
+fun check_pat p =
+  let
+      fun collect_string p =
+	case p of
+	    Variable s => [s]
+	  | TupleP ps  => List.foldl (fn (p, i) => i @ (collect_string p)) [] ps
+	  | _ => []
+      fun is_dup sl =
+	case sl of
+	    [] => false
+	  | x::xs' => (List.exists (fn s => if x = s then true else false) xs') orelse is_dup xs' 
+  in
+     is_dup((collect_string p))
+  end
+
+#+END_SRC
+
+** only_capitals
+					   
+#+BEGIN_SRC sml
+fun only_capitals (sl) =
+  List.filter (fn x => Char.isUpper (String.sub(x, 0)))  sl
+   #+END_SRC
+
+** longest_string1
+					   
+#+BEGIN_SRC sml
+(* foldl函数从左边干到右边，foldr函数从右边干到左边 *)
+fun longest_string1 sl =
+  foldl (fn (x, y) => if String.size x  > String.size y then x else y) "" sl   
+ #+END_SRC
+
+** longest_string2
+					   
+#+BEGIN_SRC sml
+fun longest_string2 sl =
+  foldl (fn (x, y) => if String.size x >= String.size y then x  else y) "" sl
+ #+END_SRC
+
+** longest_string3
+					   
+#+BEGIN_SRC sml	
+ val longest_string3 = foldl (fn (x, y) => if String.size x  > String.size y then x else y) ""
+ #+END_SRC
+
+** longest_string4
+					   
+#+BEGIN_SRC sml
+ val longest_string4 = foldl (fn (x, y) => if String.size x >= String.size y then x else y) ""
+#+END_SRC
+
+** longest_string_helper
+					   
+#+BEGIN_SRC sml			     
+ fun longest_string_helper f sl = f sl
+#+END_SRC
+
+** longest_capitalized
+					   
+#+BEGIN_SRC sml
+ val longest_capitalized = (longest_string1 o only_capitals)
+ #+END_SRC
+
+** rev_string					   
+#+BEGIN_SRC sml
+ val rev_string  = implode o rev o explode
+#+END_SRC
+
+** first_answer					   
+#+BEGIN_SRC sml
+ fun first_answer f l =
+   (* f作用在list之上，然后直到list返回一个SOME v*)
+   case l of
+       [] => raise NoAnswer
+     | h::t => case f(h) of
+		   SOME v => v
+		 | _ => first_answer f t
+#+END_SRC
+
+** all_answers 					   
+#+BEGIN_SRC sml
+ (* list option和option list很值得注意 *)
+ (* ('a -> 'b list option) -> 'a list -> 'b list option *)
+ fun all_answers f l =
+   (* 函数存在一些问题啊!l中的某个元素被f作用之后产生NONE，整个结果就是NONE，感觉不是很好递归的样子 *)
+   case l of
+       [] => SOME [] (*返回一个list option *)
+     | h::t => case f(h) of
+		   NONE => NONE
+		 | SOME r =>
+		   let
+		      val re = (all_answers f t) (* 需要说明一下，re是一个list option,也就是说，如果re为SOME v，那么v是一个list*)
+		   in
+		       case re of
+			   NONE => NONE
+			 | SOME v => SOME(r @ v) 
+		   end
+#+END_SRC
+** match
+
+
+#+BEGIN_SRC sml
+fun match v_p =
+   case v_p of
+       (_ ,Wildcard) => SOME [] (* Wildcard 匹配一切 *)
+     | (v, Variable s) => SOME [(s, v)] (*Variable s匹配任何的valu v*)
+     | (Unit, UnitP) => SOME []
+     | (Const v1, ConstP v2) => if v1 = v2 then SOME [] else NONE
+     | ((Constructor (vs, vv)), (ConstructorP (ps, pp))) => if vs <> ps then NONE else match (vv, pp)
+     | (Tuple v, TupleP p) => (all_answers match (ListPair.zip (v, p))) 
+     | _ => NONE  (* 其余的都不匹配 *)	
+#+END_SRC
+
+** first_match 					   
+#+BEGIN_SRC sml
+ fun first_match v pl =
+   SOME(first_answer (fn x => match (v, x)) pl) handle NoAnswer => NONE
+#+END_SRC
+
+
+
