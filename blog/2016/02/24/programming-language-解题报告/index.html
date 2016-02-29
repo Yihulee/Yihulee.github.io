@@ -68,6 +68,27 @@
 <li><a href="#orgheadline25">2.11. officiate</a></li>
 </ul>
 </li>
+<li><a href="#orgheadline44">3. homework3</a>
+<ul>
+<li><a href="#orgheadline27">3.1. count_wildcards</a></li>
+<li><a href="#orgheadline28">3.2. count_wildcards_e</a></li>
+<li><a href="#orgheadline29">3.3. count_wild_and_variable_lengths</a></li>
+<li><a href="#orgheadline30">3.4. count_some_var</a></li>
+<li><a href="#orgheadline31">3.5. check_pat</a></li>
+<li><a href="#orgheadline32">3.6. only_capitals</a></li>
+<li><a href="#orgheadline33">3.7. longest_string1</a></li>
+<li><a href="#orgheadline34">3.8. longest_string2</a></li>
+<li><a href="#orgheadline35">3.9. longest_string3</a></li>
+<li><a href="#orgheadline36">3.10. longest_string4</a></li>
+<li><a href="#orgheadline37">3.11. longest_string_helper</a></li>
+<li><a href="#orgheadline38">3.12. longest_capitalized</a></li>
+<li><a href="#orgheadline39">3.13. rev_string</a></li>
+<li><a href="#orgheadline40">3.14. first_answer</a></li>
+<li><a href="#orgheadline41">3.15. all_answers</a></li>
+<li><a href="#orgheadline42">3.16. match</a></li>
+<li><a href="#orgheadline43">3.17. first_match</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -606,13 +627,301 @@ fun card_color (c) =
 </div>
 </div>
 </div>
+<div id="outline-container-orgheadline44" class="outline-2">
+<h2 id="orgheadline44"><span class="section-number-2">3</span> homework3</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+  这次的东西确实有一点难度!
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sml">(* Dan Grossman, CSE341 Spring 2013, HW3 Provided Code *)
+exception NoAnswer
+
+datatype pattern = Wildcard
+		 | Variable of string
+		 | UnitP
+		 | ConstP of int
+		 | TupleP of pattern list
+		 | ConstructorP of string * pattern
+
+datatype valu = Const of int
+	      | Unit
+	      | Tuple of valu list
+	      | Constructor of string * valu
+
+fun g f1 f2 p =
+    let 
+	val r = g f1 f2 (* partial function *)
+    in
+	case p of (* p的类型是pattern *)
+	    Wildcard          =&gt; f1 ()
+	  | Variable x        =&gt; f2 x
+	  | TupleP ps         =&gt; List.foldl (fn (p,i) =&gt; (r p) + i) 0 ps (* ps是一个list，r是一个函数，使用一个参数，返回int *)
+	  | ConstructorP(_,p) =&gt; r p (* 只是要干什么呀 *)
+	  | _                 =&gt; 0
+    end
+
+(* 题目要求是使用g来count_wildcards *)
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgheadline27" class="outline-3">
+<h3 id="orgheadline27"><span class="section-number-3">3.1</span> count_wildcards</h3>
+<div class="outline-text-3" id="text-3-1">
+<div class="org-src-container">
+
+<pre class="src src-sml">fun count_wildcards p =
+  case p of
+      ConstructorP (_, np) =&gt; count_wildcards np (* np也是一个pattern *)
+    | Wildcard =&gt; 1
+    | TupleP plist =&gt; (case plist of
+			   x::(y::xs') =&gt; count_wildcards x + count_wildcards (TupleP (y::xs'))
+			 | x::[] =&gt; count_wildcards x)
+    | _ =&gt; 0
+(*
+    | ConstP _ =&gt; 0
+    | UnitP =&gt; 0
+    | Variable _ =&gt; 0 
+*)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline28" class="outline-3">
+<h3 id="orgheadline28"><span class="section-number-3">3.2</span> count_wildcards_e</h3>
+<div class="outline-text-3" id="text-3-2">
+<div class="org-src-container">
+
+<pre class="src src-sml">fun count_wildcards_e p =
+  g (fn x =&gt; 1) (fn x =&gt; 0) p
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline29" class="outline-3">
+<h3 id="orgheadline29"><span class="section-number-3">3.3</span> count_wild_and_variable_lengths</h3>
+<div class="outline-text-3" id="text-3-3">
+<div class="org-src-container">
+
+<pre class="src src-sml">fun count_wild_and_variable_lengths p =
+  g (fn x =&gt; 1) (fn x =&gt; String.size x) p
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline30" class="outline-3">
+<h3 id="orgheadline30"><span class="section-number-3">3.4</span> count_some_var</h3>
+<div class="outline-text-3" id="text-3-4">
+<div class="org-src-container">
+
+<pre class="src src-sml">fun count_some_var s p =
+  g (fn x =&gt; 0) (fn x =&gt; if x = s then 1 else 0) p
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline31" class="outline-3">
+<h3 id="orgheadline31"><span class="section-number-3">3.5</span> check_pat</h3>
+<div class="outline-text-3" id="text-3-5">
+<div class="org-src-container">
+
+<pre class="src src-sml">fun check_pat p =
+  let
+      fun collect_string p =
+	case p of
+	    Variable s =&gt; [s]
+	  | TupleP ps  =&gt; List.foldl (fn (p, i) =&gt; i @ (collect_string p)) [] ps
+	  | _ =&gt; []
+      fun is_dup sl =
+	case sl of
+	    [] =&gt; false
+	  | x::xs' =&gt; (List.exists (fn s =&gt; if x = s then true else false) xs') orelse is_dup xs' 
+  in
+     is_dup((collect_string p))
+  end
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline32" class="outline-3">
+<h3 id="orgheadline32"><span class="section-number-3">3.6</span> only_capitals</h3>
+<div class="outline-text-3" id="text-3-6">
+<div class="org-src-container">
+
+<pre class="src src-sml">fun only_capitals (sl) =
+  List.filter (fn x =&gt; Char.isUpper (String.sub(x, 0)))  sl
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline33" class="outline-3">
+<h3 id="orgheadline33"><span class="section-number-3">3.7</span> longest_string1</h3>
+<div class="outline-text-3" id="text-3-7">
+<div class="org-src-container">
+
+<pre class="src src-sml">(* foldl函数从左边干到右边，foldr函数从右边干到左边 *)
+fun longest_string1 sl =
+  foldl (fn (x, y) =&gt; if String.size x  &gt; String.size y then x else y) "" sl
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline34" class="outline-3">
+<h3 id="orgheadline34"><span class="section-number-3">3.8</span> longest_string2</h3>
+<div class="outline-text-3" id="text-3-8">
+<div class="org-src-container">
+
+<pre class="src src-sml">fun longest_string2 sl =
+  foldl (fn (x, y) =&gt; if String.size x &gt;= String.size y then x  else y) "" sl
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline35" class="outline-3">
+<h3 id="orgheadline35"><span class="section-number-3">3.9</span> longest_string3</h3>
+<div class="outline-text-3" id="text-3-9">
+<div class="org-src-container">
+
+<pre class="src src-sml">val longest_string3 = foldl (fn (x, y) =&gt; if String.size x  &gt; String.size y then x else y) ""
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline36" class="outline-3">
+<h3 id="orgheadline36"><span class="section-number-3">3.10</span> longest_string4</h3>
+<div class="outline-text-3" id="text-3-10">
+<div class="org-src-container">
+
+<pre class="src src-sml">val longest_string4 = foldl (fn (x, y) =&gt; if String.size x &gt;= String.size y then x else y) ""
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline37" class="outline-3">
+<h3 id="orgheadline37"><span class="section-number-3">3.11</span> longest_string_helper</h3>
+<div class="outline-text-3" id="text-3-11">
+<div class="org-src-container">
+
+<pre class="src src-sml">fun longest_string_helper f sl = f sl
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline38" class="outline-3">
+<h3 id="orgheadline38"><span class="section-number-3">3.12</span> longest_capitalized</h3>
+<div class="outline-text-3" id="text-3-12">
+<div class="org-src-container">
+
+<pre class="src src-sml">val longest_capitalized = (longest_string1 o only_capitals)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline39" class="outline-3">
+<h3 id="orgheadline39"><span class="section-number-3">3.13</span> rev_string</h3>
+<div class="outline-text-3" id="text-3-13">
+<div class="org-src-container">
+
+<pre class="src src-sml">val rev_string  = implode o rev o explode
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline40" class="outline-3">
+<h3 id="orgheadline40"><span class="section-number-3">3.14</span> first_answer</h3>
+<div class="outline-text-3" id="text-3-14">
+<div class="org-src-container">
+
+<pre class="src src-sml">fun first_answer f l =
+  (* f作用在list之上，然后直到list返回一个SOME v*)
+  case l of
+      [] =&gt; raise NoAnswer
+    | h::t =&gt; case f(h) of
+		  SOME v =&gt; v
+		| _ =&gt; first_answer f t
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline41" class="outline-3">
+<h3 id="orgheadline41"><span class="section-number-3">3.15</span> all_answers</h3>
+<div class="outline-text-3" id="text-3-15">
+<div class="org-src-container">
+
+<pre class="src src-sml">(* list option和option list很值得注意 *)
+(* ('a -&gt; 'b list option) -&gt; 'a list -&gt; 'b list option *)
+fun all_answers f l =
+  (* 函数存在一些问题啊!l中的某个元素被f作用之后产生NONE，整个结果就是NONE，感觉不是很好递归的样子 *)
+  case l of
+      [] =&gt; SOME [] (*返回一个list option *)
+    | h::t =&gt; case f(h) of
+		  NONE =&gt; NONE
+		| SOME r =&gt;
+		  let
+		     val re = (all_answers f t) (* 需要说明一下，re是一个list option,也就是说，如果re为SOME v，那么v是一个list*)
+		  in
+		      case re of
+			  NONE =&gt; NONE
+			| SOME v =&gt; SOME(r @ v) 
+		  end
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgheadline42" class="outline-3">
+<h3 id="orgheadline42"><span class="section-number-3">3.16</span> match</h3>
+<div class="outline-text-3" id="text-3-16">
+<div class="org-src-container">
+
+<pre class="src src-sml">fun match v_p =
+   case v_p of
+       (_ ,Wildcard) =&gt; SOME [] (* Wildcard 匹配一切 *)
+     | (v, Variable s) =&gt; SOME [(s, v)] (*Variable s匹配任何的valu v*)
+     | (Unit, UnitP) =&gt; SOME []
+     | (Const v1, ConstP v2) =&gt; if v1 = v2 then SOME [] else NONE
+     | ((Constructor (vs, vv)), (ConstructorP (ps, pp))) =&gt; if vs &lt;&gt; ps then NONE else match (vv, pp)
+     | (Tuple v, TupleP p) =&gt; (all_answers match (ListPair.zip (v, p))) 
+     | _ =&gt; NONE  (* 其余的都不匹配 *)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline43" class="outline-3">
+<h3 id="orgheadline43"><span class="section-number-3">3.17</span> first_match</h3>
+<div class="outline-text-3" id="text-3-17">
+<div class="org-src-container">
+
+<pre class="src src-sml">fun first_match v pl =
+  SOME(first_answer (fn x =&gt; match (v, x)) pl) handle NoAnswer =&gt; NONE
+</pre>
+</div>
+</div>
+</div>
+</div>
 
 </div>
 </div>
     <div>
       <div class="post-meta">
         <span title="post date" class="post-info">2016-02-24</span>
-        <span title="last modification date" class="post-info">2016-02-26</span>
+        <span title="last modification date" class="post-info">2016-02-29</span>
         <span title="tags" class="post-info"><a href="/tags/wiki/">wiki</a></span>
         <span title="author" class="post-info">Yihulee</span>
       </div>
