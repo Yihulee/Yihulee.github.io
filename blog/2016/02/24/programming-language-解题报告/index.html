@@ -89,6 +89,7 @@
 <li><a href="#orgheadline43">3.17. first_match</a></li>
 </ul>
 </li>
+<li><a href="#orgheadline45">4. homework4</a></li>
 </ul>
 </div>
 </div>
@@ -916,12 +917,119 @@ fun all_answers f l =
 </div>
 </div>
 
+
+
+<div id="outline-container-orgheadline45" class="outline-2">
+<h2 id="orgheadline45"><span class="section-number-2">4</span> homework4</h2>
+<div class="outline-text-2" id="text-4">
+<div class="org-src-container">
+
+<pre class="src src-scheme">#lang racket
+
+(provide (all-defined-out)) ;; so we can put tests in a second file
+
+;; put your code below
+
+(define (sequence low high stride)
+  (if (&gt; low high)
+      null
+      (cons low (sequence (+ low stride) high stride))))
+
+(define (string-append-map xs suffix)
+  (map (lambda (x) (string-append x suffix)) xs))
+
+(define (list-nth-mod xs n)
+  (let ([i (remainder n (length xs))])
+    (cond [(&lt; n 0) (error "list-nth-mod: negative number")]
+	  [(null? xs) (error "list-nth-mod: empty list")]
+	  [else (begin (car (list-tail xs i)))])))
+
+(define ones (lambda () (cons 1 ones)))
+(define nat (letrec ([f (lambda (x) (cons x (lambda () (f (+ x 1)))))])
+	      (lambda () (f 1))))
+
+(define (stream-for-n-steps s n)
+  (if (= n 0)
+      null
+      (cons (car (s)) (stream-for-n-steps (cdr (s))(- n 1)))))
+
+(define funny-number-stream (letrec ([f (lambda (x)
+					  (if (= (remainder x 5) 0)
+					      (cons (- 0 x)
+						    (lambda () (f (+ x 1))))
+					      (cons x
+						    (lambda () (f (+ x 1))))))])
+			      (lambda () (f 1))))
+
+(define dan-then-dog (letrec ([f (lambda (x)
+				 (if (= (remainder x 2) 0)
+				     (cons "dan.jpg"
+					   (lambda () (f (+ x 1))))
+				     (cons "dog.jpg"
+					   (lambda () (f (+ x 1))))))])
+		       (lambda () (f 0))))
+(define (stream-add-zero s)
+      (lambda () (cons (cons 0 (car (s))) (stream-add-zero (cdr (s))))))
+
+;; 有了前面的玩意，后面就变得非常简单了
+(define (cycle-lists xs ys)
+  (letrec ([xl (length xs)] ;得到两个序列的长度
+	   [yl (length ys)]
+	   [f (lambda (ax ay) ;; 我们至少需要两个累积量，非常有趣的东西
+		(cons (cons (list-nth-mod xs ax) (list-nth-mod ys ay))
+		      (lambda () (f (remainder (+ 1 ax) xl) (remainder (+ 1 ay) yl)))))])
+    (lambda () (f 0 0))))
+
+(define (vector-assoc v vev)
+  (letrec ([len (vector-length vev)]
+	   [f (lambda (a)
+		(if (= (- 1 len) a)
+		    #f
+		    (letrec ([vv (vector-ref vev a)])
+		      (if (and (pair? vv) (equal? (car vv) v))
+			      vv
+			      (f (+ a 1))))))])
+    (f 0)))
+
+
+(define (cached-assoc xs n)
+  (letrec
+      ([cached-vector (make-vector n #f)]
+       [index 0]
+       [f (lambda (av ac) ;; 寻找某一个value,在vector之中
+	    (cond
+	      [(= ac n) #f]
+	      [(letrec ([element-in-vector (vector-ref cached-vector ac)])
+		 (and (pair? element-in-vector) (= (car element-in-vector) av) element-in-vector))]
+	      [else (f av (+ ac 1))]))])
+  (lambda (v)
+    (letrec ([value-in-vector (f v 0)])
+      (cond [(not value-in-vector)
+	     (letrec ([value-in-list (assoc v xs)])
+	       (begin (vector-set! cached-vector index value-in-list)
+	       (set! index (remainder (+ 1 index) n)) value-in-list))] ;; 没有在vector中找到这个值
+	    [else value-in-vector])))))
+;; 定义一个宏 macro
+(define-syntax  while-less
+  (syntax-rules (do)
+		[(while-less e1 do e2)
+		 (letrec ([v1 e1]
+		       [loop (lambda ()
+				 (if (&gt; e2 (- v1 1))
+				     #t
+				     (loop)))])
+		   (loop))]))
+</pre>
+</div>
+</div>
+</div>
+
 </div>
 </div>
     <div>
       <div class="post-meta">
         <span title="post date" class="post-info">2016-02-24</span>
-        <span title="last modification date" class="post-info">2016-02-29</span>
+        <span title="last modification date" class="post-info">2016-03-02</span>
         <span title="tags" class="post-info"><a href="/tags/wiki/">wiki</a></span>
         <span title="author" class="post-info">Yihulee</span>
       </div>
