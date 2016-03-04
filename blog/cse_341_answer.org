@@ -597,7 +597,6 @@ fun match v_p =
 #+END_SRC
 
 
-
 * homework4
 #+BEGIN_SRC scheme
 
@@ -698,5 +697,188 @@ fun match v_p =
                    (loop))]))
 
             
+
+#+END_SRC
+* homework5
+#+BEGIN_SRC scheme
+;; Programming Languages, Homework 5
+
+#lang racket
+(provide (all-defined-out)) ;; so we can put tests in a second file
+
+;; definition of structures for MUPL programs - Do NOT change
+(struct var  (string) #:transparent)  ;; a variable, e.g., (var "foo")
+(struct int  (num)    #:transparent)  ;; a constant number, e.g., (int 17)
+(struct add  (e1 e2)  #:transparent)  ;; add two expressions
+(struct ifgreater (e1 e2 e3 e4)    #:transparent) ;; if e1 > e2 then e3 else e4
+(struct fun  (nameopt formal body) #:transparent) ;; a recursive(?) 1-argument function
+(struct call (funexp actual)       #:transparent) ;; function call
+(struct mlet (var e body) #:transparent) ;; a local binding (let var = e in body) 
+(struct apair (e1 e2)     #:transparent) ;; make a new pair
+(struct fst  (e)    #:transparent) ;; get first part of a pair
+(struct snd  (e)    #:transparent) ;; get second part of a pair
+(struct aunit ()    #:transparent) ;; unit value -- good for ending a list
+(struct isaunit (e) #:transparent) ;; evaluate to 1 if e is unit else 0
+
+;; a closure is not in "source" programs; it is what functions evaluate to
+(struct closure (env fun) #:transparent) 
+
+;; Problem 1
+
+;; CHANGE (put your solutions here)
+;; 这种题目果然只是用来热身的呀！
+(define (racketlist->mupllist rl)
+  (if (null? rl) (aunit)
+      (apair (car rl) (racketlist->mupllist (cdr rl)))))
+
+(define (mupllist->racketlist ml)
+  (if (aunit? ml) null
+      (cons (apair-e1 ml) (mupllist->racketlist (apair-e2 ml)))))
+;; Problem 2
+
+;; Implementing the MUPL Language
+
+;; lookup a variable in an environment
+;; Do NOT change this function
+(define (envlookup env str) ;; 在环境env中寻找某个变量
+  (cond [(null? env) (error "unbound variable during evaluation" str)]
+        [(equal? (car (car env)) str) (cdr (car env))] ;; 如果值相同，就返回env里面的东西
+        [#t (envlookup (cdr env) str)]))
+
+;; Do NOT change the two cases given to you.  
+;; DO add more cases for other kinds of MUPL expressions.
+;; We will test eval-under-env by calling it directly even though
+;; "in real life" it would be a helper function of eval-exp.
+(define (eval-under-env e env)
+  (cond [(var? e) ;; 如果e是变量
+         (envlookup env (var-string e))] ;; 在env中寻找对应的值
+        [(add? e) ;; 如果e是加法表达式
+         (let ([v1 (eval-under-env (add-e1 e) env)]
+               [v2 (eval-under-env (add-e2 e) env)])
+           (if (and (int? v1)
+                    (int? v2))
+               (int (+ (int-num v1) 
+                       (int-num v2)))
+               (begin (print v1) (print v2)(
+               (error "MUPL addition applied to non-number")))))]
+        ;; CHANGE add more cases here
+        [(fst? e) ;; 这里的要求是e的计算结果是apair
+         (let ([v (eval-under-env (fst-e e) env)])
+           (if (apair? v)
+               (apair-e1 v)
+               (error "e is not apair")))]
+        [(snd? e) ;; 计算snd
+         (let ([v (eval-under-env (snd-e e) env)])
+           (if (apair? v)
+               (apair-e2 v)
+               (error "e is not apair")))]
+        [(ifgreater? e) ;; 现在要解释ifgreater表达式了
+         (let ([v1 (eval-under-env (ifgreater-e1 e) env)]
+               [v2 (eval-under-env (ifgreater-e2 e) env)])
+           (if (and (int? v1) (int? v2))
+               (if (> (int-num v1) (int-num v2))
+                   (eval-under-env (ifgreater-e3 e) env)
+                   (eval-under-env (ifgreater-e4 e) env))
+               (error "ifgreater expression needs two number")))]
+
+        [(int? e) ;; 现在要处理整数
+         (let ([v (int-num e)])
+           (if (number? v)
+               e
+               (error "int expression encounter a thing that is not a number!")))]
+
+        [(apair? e) ;; 处理apair表达式
+         (let ([v1 (eval-under-env (apair-e1 e) env)]
+               [v2 (eval-under-env (apair-e2 e) env)])
+           (apair v1 v2))]
+
+        [(fun? e) ;; 现在处理函数，要求可以实现递归哦，是在是太他妈神奇了!
+         (let ([fun-name (fun-nameopt e)])
+           (if fun-name
+               (closure (append (list (cons fun-name e)) env) e)
+               (closure env e)))]
+
+        [(mlet? e) ;; 处理mlet表达式
+         (letrec ([s (mlet-var e)] ;; 获得变量名
+                  [v (eval-under-env (mlet-e e) env)]) ;; 获得值
+           (eval-under-env (mlet-body e) (append (list (cons s v)) env)))]
+
+        [(call? e) ;; 这个东西是最重要的啦，我要实现闭包啦。
+         (letrec ([v1 (eval-under-env (call-funexp e) env)]
+                  [v2 (eval-under-env (call-actual e) env)])
+           (if (closure? v1) ;; 要求v1是一个闭包
+               (letrec ([fn (closure-fun v1)] ;; 函数本体
+                        [fe (closure-env v1)]) ;; 原来的环境
+                 (eval-under-env (fun-body fn)
+                                 (append (list (cons (fun-formal fn) v2))
+                                         fe)))
+               (if (fun? v1)
+                   (eval-under-env (call v1 v2) env)
+                   (error "She is not a closure!"))))]
+        [(isaunit? e) ;; 现在开始处理isaunit表达式
+         (if (aunit? (eval-under-env (isaunit-e e) env)) (int 1) (int 0))]
+        [(aunit? e) e]
+        
+        [#t (error (format "bad MUPL expression: ~v" e))]))
+
+;; Do NOT change
+(define (eval-exp e)
+  (eval-under-env e null))
+        
+;(define 1fun (fun "x" "y" (mlet "z" (int 3) (add (var "y") (var "z")))))
+;(define 2fun (fun "x" "y" (add (var "y") (int 1))))
+;(define 3fun (fun "x" "y" (ifgreater (var "y") (int 5) (int 0) (add (var "y") (call (var "x") (add (var "y") (int 1)))))))
+;(eval-exp (call 3fun (int 2)))
+
+;; Problem 3
+
+(define (ifaunit e1 e2 e3)
+  (ifgreater (isaunit e1) (int 0) e2 e3)) ;; 这玩意才是正确的解决办法
+
+(define (mlet* lstlst e2) ;; 递归形式的宏展开
+  (if (null? lstlst)
+      e2
+      (let ([s (car (car lstlst))]
+            [v (cdr (car lstlst))])
+        (mlet s v (mlet* (cdr lstlst) e2)))))
+
+;(define (ifeq e1 e2 e3 e4)
+;  )
+(define (ifeq e1 e2 e3 e4)
+  (mlet* (list (cons "_x" e1) (cons "_y" e2))
+         (ifgreater (var "_x") (var "_y") e4
+                    (ifgreater (var "_y") (var "_x") e4 e3))))
+
+;; Problem 4
+
+(define mupl-map ;; 函数的名称是map，然后f是一个MUPL list
+  (fun "map" "fn"
+       (fun "mupl-map" "mlist"
+            (ifaunit (var "mlist")
+                     (aunit)
+                     (apair (call (var "fn")
+                                   (fst (var "mlist"))) 
+                            (call (var "mupl-map") (snd (var "mlist"))))))))
+
+(define mupl-mapAddN 
+  (mlet "map" mupl-map
+        (fun "mupl-mapAddN" "x" (call (var "map")
+                                      (fun #f "y" (add (var "x") (var "y")))))))
+
+;; Challenge Problem
+
+(struct fun-challenge (nameopt formal body freevars) #:transparent) ;; a recursive(?) 1-argument function
+
+;; We will test this function directly, so it must do
+;; as described in the assignment
+(define (compute-free-vars e) "CHANGE")
+
+;; Do NOT share code with eval-under-env because that will make grading
+;; more difficult, so copy most of your interpreter here and make minor changes
+(define (eval-under-env-c e env) "CHANGE")
+
+;; Do NOT change this
+(define (eval-exp-c e)
+  (eval-under-env-c (compute-free-vars e) null))
 
 #+END_SRC
