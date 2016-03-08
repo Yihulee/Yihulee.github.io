@@ -92,6 +92,7 @@
 <li><a href="#orgheadline45">4. homework4</a></li>
 <li><a href="#orgheadline46">5. homework5</a></li>
 <li><a href="#orgheadline47">6. homework6</a></li>
+<li><a href="#orgheadline48">7. homework7</a></li>
 </ul>
 </div>
 </div>
@@ -1215,7 +1216,7 @@ fun all_answers f l =
 <h2 id="orgheadline47"><span class="section-number-2">6</span> homework6</h2>
 <div class="outline-text-2" id="text-6">
 <p>
-这玩意比较麻烦！
+  这玩意比较麻烦！
 </p>
 <div class="org-src-container">
 
@@ -1320,13 +1321,659 @@ end
 </div>
 </div>
 </div>
+<div id="outline-container-orgheadline48" class="outline-2">
+<h2 id="orgheadline48"><span class="section-number-2">7</span> homework7</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+ 首先是=hw7.sml=文件。
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sml">(* CSE341 Spring 2013, Homework 7, hw7.sml (see also Ruby code) *)
+
+(* Do not make changes to this code except where you see comments containing
+   the word CHANGE. *)
+
+(* expressions in a little language for 2D geometry objects
+   values: points, lines, vertical lines, line segments
+   other expressions: intersection of two expressions, lets, variables, 
+		      (shifts added by you)
+*)
+datatype geom_exp =  (* 几何表达式 *)
+	   NoPoints
+	 | Point of real * real (* represents point (x,y) *)
+	 | Line of real * real (* represents line (slope, intercept) *)
+	 | VerticalLine of real (* x value *)
+	 | LineSegment of real * real * real * real (* x1,y1 to x2,y2 *)
+	 | Intersect of geom_exp * geom_exp (* intersection expression *)
+	 | Let of string * geom_exp * geom_exp (* let s = e1 in e2 *)
+	 | Var of string
+(* CHANGE add shifts for expressions of the form Shift(deltaX, deltaY, exp *)
+	 | Shift of real * real * geom_exp
+
+exception BadProgram of string
+exception Impossible of string
+
+(* helper functions for comparing real numbers since rounding means
+   we should never compare for equality *)
+
+val epsilon = 0.00001
+
+fun real_close (r1,r2) = (* 这里用来判断两个浮点数是否相等，这里的判断方法是看接近的程度 *)
+    (Real.abs (r1 - r2)) &lt; epsilon
+
+(* notice curried *)
+fun real_close_point (x1,y1) (x2,y2) = 
+    real_close(x1,x2) andalso real_close(y1,y2)
+
+(* helper function to return the Line or VerticalLine containing 
+   points (x1,y1) and (x2,y2). Actually used only when intersecting 
+   line segments, but might be generally useful *)
+fun two_points_to_line (x1,y1,x2,y2) = 
+    if real_close(x1,x2)
+    then VerticalLine x1 (* 如果两个x的值太接近了，将会形成一个垂直的线段 *)
+    else
+	let 
+	    val m = (y2 - y1) / (x2 - x1) (* 计算斜率 *)
+	    val b = y1 - m * x1
+	in
+	    Line(m,b) (* 形成一条直线 *)
+	end
+
+(* helper function for interpreter: return value that is the intersection
+   of the arguments: 25 cases because there are 5 kinds of values, but
+   many cases can be combined, especially because intersection is commutative.
+   Do *not* call this function with non-values (e.g., shifts or lets)
+ *)
+fun intersect (v1,v2) =
+    case (v1,v2) of
+
+       (NoPoints, _) =&gt; NoPoints (* 5 cases *)
+     | (_, NoPoints) =&gt; NoPoints (* 4 additional cases *)
+
+     |  (Point p1, Point p2) =&gt; if real_close_point p1 p2
+				then v1 (* 两个点过度接近，那么就形成一个点 *)
+				else NoPoints
+
+      | (Point (x,y), Line (m,b)) =&gt; if real_close(y, m * x + b)
+				     then v1 (* 只有一种情况呗，那就是点在线上 *)
+				     else NoPoints
+
+      | (Point (x1,_), VerticalLine x2) =&gt; if real_close(x1,x2)
+					   then v1
+					   else NoPoints
+
+      | (Point _, LineSegment seg) =&gt; intersect(v2,v1) (* 点和线段的情况,转换为线段和点的情况 *)
+
+      | (Line _, Point _) =&gt; intersect(v2,v1) (* 线和点的情况，转换为点和线的情况 *)
+
+      | (Line (m1,b1), Line (m2,b2)) =&gt; (* 两条线的情况 *)
+	if real_close(m1,m2)  (* 斜率是否相同呢 *)
+	then (if real_close(b1,b2) (* b值是否相同呢 *)
+	      then v1 (* same line *)
+	      else  NoPoints) (* parallel lines do not intersect *)
+	else  (* 斜率不同，因此必定有交点 *)
+	    let (* one-point intersection *)
+		val x = (b2 - b1) / (m1 - m2)
+		val y = m1 * x + b1
+	    in
+		Point (x,y)
+	    end
+
+      | (Line (m1,b1), VerticalLine x2) =&gt; Point(x2, m1 * x2 + b1) (* 线和垂直线的情况 *)
+
+      | (Line _, LineSegment _) =&gt; intersect(v2,v1) (* 线和线段的情况,转换为线段和线的情况 *)
+
+      | (VerticalLine _, Point _) =&gt; intersect(v2,v1)
+      | (VerticalLine _, Line _)  =&gt; intersect(v2,v1)
+
+      | (VerticalLine x1, VerticalLine x2) =&gt;
+	if real_close(x1,x2)
+	then v1 (* same line *)
+	else NoPoints (* parallel *)
+
+      | (VerticalLine _, LineSegment seg) =&gt; intersect(v2,v1)
+
+      | (LineSegment seg, _) =&gt; (* 线段和其他的东西的组合 *)
+	(* the hard case, actually 4 cases because v2 could be a point,
+	   line, vertical line, or line segment *)
+	(* First compute the intersection of (1) the line containing the segment 
+	   and (2) v2. Then use that result to compute what we need. *)
+
+	(* two_points_to_line表示的是由两个点构成的一条线 *)
+	(* 在这里，我有一个疑问，那就是如果v2是线段，调用intersect就变成了线和线段的情况，而该情况会转换一下，继续调用intersect,变成了线段和线的情况
+也就是说，这里变成了死循环! *)
+	(* 然而事实证明，这并不会形成死循环
+我们以例子 
+val a = LineSegment (0.0, 0.0, 1.0, 1.0);
+val b = LineSegment (0.0, 1.0, 1.0, 0.0);
+val c = intersect(a, b);
+来分析一下
+调用
+ intersect(two_points_to_line a, b);
+令 val d = two_points_to_line (0.0, 0.0, 1.0, 1.0);
+此时 d = Line (1.0, 0.0)
+现在求 intersect(d, b);的值
+现在变成了线和线段的情况
+即现在调用 intersect(b, d)
+好吧，到了这里，我的疑问也就解决了，因为线段b继续调用下去的话，会变成求线和线的交点，而这个问题已经解决了，所以能够得到正确的结果！
+ *)
+	(case intersect(two_points_to_line seg, v2) of (* 转变成为了线和v2的关系 *)
+	    NoPoints =&gt; NoPoints
+	  | Point(x0,y0) =&gt; (* 判断这个点是否在线段的范围之内 *)
+	    (* assumes v1 was properly preprocessed *)
+	    let 
+		fun inbetween(v,end1,end2) = (* inbetween是一个函数 *)
+		    (end1 - epsilon &lt;= v andalso v &lt;= end2 + epsilon) (* epsilon是间距的最小值 *)
+		    orelse (end2 - epsilon &lt;= v andalso v &lt;= end1 + epsilon)
+		val (x1,y1,x2,y2) = seg (* seg是一个线段 *)
+	    in
+		if inbetween(x0,x1,x2) andalso inbetween(y0,y1,y2) (* 这玩意无非就是要判断，x0在x1和x2之中，y0在y1和y2之中 *)
+		then Point(x0,y0) (* 返回这个点的值 *)
+		else NoPoints
+	    end
+	  | Line _ =&gt; v1 (* so segment seg is on line v2 *)
+	  | VerticalLine _ =&gt; v1 (* so segment seg is on vertical-line v2 *)
+	  | LineSegment seg2 =&gt; (* 这是个嘛玩意，线和v2的交点是一条线段，也就是v2也是一条线段，很有意思，这里无非是取交集罢了 *)
+	    (* the hard case in the hard case: seg and seg2 are on the same
+	       line (or vertical line), but they could be (1) disjoint or 
+	       (2) overlapping or (3) one inside the other or (4) just touching.
+	       And we treat vertical segments differently, so there are 4*2 cases.
+	     *)
+	    let
+		val (x1start,y1start,x1end,y1end) = seg (* 两条线段 *)
+		val (x2start,y2start,x2end,y2end) = seg2
+	    in
+		if real_close(x1start,x1end) (* 两个x相聚太近了 *)
+		then (* 线段成为了垂线 *)
+		    (* let segment a start at or below start of segment b *)
+		    let 
+			val ((aXstart,aYstart,aXend,aYend),
+			     (bXstart,bYstart,bXend,bYend)) = if y1start &lt; y2start (*  *)
+							      then (seg,seg2)
+							      else (seg2,seg)
+		    in
+			if real_close(aYend,bYstart) (* 两个点相距很近啊 *)
+			then Point (aXend,aYend) (* 构成了一个点*)
+			else if aYend &lt; bYstart 
+			then NoPoints (* 两个线段相离 *)
+			else if aYend &gt; bYend
+			then LineSegment(bXstart,bYstart,bXend,bYend) (* b inside a *)
+			else LineSegment(bXstart,bYstart,aXend,aYend) (* overlapping *)
+		    end
+		else (* the segments are on a (non-vertical) line *) (* 线段不是垂直的线 *)
+		    (* let segment a start at or to the left of start of segment b *)
+		    let 
+			val ((aXstart,aYstart,aXend,aYend),
+			     (bXstart,bYstart,bXend,bYend)) = if x1start &lt; x2start
+							      then (seg,seg2)
+							      else (seg2,seg)
+		    in
+			if real_close(aXend,bXstart) (* 判断a线段的终点的x坐标和b线段的起点的x坐标的关系 *)
+			then Point (aXend,aYend) (* just touching *)
+			else if aXend &lt; bXstart 
+			then NoPoints (* disjoint *)
+			else if aXend &gt; bXend
+			then LineSegment(bXstart,bYstart,bXend,bYend) (* b inside a *)
+			else LineSegment(bXstart,bYstart,aXend,aYend) (* overlapping *)
+		    end 
+	    end                                         
+	  | _ =&gt; raise Impossible "bad result from intersecting with a line")
+      | _ =&gt; raise Impossible "bad call to intersect: only for shape values"
+
+(* interpreter for our language: 
+   * takes a geometry expression and returns a geometry value
+   * for simplicity we have the top-level function take an environment,
+     (which should be [] for the whole program
+   * we assume the expression e has already been "preprocessed" as described
+     in the homework assignment: 
+	 * line segments are not actually points (endpoints not real close)
+	 * lines segment have left (or, if vertical, bottom) coordinate first
+*)
+
+(* 下面的是解释器的部分 *)
+fun eval_prog (e,env) =
+    case e of
+	NoPoints =&gt; e (* first 5 cases are all values, so no computation *)
+      | Point _  =&gt; e
+      | Line _   =&gt; e
+      | VerticalLine _ =&gt; e
+      | LineSegment _  =&gt; e
+      | Var s =&gt; (* 如果进来的是一个变量，则寻找该变量，否则抛出异常 *)
+	(case List.find (fn (s2,v) =&gt; s=s2) env of
+	     NONE =&gt; raise BadProgram("var not found: " ^ s)
+	   | SOME (_,v) =&gt; v)
+      | Let(s,e1,e2) =&gt; eval_prog (e2, ((s, eval_prog(e1,env)) :: env))
+      | Intersect(e1,e2) =&gt; intersect(eval_prog(e1,env), eval_prog(e2, env)) (* 这里是计算两个东西的交点 *)
+(* CHANGE: Add a case for Shift expressions *)
+      | Shift (dx, dy, e1) =&gt;
+	(case eval_prog(e1, env) of
+	     NoPoints =&gt; NoPoints
+	   | Point (x, y) =&gt; Point (x + dx, y + dy)
+	   | Line (m, b) =&gt; Line (m, b + dy - m * dx)
+	   | VerticalLine x =&gt; VerticalLine (x + dx)
+	   | LineSegment (x1, y1, x2, y2) =&gt; LineSegment (x1 + dx, y1 + dy, x2 + dx, y2 + dy)) 
+(* CHANGE: Add function preprocess_prog of type geom_exp -&gt; geom_exp *)
+(* 非常有意思的东西 *)
+fun preprocess_prog geom_exp =
+  case geom_exp of
+      LineSegment (x1, y1, x2, y2) =&gt; (if real_close(x1, x2) andalso real_close(y1, y2)
+				       then Point (x1, y1)
+				       else geom_exp)
+    (* | Line (m, b) =&gt;  (if m = 0.0
+		       then VerticalLine b
+		       else geom_exp)
+     *)
+    | _ =&gt; geom_exp
+</pre>
+</div>
+<p>
+  最后是一个=hw7.rb=文件！
+</p>
+<div class="org-src-container">
+
+<pre class="src src-ruby">class GeometryExpression
+  # do *not* change this class definition
+  Epsilon = 0.00001
+end
+
+class GeometryValue 
+  # do *not* change methods in this class definition
+  # you can add methods if you wish
+
+  private
+  # some helper methods that may be generally useful
+  def real_close(r1,r2) 
+      (r1 - r2).abs &lt; GeometryExpression::Epsilon # 非常爽，是吧！
+  end
+  def real_close_point(x1,y1,x2,y2)  # 主要判断这两个坐标是不是非常靠近
+      real_close(x1,x2) &amp;&amp; real_close(y1,y2)
+  end
+  # two_points_to_line could return a Line or a VerticalLine
+  def two_points_to_line(x1,y1,x2,y2) # 两个点构成线
+      if real_close(x1,x2)
+	VerticalLine.new x1
+      else
+	m = (y2 - y1).to_f / (x2 - x1)
+	b = y1 - m * x1
+	Line.new(m,b)
+      end
+  end
+
+  public
+  # we put this in this class so all subclasses can inherit it:
+  # the intersection of self with a NoPoints is a NoPoints object
+  def intersectNoPoints np # 求和Nopoint的交点
+    np # could also have NoPoints.new here instead
+  end
+
+  # we put this in this class so all subclasses can inhert it:
+  # the intersection of self with a LineSegment is computed by
+  # first intersecting with the line containing the segment and then
+  # calling the result's intersectWithSegmentAsLineResult with the segment
+
+  def intersectLineSegment seg # 其实思路和SML文件中展现的是一样的，主要的思想是转化
+    # 我们主要要求的是LineSegment和其他的东西的交点,根据转化的思想：
+    # 线段和其他东西相交的结果，可以转化为线和其他东西相交的结果
+    # 两者是等价的，正如你在SML文件中所看到的
+    # 首先将线段转化为线，然后求这个线和别的东西的相交结果
+    line_result = intersect(two_points_to_line(seg.x1,seg.y1,seg.x2,seg.y2))
+    # 仔细看上面的函数，其实可以转换为self.intersect(two_points_to_line(seg.x1,seg.y1,seg.x2,seg.y2))
+    # 这里的self就相当于sml文件里面的v2
+    # 去掉一层包裹之后，我们取a = two_points_to_line(seg.x1,seg.y1,seg.x2,seg.y2),然后会继续调用
+    # a类中相应的函数来处理a类和self的关系(都会有结果),会得到相对应的结果line_result
+    line_result.intersectWithSegmentAsLineResult seg
+    # 然后调用line_result.intersectWithSegmentAsLineResult函数，这里值得注意的是，并没有调用intersect函数
+    # 非常有意思
+  end
+end
+
+class NoPoints &lt; GeometryValue
+  # do *not* change this class definition: everything is done for you
+  # (although this is the easiest class, it shows what methods every subclass
+  # of geometry values needs)
+
+  # Note: no initialize method only because there is nothing it needs to do
+  def eval_prog env 
+    self # all values evaluate to self
+  end
+  def preprocess_prog
+    self # no pre-processing to do here
+  end
+  def shift(dx,dy)
+    self # shifting no-points is no-points
+  end
+  def intersect other
+    other.intersectNoPoints self # will be NoPoints but follow double-dispatch
+  end
+  def intersectPoint p # 求和点的交点
+    self # intersection with point and no-points is no-points
+  end
+  def intersectLine line # 求和线的交点
+    self # intersection with line and no-points is no-points
+  end
+  def intersectVerticalLine vline # 求和竖线的交点
+    self # intersection with line and no-points is no-points
+  end
+  # if self is the intersection of (1) some shape s and (2) 
+  # the line containing seg, then we return the intersection of the 
+  # shape s and the seg.  seg is an instance of LineSegment
+  def intersectWithSegmentAsLineResult seg
+    self
+  end
+end
+
+class Point &lt; GeometryValue # 点
+  # *add* methods to this class -- do *not* change given code and do not
+  # override any methods
+
+  # Note: You may want a private helper method like the local
+  # helper function inbetween in the ML code
+  attr_reader :x, :y
+  def initialize(x,y)
+    @x = x
+    @y = y
+  end
+
+  def preprocess_prog # 提前处理一个点
+    self # 事实上，并没有什么好处理的啦！
+  end
+
+  def eval_prog env
+    self
+  end
+
+  def shift (dx, dy)
+    Point.new(x + dx, y + dy) # 新建一个对象
+  end
+
+  def intersectPoint p
+    if real_close_point(self.x, self.y, p.x, p.y)
+      then self
+    else
+      NoPoints.new
+    end
+  end
+
+  def intersectLine line # 点和线的交点
+    if real_close(y, line.m * x + line.b)
+      then self
+    else NoPoints.new
+    end
+  end
+
+  def intersectVerticalLine vline # 求点和竖线的交点
+    if real_close(x, vline.x)
+      then self
+      else NoPoints.new
+    end
+  end
+
+  def intersect exp
+    exp.intersectPoint self
+  end
+
+  def intersectWithSegmentAsLineResult seg
+    # 运行到这一步，说明LineSegment和某一样东西结果是一个Point
+    # 对应与SML文件里的东西，x代表x0，y代表y0
+    # seg代表原来的线段，也就是SML中的v1
+    if inbetween(x, seg.x1, seg.x2) and inbetween(y, seg.y1, seg.y2)
+      Point.new(x, y)
+    else
+      NoPoints.new
+    end
+  end
+
+  private
+  def inbetween(v, end1, end2) # 这个主要是辅助的函数
+    epsilon = GeometryExpression::Epsilon
+    (end1 - epsilon &lt;= v and v &lt;= end2 + epsilon) or
+	(end2 - epsilon &lt;= v and v &lt;= end1 + epsilon)
+  end
+end
+
+class Line &lt; GeometryValue # 线
+  # *add* methods to this class -- do *not* change given code and do not
+  # override any methods
+  attr_reader :m, :b 
+  def initialize(m,b)
+    @m = m
+    @b = b
+  end
+
+  def preprocess_prog
+    self
+  end
+
+  def eval_prog env
+    self
+  end
+
+  def shift (dx, dy) # 一条线段位移(dx, dy)的距离
+    Line.new(m, b + dy - m * dx) # 重新构建一条线
+  end
+
+  def intersectPoint p # 线和点的交点，这样的话，转化一下,换成点和线段的交点
+    p.intersectLine self
+  end
+
+  def intersectVerticalLine vline # 竖线和线的交点
+    Point.new(vline.x, m * vline.x + b)
+  end
+
+  def intersectLine line # 线和线的交点
+    if real_close(m, line.m) # 判断两条线的斜率是否一至
+      then if real_close(b, line.b)
+	     then self # 两个值都相等了，自然返回self
+	     else NoPoints.new # 否则的话，就是平行了，没有交点
+	   end
+    else
+	x = (line.b - b) / (m - line.m)
+	y = m * x + b
+	Point.new(x, y)
+    end
+  end
+
+  def intersect exp # 这里说得好听一点，叫first dispatch
+    exp.intersectLine self # 调用exp的intersectLine函数
+  end
+
+  def intersectWithSegmentAsLineResult seg
+    # 运行到了这一步的话，说明线段和self的结果是一条线
+    # 这里的seg对应与SML中的v1
+    # 这里需要直接返回v1
+    seg
+  end
+
+end
+
+class VerticalLine &lt; GeometryValue
+  # *add* methods to this class -- do *not* change given code and do not
+  # override any methods
+  attr_reader :x
+  def initialize x
+    @x = x
+  end
+
+  def preprocess_prog
+    self
+  end
+
+  def eval_prog env # 计算这段代码
+    self
+  end
+
+  def shift(dx, dy)
+    VerticalLine.new(x + dx)
+  end
+
+  def intersectVerticalLine vline # 求垂线和垂线的交点
+    if real_close(x, vline.x)
+      then self
+      else NoPoints.new
+    end
+  end
+
+  def intersect exp  # 好吧，这也是所谓的first dispatch
+    exp.intersectVerticalLine self
+  end
+
+  def intersectWithSegmentAsLineResult seg
+    # 和上面的类似
+    seg
+  end
+end
+
+class LineSegment &lt; GeometryValue # 线段
+  attr_reader :x1, :y1, :x2, :y2
+  def initialize (x1,y1,x2,y2)
+    @x1 = x1
+    @y1 = y1
+    @x2 = x2
+    @y2 = y2
+  end
+
+  def preprocess_prog # LineSegment的预处理
+    if real_close(x1, x2)
+      if real_close(y1, y2)
+	Point.new(x1, y1) # 两点坐标都非常接近，那么结果就是一个点
+      elsif y1 &gt; y2
+	LineSegment.new(x2, y2, x1, y1)
+      else
+	self
+      end
+    elsif x1 &gt; x2
+      LineSegment.new(x2, y2, x1, y1)
+    else
+      self
+    end
+  end
+
+  def eval_prog env
+    self
+  end
+
+  def shift(dx, dy) # 线段的移动
+    LineSegment.new(x1 + dx, y1 + dy, x2 + dx, y2 + dy)
+  end
+
+
+  def intersectWithSegmentAsLineResult seg
+    # 好吧，这一部分算是最难理清楚的啦！
+    # 这里的seg想当于SML文件中的v1
+    # 而self相当与SML中的LineSegment seg2
+    seg1 = [x1, y1, x2, y2]
+    seg2 = [seg.x1, seg.y1, seg.x2, seg.y2]
+    if real_close(x1, x2)
+      aXstart, aYstart, aXend, aYend, bXstart, bYstart, bXend, bYend =
+	  y1 &lt; seg.y1 ? seg1 + seg2 : seg2 + seg1
+      if real_close(aYend, bYstart)
+	Point.new(aXend, aYend)
+      elsif aYend &lt; bYstart
+	NoPoints.new
+      elsif aYend &gt; bYend
+	LineSegment.new(bXstart, bYstart, bXend, bYend)
+      else
+	LineSegment.new(bXstart, bYstart, aXend, aYend)
+      end
+    else
+      aXstart, aYstart, aXend, aYend, bXstart, bYstart, bXend, bYend =
+	  x1 &lt; seg.x1 ? seg1 + seg2 : seg2 + seg1
+      if real_close(aXend, bXstart)
+	Point.new(aXend, aYend)
+      elsif aXend &lt; bXstart
+	NoPoints.new
+      elsif aXend &gt; bXend
+	LineSegment.new(bXstart, bYstart, bXend, bYend)
+      else
+	LineSegment.new(bXstart, bYstart, aXend, aYend)
+      end
+    end
+  end
+
+  def intersect exp
+    exp.intersectLineSegment self # 求exp和线段的交点
+  end
+end
+
+# Note: there is no need for getter methods for the non-value classes
+class Intersect &lt; GeometryExpression
+  # *add* methods to this class -- do *not* change given code and do not
+  # override any methods
+  def initialize(e1,e2)
+    @e1 = e1
+    @e2 = e2
+  end
+
+  def preprocess_prog
+    Intersect.new(@e1.preprocess_prog, @e2.preprocess_prog) # 重新构建一个玩意
+  end
+
+  def eval_prog env
+    # 到这里了，怎么玩
+    @e1.eval_prog(env).intersect(@e2.eval_prog(env))
+  end
+end
+
+class Let &lt; GeometryExpression # let表达式
+  def initialize(s,e1,e2)
+    @s = s
+    @e1 = e1
+    @e2 = e2
+  end
+
+  def preprocess_prog # 构建出一个新的表达式，非常好啊！
+    Let.new(@s, @e1.preprocess_prog, @e2.preprocess_prog)
+  end
+
+  def eval_prog env # let表达式的计算
+    @e2.eval_prog(Array.new(env).unshift([@s, @e1]))
+  end
+end
+
+class Var &lt; GeometryExpression # 变量测试
+  # *add* methods to this class -- do *not* change given code and do not
+  # override any methods
+  def initialize s
+    @s = s
+  end
+  def eval_prog env # remember: do not change this method
+    pr = env.assoc @s
+    raise "undefined variable" if pr.nil?
+    pr[1] # 返回这个值
+  end
+  def preprocess_prog
+    self
+  end
+end
+
+class Shift &lt; GeometryExpression # shift表达式
+  # *add* methods to this class -- do *not* change given code and do not
+  # override any methods
+  def initialize(dx,dy,e)
+    @dx = dx
+    @dy = dy
+    @e = e
+  end
+
+  def preprocess_prog
+    Shift.new(@dx, @dy, @e.preprocess_prog)
+  end
+  def eval_prog env
+    @e.eval_prog(env).shift(@dx, @dy)
+  end
+end
+</pre>
+</div>
+</div>
+</div>
 
 </div>
 </div>
     <div>
       <div class="post-meta">
         <span title="post date" class="post-info">2016-02-24</span>
-        <span title="last modification date" class="post-info">2016-03-05</span>
+        <span title="last modification date" class="post-info">2016-03-08</span>
         <span title="tags" class="post-info"><a href="/tags/wiki/">wiki</a></span>
         <span title="author" class="post-info">Yihulee</span>
       </div>
