@@ -1,4 +1,4 @@
-#+TITLE: Index
+
 #+BEGIN_HTML
 <div align=center>
 <img src="http://7xq7hx.com1.z0.glb.clouddn.com/cosmoscosmos_01.jpg" width="995" alt="The Little Schemer"/>
@@ -10,4 +10,4 @@
 <img src="http://7xq7hx.com1.z0.glb.clouddn.com/cosmoscosmos_02.jpg" width="995" alt="The Little Schemer"/>
 </div>
 #+END_HTML
-
+有过一段时间，我很害怕死亡，我害怕某一天，我眼睛一闭，这个世界和我再无半分瓜葛。
