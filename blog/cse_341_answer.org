@@ -9,6 +9,7 @@
 #+OPTIONS:     H:3 num:t toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
 #+DESCRIPTION: 解题报告
 
+这里的七个 *homework* 是华盛顿大学的 *programming lamguage* 课程很重要的一个组成部分。题目不难，我花了大概两周的时间做完了习题和看完了全部的课程，下面的 *homework* 是自己做的，大家可以参考一下。
 * homework1
 ** is_older
 #+BEGIN_SRC sml
