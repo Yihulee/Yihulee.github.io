@@ -31,7 +31,9 @@
 
   读完这本，有兴趣的话，还可以读读它的兄弟-- *The Seasoned Schemer* 。就是下面这本书：
 #+BEGIN_HTML
+<div align=center>
 <img src="http://img.blog.csdn.net/20160125212438665" width="401" alt="The Seasoned Schemer"/>
+</div>
 #+END_HTML
 
   好吧，我还没看，先放在这里。
