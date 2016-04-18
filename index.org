@@ -1,11 +1,6 @@
 #+TITLE: Index
-* 我的博客
-
-  之前配置过一个 *hexo* 博客,[[http://lishuhuakai.github.io][lishuhuakai's world!]]
-
-  更早之前，有过一个 *CSDN* 博客，[[http://blog.csdn.net/lishuhuakai][lishuhuakai!]]
-
-* 名句
-  日日深杯酒满，朝朝小圃花开。自歌自舞自开怀，无拘无束无碍。
-
-  青史几番春梦，黄泉多少奇才。不须计较与安排，领取而今现在。
+#+BEGIN_HTML
+<div align=center>
+<img src="http://7xq7hx.com1.z0.glb.clouddn.com/cosmoscosmos_02.jpg" width="1000" alt="The Little Schemer"/>
+</div>
+#+END_HTML
