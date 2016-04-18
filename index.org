@@ -1,6 +1,13 @@
 #+TITLE: Index
 #+BEGIN_HTML
 <div align=center>
+<img src="http://7xq7hx.com1.z0.glb.clouddn.com/cosmoscosmos_01.jpg" width="1000" alt="The Little Schemer"/>
+</div>
+#+END_HTML
+
+#+BEGIN_HTML
+<div align=center>
 <img src="http://7xq7hx.com1.z0.glb.clouddn.com/cosmoscosmos_02.jpg" width="1000" alt="The Little Schemer"/>
 </div>
 #+END_HTML
+
