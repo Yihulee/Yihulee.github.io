@@ -9,55 +9,54 @@
  * http://code.google.com/p/google-code-prettify/source/browse/trunk/src/prettify.css
  */
 .pln {
-  color: #000000; }
+  color: #bd3613; }
 
 .str {
-  color: #000000; }
+  color: #269186; }
 
 .kwd {
-  color: #000000; }
+  color: #859900; }
 
 .com {
-  color: #000000;
-}
+  color: #586175;
+  font-style: italic; }
 
 .typ {
-  color: #000000; }
+  color: #b58900; }
 
 .lit {
-  color: #000000; }
+  color: #2aa198; }
 
 .pun {
-  color: #000000; }
+  color: #839496; }
 
 .opn {
-  color: #000000; }
+  color: #839496; }
 
 .clo {
-  color: #000000; }
+  color: #839496; }
 
 .tag {
-  color: #000000; }
+  color: #268bd2; }
 
 .atn {
-  color: #000000; }
+  color: #586175; }
 
 .atv {
-  color: #000000; }
+  color: #2aa198; }
 
 .dec {
-  color: #000000; }
+  color: #268bd2; }
 
 .var {
-  color: #000000; }
+  color: #268bd2; }
 
 .fun {
-  color: #000000; }
+  color: #FF0000; }
 
 /* Put a border around prettyprinted code snippets. */
 pre.prettyprint {
-  background-color: #F7F8F9;
-  font-size : 0.8em;
+  background-color: #042029;
   padding: 10px;
   border: 1px solid #E1E1E8; }
 
