@@ -6,20 +6,12 @@
 #+KEYWORDS:    总结
 #+TAGS:        杂谈
 #+LANGUAGE:    en
-#+OPTIONS:     H:3 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+OPTIONS:     H:3 num:t toc:t \n:nil ::t |:t ^:t -:t f:t *:t <:t
 #+DESCRIPTION: 好吧，我在扯淡！
 
 ** 读过的一些书
 
 这半年，恰好有一些空闲的时间，恶补了一些东西，读了下面的一些书，书不多，大概30来本。
-
-| c/c++           | 编程                          | 网络                      | 计算机系统   | 数据库                         | python           | 技术                   | 杂书         |
-| <泛型编程与stl> | <The practice of programming> | <tcp/ip卷详解一>          | <csapp>      | <数据库系统概念>               | <python源码剖析> | <git教程>              | <浪潮之巅>   |
-| <stl源码剖析>   | <htdp>                        | <unp>                     | <编码的奥秘> | <Mysql技术内幕 innodb存储引擎> | <python简明教程> | <Head First HTML与CSS> | <黑客与画家> |
-| <C++标准程序库> | <sicp>                        | <计算机网络 自顶向下方法> |              | <数据库设计step by step>       |                  | <正则表达式必知必会>   |              |
-| <apue>          | <The Little schemer>          |                           |              | <Mysql必知必会>                |                  | <跟我一起写makefile>   |              |
-|                 | <算法导论>                    |                           |              |                                |                  |                        |              |
- 
 
 | c/c++      | <泛型编程与stl> <stl源码剖析> <C++标准程序库> <apue>                                     |
 | 编程       | <The practice of programming> <htdp> <sicp> <The Little schemer> <算法导论>              |
