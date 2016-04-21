@@ -36,7 +36,7 @@ html {
 }
 body {
     padding: 20px;
-    font-family: Menlo, Monaco, 楷体, monospace;
+    font-family: Menlo, Monaco, 微软雅黑, monospace;
     font-size: 14px;
     line-height: 1.5;
     color: #666;
@@ -101,7 +101,7 @@ ul, ol {
     margin: 0 0 20px;
 }
 code, pre {
-    font-family: Menlo, Monaco, 楷体, Consolas, "Courier New", monospace;
+    font-family: Menlo, Monaco, 微软雅黑, Consolas, "Courier New", monospace;
 }
 code {
     color: #d14;
