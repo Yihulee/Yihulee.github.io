@@ -11,7 +11,7 @@
 
 这里记录一下自己遇到的问题。
 
- *pyinstaller* 是个好工具，可以用来打包自己的py代码。我使用的 *python* 版本是3.0以上的。
+ *pyinstaller* 是个好工具，可以用来打包自己的 *py* 代码。我使用的 *python* 版本是3.0以上的。
 
 首先要安装 *pyinstall* :
 #+BEGIN_SRC shell
