@@ -23,7 +23,7 @@ pip install pyinstall
 pip install pypiwin32
 #+END_SRC
 
-接下来是如何使用这个东西，进入你的 *python* 文件所在的目录，在 *cmd* 中键入
+接下来是如何使用这个东西，进入你的 *python* 文件所在的目录，在 *cmd* 中键入:
 #+BEGIN_SRC sh
 pyinstaller -wF xxxx.py
 #+END_SRC
