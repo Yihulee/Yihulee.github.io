@@ -1,0 +1,89 @@
+#+TITLE:       零碎集
+#+AUTHOR:      Yihulee
+#+EMAIL:       Yihulee@gmail.com
+#+DATE:        2016-04-23 周六
+#+URI:         /blog/%y/%m/%d/零碎集
+#+KEYWORDS:    python,scheme
+#+TAGS:        python
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: 零零碎碎的一些感想
+*C* 和 *scheme* 真是两个极端的范式,学了这两门语言，再去学其他的语言，过程就会简单很多。因为一般来说，其他的语言所涉及的东西不会超过这两种语言所涉及的东西。
+
+*C* 是静态语言的代表，从中演变出了 *C++* , *Java*, *C#* 等一大票的语言，它们在 *C* 的基础上发展,加上了面向对象的类，加上了很多很多的语法糖。加上了 *lisp* 里的很多优雅的东西。
+*scheme* 算是动态语言吧，又或者说是函数式的编程语言，表达力强大的无与伦比，今天我看了一下 *python* 的装饰器，可能没有学过 *scheme* 之类语言的同学会觉得很神奇，一个函数居然可以动态地产生一个函数，这种特性，在静态语言里是不可以想象的。在静态语言里，所有函数必须事先定义好，然后才可以调用，而在动态语言里，函数是可以动态产生的，或者说可以根据传入参数的不同，而产生的函数就不同：
+
+#+BEGIN_SRC scheme
+;; 一个很简单的scheme的例子
+(define log
+  (lambda (x)
+    (lambda (y)
+      (printf x)
+      (y))))
+
+(define now
+  (lambda ()
+    (printf "2015-03-25")))
+ ;; 下面是测试的例子
+((log "execute ") now)
+#+END_SRC
+
+输出的结果是：
+
+#+BEGIN_SRC sh
+execute 2015-03-25
+#+END_SRC
+
+这种特性，好处特别多，它会使得编程起来特别灵活，这种表达力是静态语言远远达不到的。
+ *python* 里面的装饰器其实也就是这么一回事！下面是一个返回函数的函数：
+
+#+BEGIN_SRC python
+def log(text):
+    def decorator(func):
+        def wrapper(*args, **kw):
+            print('%s %s():' % (text, func.__name__))
+            return func(*args, **kw)
+        return wrapper
+    return decorator
+#+END_SRC
+
+我们可以这么来使用前面的东西：
+
+#+BEGIN_SRC python
+@log("execute")
+def now():
+    print('2015-03-25')
+#+END_SRC
+
+我们执行 *now()*,会得到下面的结果：
+
+#+BEGIN_SRC sh
+execute now():
+2015-03-25
+#+END_SRC
+上面的 *@log* 只是看起来比较新鲜而已，其实这玩意只是一个语法糖而已，上面的写法等价于:
+#+BEGIN_SRC python
+now = log("execute")(now)
+#+END_SRC
+
+差不多和下面的类似：
+
+#+BEGIN_SRC python
+# 首先将'execute'这个文本传入，得到下面的函数
+def decorator(func):
+        def wrapper(*args, **kw):
+            print('%s %s():' % ('execute', func.__name__))
+            return func(*args, **kw)
+        return wrapper
+# 然后将now函数传入，得到下面的函数
+def wrapper(*args, **kw):
+            print('%s %s():' % ('execute', func.__name__))
+            return now(*args, **kw)
+# 这个装饰器的意图也很明显了，先打印一些消息，然后输出现在的时间
+#+END_SRC
+
+这玩意其实和上面的 *scheme* 代码大同小异。
+
+我个人算是认真学过 *C++* 的泛型编程，以前觉得 *C++* 真厉害，居然一个函数可以应对多种不同类型的参数，我个人曾经还发出过感慨，说 *Java* 的泛型比起 *C++* 可差远了，而现在，我想说: *C++* 的泛型，在动态语言里压根就是鸡肋一样的存在!  
+ 
+动态语言里压根就没有参数类型这个说法，这无疑比静态语言要优越许多。
