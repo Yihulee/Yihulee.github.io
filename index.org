@@ -14,7 +14,7 @@
 
 mark一下，以后来补充！
 
-* TODO 近段时间内想读的一些书: [40%]
+* TODO 近段时间内想读的一些书: [50%]
   SCHEDULED: <2016-04-19 周二>
   DEADLINE: <2017-04-19 周三>
 + [X] The seasoned schemer
