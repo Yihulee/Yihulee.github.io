@@ -14,11 +14,11 @@
 
 mark一下，以后来补充！
 
-* TODO 近段时间内想读的一些书: [20%]
+* TODO 近段时间内想读的一些书: [40%]
   SCHEDULED: <2016-04-19 周二>
   DEADLINE: <2017-04-19 周三>
-+ [ ] The seasoned schemer
-+ [ ] The reasoned schemer
++ [X] The seasoned schemer
++ +The reasoned schemer+
 + [ ] 程序设计语言，实践之路
 + [ ] Parsing technology
 + [X] 算法导论
