@@ -2,7 +2,7 @@
 #+AUTHOR:      Yihulee
 #+EMAIL:       Yihulee@gmail.com
 #+DATE:        2016-05-09 周一
-#+URI:         /blog/%y/%m/%d/由语法糖想到的...
+#+URI:         /blog/%y/%m/%d/a-little-thinking-01
 #+KEYWORDS:    感悟
 #+TAGS:        随笔
 #+LANGUAGE:    en
