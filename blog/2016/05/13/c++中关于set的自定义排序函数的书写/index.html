@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>C++中关于set的自定义排序函数的书写 - Yihulee&#39;s world!</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Yihulee" />
+    <meta name="description" content="记录" />
+    <meta name="keywords" content="C++，Set" />
+    <link rel="stylesheet" href="/media/css/main.css" type="text/css">
+    <link rel="stylesheet" href="/media/css/prettify.css" type="text/css">
+  </head>
+  <body class="container">
+    <div>
+      <header class="masthead">
+        <h1 class="masthead-title"><a href="/">Yihulee&#39;s world!</a></h1>
+        <p>=========&gt;易燃又美味！</p>
+        <ul>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/essay/">Essay</a></li>
+          <li><a href="/tags/">Tags</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="https://github.com/lishuhuakai">GitHub</a></li>
+          <li><a href="/rss.xml">RSS</a></li>
+        </ul>
+        <form method="get" id="searchform" action="//www.google.com/search">
+          <input type="text" class="field" name="q" id="s" placeholder="Search">
+          <input type="hidden" name="as_sitesearch" value="Yihulee.github.io">
+        </form>
+      </header>
+    </div>
+
+<div>
+<div class="post">
+<h1>C++中关于set的自定义排序函数的书写</h1>
+<p>
+大概有两个月没用过C++啦，手都变得很生了，在这里，在这里我想扯一下关于set的比较函数的定义，我想，应该有不少人对这个东西感到头疼吧！
+</p>
+
+<p>
+如果说我想在set里面添加一个自定义的类型，比如说下面的结构体：
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-C++">struct Symbol
+{
+    char name[10];
+};
+</pre>
+</div>
+
+<p>
+我们如果要用set来盛放Symbol，我们应该怎么办么？
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-C++">set&lt;Symbol&gt; gSym;
+</pre>
+</div>
+
+<p>
+如果像上面这么来写的话，或许你的编译能够通过，但是应该插入两个元素之后就会报错：
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-C++">Symbol s1 = {"hi"};
+Symbol s2 = {"girls"};
+gSym.insert(s1);
+gSym.insert(s2);
+</pre>
+</div>
+
+<p>
+你这么干是不行的，C++编译器操蛋的地方在于，它默默地为你干了一些事情，我这里稍微来剖析一下这段代码里，编译器到底为你干了些什么。
+</p>
+
+<p>
+其实set的原型如下：
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-C++">template &lt;class Key,
+	  class Compare = less &lt;key&gt;,
+	  class Alloc = alloc&gt;
+class set {
+...
+};
+</pre>
+</div>
+
+<p>
+模版里面默认的比较函数是less,less函数的定义如下：
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-C++">template &lt;class T&gt;
+struct less : public binary_function&lt;T, T, bool&gt; {
+   bool operator () (const T&amp; x, const T&amp; y)const { return x &lt; y; }
+};
+</pre>
+</div>
+
+<p>
+less函数其实是一个仿函数，你在上面定义 <b>set&lt;Symbol&gt; gSym</b> 的时候，其实编译器默认给你的比较函数是 <b>less&lt;Symbol&gt;</b> ,gSym要插入元素的时候，元素要和set里面的元素进行比较，然而 <b>x &lt; y</b> ，C++并不知道如何比较，x和y是Symbol类型，所以就报错了。
+</p>
+
+<p>
+如何解决呢？给Symbol类型定义一个比较函数即可：
+</p>
+<div class="org-src-container">
+
+<pre class="src src-C++">struct Symbol
+{
+	char name[10];
+
+	bool operator&lt; (const Symbol&amp; r) const
+	{
+		if (strcmp(name, r.name) &lt; 0)
+			return true;
+		else
+			return false;
+	}
+
+};
+</pre>
+</div>
+
+<p>
+好了，修改代码如上面即可。现在你运行代码，应该没问题了。
+</p>
+
+<p>
+好吧，现在你想让set中的元素从大到小排序，怎么办？
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-C++">set&lt;Symbol, greater&lt;Symbol&gt;&gt; gSym;
+</pre>
+</div>
+
+<p>
+然后我们给Symbol定义一个 <b>&gt;</b> 即可。
+</p>
+
+<p>
+当然，你也可以不用greater， less等仿函数，你可以自己定义仿函数，怎么定义呢？仿照上面的less函数即可，去掉泛型。
+</p>
+<div class="org-src-container">
+
+<pre class="src src-C++">#include &lt;iostream&gt;
+#include &lt;set&gt;
+#include &lt;functional&gt;
+using namespace std;
+
+struct Symbol
+{
+	char name[10];
+};
+
+struct SymCmp
+{
+	bool operator () (const Symbol&amp; x, const Symbol&amp; y) const
+	{
+		if (strcmp(x.name, y.name) &lt; 0)
+			return true;
+		else
+			return false;
+	}
+};
+
+
+set&lt;Symbol, SymCmp&gt; gSet;
+
+int main()
+{
+	Symbol s1 = { "hi" };
+	Symbol s2 = { "girls" };
+
+	gSet.insert(s1);
+	gSet.insert(s2);
+	gSet.insert(s1);
+	gSet.insert(s2);
+	gSet.insert(s1);
+
+	system("pause");
+	return 0;
+}
+</pre>
+</div>
+<p>
+好了，我想，我说清楚了，大家详细了解的话，请查看&lt;STL源码剖析&gt;。
+</p>
+
+</div>
+</div>
+    <div>
+      <div class="post-meta">
+        <span title="post date" class="post-info">2016-05-13</span>
+        <span title="last modification date" class="post-info">2016-05-13</span>
+        <span title="tags" class="post-info"><a href="/tags/c++/">C++</a></span>
+        <span title="author" class="post-info">Yihulee</span>
+      </div>
+      <section>
+        <h1>Comments</h1>
+        <div class="ds-thread"></div>
+        <script type="text/javascript">
+          var duoshuoQuery = {short_name:'lishuhuakai'};
+          (function() {
+          var ds = document.createElement('script');
+          ds.type = 'text/javascript';ds.async = true;
+          ds.src = 'http://static.duoshuo.com/embed.js';
+          ds.charset = 'UTF-8';
+          (document.getElementsByTagName('head')[0]
+          || document.getElementsByTagName('body')[0]).appendChild(ds);
+          })();
+        </script>
+      </section>
+      <script src="//code.jquery.com/jquery-latest.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script>
+      <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="/media/js/main.js"></script>
+      <div class="footer">
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.x (<a href="http://orgmode.org">Org mode</a> 8.x)</p>
+        <p>
+          Copyright &copy; 2012 - <span id="footerYear"></span> <a href="mailto:Yihulee &lt;at&gt; gmail &lt;dot&gt; com">Yihulee</a>
+          &nbsp;&nbsp;-&nbsp;&nbsp;
+          Powered by <a href="https://github.com/kelvinh/org-page" target="_blank">org-page</a>
+          <script type="text/javascript">document.getElementById("footerYear").innerHTML = (new Date()).getFullYear();</script>
+        </p>
+      </div>
+    </div>
+
+  </body>
+</html>
