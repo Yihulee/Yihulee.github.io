@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en-us">
   <head>
-    <title>About - Yihulee&#39;s world!</title>
+    <title>关于powerPoint老是崩溃的一种解决方案 - Yihulee&#39;s world!</title>
     <meta charset="utf-8" />
     <meta name="author" content="Yihulee" />
+    <meta name="description" content="修复powerpoint 2013播放时崩溃的现象" />
+    <meta name="keywords" content="powerpoint, crash" />
     <link rel="stylesheet" href="/media/css/main.css" type="text/css">
     <link rel="stylesheet" href="/media/css/prettify.css" type="text/css">
   </head>
@@ -29,36 +31,57 @@
 
 <div>
 <div class="post">
-<h1>About</h1>
-<div id="table-of-contents">
-<h2>Table of Contents</h2>
-<div id="text-table-of-contents">
-<ul>
-<li><a href="#orgheadline1">1. About</a></li>
-</ul>
-</div>
+<h1>关于powerPoint老是崩溃的一种解决方案</h1>
+<p>
+之前powerpoint 2013一播放幻灯片的时候，老是会显示崩溃，我找了半天也没有找到原因。就像下图一样：
+</p>
+<div align=center>
+<img src="http://7xq7hx.com1.z0.glb.clouddn.com/powerpoint_2013_crash.png" alt="The Little Schemer"/>
 </div>
 
-<div id="outline-container-orgheadline1" class="outline-2">
-<h2 id="orgheadline1"><span class="section-number-2">1</span> About</h2>
-<div class="outline-text-2" id="text-1">
 <p>
-年轻的时候总觉得自己不笨，自己能够干出一些不一般的事情出来，还好，这么多年的磨练，我对自己的信心已经遭受到了重创，好吧，过了这么多年，我终于敢于承认了，我就是一个很普通很普通的人，过着很普通很普通的生活。
+这个状态拖了好长一段时间，没办法，后来居然被我发现了原因。
 </p>
 
 <p>
-我这个人也没有多么大的志向，敲好码，读点书，写好博客，守护好家人，平平淡淡会是我的一生。
+一切的罪魁祸首就是powerpoint 2013自己作死。它默认使用了显卡来硬件加速，事实上我的电脑用了将近5年，显卡驱动早就过时了，英伟达的新版驱动和我的硬件八字不和，所以我一直就使用原装的驱动，一切都没有改变。
 </p>
 
 <p>
-其实我是一个没有多么大竞争意识的家伙，我一直感觉这个社会很浮躁，人们总活在别人的期许之中，我身边的人总希望毕业之后去大公司，赚大钱，可是我发现，我没有那么大的渴望。
+所以我没法升级驱动，所以只能禁用加速：
 </p>
+<div align=center>
+<img src="http://7xq7hx.com1.z0.glb.clouddn.com/powerpoint_2013_fix_crash.png" alt="The Little Schemer"/>
 </div>
-</div>
+
+<p>
+你自己在那两个选项里试一下吧，总之我完美解决了。
+</p>
 
 </div>
 </div>
     <div>
+      <div class="post-meta">
+        <span title="post date" class="post-info">2016-05-25</span>
+        <span title="last modification date" class="post-info">2016-05-25</span>
+        <span title="tags" class="post-info"><a href="/tags/技巧/">技巧</a></span>
+        <span title="author" class="post-info">Yihulee</span>
+      </div>
+      <section>
+        <h1>Comments</h1>
+        <div class="ds-thread"></div>
+        <script type="text/javascript">
+          var duoshuoQuery = {short_name:'lishuhuakai'};
+          (function() {
+          var ds = document.createElement('script');
+          ds.type = 'text/javascript';ds.async = true;
+          ds.src = 'http://static.duoshuo.com/embed.js';
+          ds.charset = 'UTF-8';
+          (document.getElementsByTagName('head')[0]
+          || document.getElementsByTagName('body')[0]).appendChild(ds);
+          })();
+        </script>
+      </section>
       <script src="//code.jquery.com/jquery-latest.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script>
       <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
