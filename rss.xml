@@ -4,10 +4,17 @@
     <title>Yihulee&#39;s world!</title>
     <link>http://Yihulee.github.io</link>
     <description>========&gt;易燃又美味！</description>
-    <pubDate>周三, 25 五月 2016 23:57:15 中国标准时间</pubDate>
-    <lastBuildDate>周三, 25 五月 2016 23:57:15 中国标准时间</lastBuildDate>
+    <pubDate>周四, 26 五月 2016 00:05:44 中国标准时间</pubDate>
+    <lastBuildDate>周四, 26 五月 2016 00:05:44 中国标准时间</lastBuildDate>
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>Org-page static site generator (https://github.com/kelvinh/org-page)</generator>
+    <item>
+      <title>谁还记得那个落难的王子呢？</title>
+      <link>http://Yihulee.github.io/blog/2016/05/25/谁还记得那个落难的王子呢？</link>
+      <description><![CDATA[感想]]></description>
+      <pubDate>2016-05-26</pubDate>
+      <guid>http://Yihulee.github.io/blog/2016/05/25/谁还记得那个落难的王子呢？</guid>
+    </item>
     <item>
       <title>由语法糖想到的...</title>
       <link>http://Yihulee.github.io/blog/2016/05/09/a-little-thinking-01</link>
@@ -70,13 +77,6 @@
       <description><![CDATA[解题报告]]></description>
       <pubDate>2016-05-25</pubDate>
       <guid>http://Yihulee.github.io/blog/2016/02/24/programming-language-解题报告</guid>
-    </item>
-    <item>
-      <title>Hi</title>
-      <link>http://Yihulee.github.io/blog/2016/01/30/hi</link>
-      <description><![CDATA[Hello]]></description>
-      <pubDate>2016-05-25</pubDate>
-      <guid>http://Yihulee.github.io/blog/2016/01/30/hi</guid>
     </item>
   </channel>
 </rss>
