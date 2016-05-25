@@ -1,0 +1,30 @@
+#+TITLE:       关于powerPoint老是崩溃的一种解决方案
+#+AUTHOR:      Yihulee
+#+EMAIL:       lishuhuakai@gmail.com
+#+DATE:        2016-05-25 周三
+#+URI:         /blog/%y/%m/%d/关于powerpoint老是崩溃的一种解决方案
+#+KEYWORDS:    powerpoint, crash
+#+TAGS:        技巧
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: 修复powerpoint 2013播放时崩溃的现象
+
+之前powerpoint 2013一播放幻灯片的时候，老是会显示崩溃，我找了半天也没有找到原因。就像下图一样：
+#+BEGIN_HTML
+<div align=center>
+<img src="http://7xq7hx.com1.z0.glb.clouddn.com/powerpoint_2013_crash.png" alt="The Little Schemer"/>
+</div>
+#+END_HTML
+
+这个状态拖了好长一段时间，没办法，后来居然被我发现了原因。
+
+一切的罪魁祸首就是powerpoint 2013自己作死。它默认使用了显卡来硬件加速，事实上我的电脑用了将近5年，显卡驱动早就过时了，英伟达的新版驱动和我的硬件八字不和，所以我一直就使用原装的驱动，一切都没有改变。
+
+所以我没法升级驱动，所以只能禁用加速：
+#+BEGIN_HTML
+<div align=center>
+<img src="http://7xq7hx.com1.z0.glb.clouddn.com/powerpoint_2013_fix_crash.png" alt="The Little Schemer"/>
+</div>
+#+END_HTML
+
+你自己在那两个选项里试一下吧，总之我完美解决了。
