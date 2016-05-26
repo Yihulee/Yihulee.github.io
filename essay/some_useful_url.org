@@ -1,0 +1,16 @@
+#+TITLE:       mark一下值得访问的网站列表
+#+AUTHOR:      Yihulee
+#+EMAIL:       lishuhuakai@gmail.com
+#+DATE:        2016-05-26 周四
+#+URI:         /blog/%y/%m/%d/mark一下值得访问的网站列表
+#+KEYWORDS:    url
+#+TAGS:        无题
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: ^^^^^
+
+| 标题         | 网址                             |
+|              | <c>                              |
+| 当然我在扯淡 | [[http://www.yinwang.org]]           |
+| 叶卢庆的博客 | [[http://blogmath.org/][http://blogmath.org/]]             |
+| 辛星教程     | [[http://www.xinxingjiaocheng.com/][http://www.xinxingjiaocheng.com/]] |                
