@@ -148,7 +148,7 @@ $ git fetch origin master
 $ git branch -r
 origin/master
 $ git branch -a
-* master
+\* master
   remotes/origin/master
 #+END_SRC
 
