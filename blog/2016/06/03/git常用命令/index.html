@@ -41,6 +41,7 @@
 <li><a href="#orgheadline3">git fetch</a></li>
 <li><a href="#orgheadline4">git pull</a></li>
 <li><a href="#orgheadline5">git push</a></li>
+<li><a href="#orgheadline6">git branch</a></li>
 </ul>
 </div>
 </div>
@@ -584,6 +585,69 @@ $ git fetch -p
 <div class="org-src-container">
 
 <pre class="src src-shell">$ git push origin --tags
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline6" class="outline-2">
+<h2 id="orgheadline6">git branch</h2>
+<div class="outline-text-2" id="text-orgheadline6">
+<p>
+比较常用的 <b>git branch</b> 命令应该是删除分支吧！
+</p>
+
+<p>
+假设我们已经建立了一个分支。
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-shell">$ git checkout -b dev
+Switched to a new branch 'dev'
+</pre>
+</div>
+
+<p>
+<b>git checkout</b> 命令加上-b参数表示创建并切换，相当于以下两条命令：
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-shell">$ git branch dev
+$ git checkout dev
+Switched to branch 'dev'
+</pre>
+</div>
+
+<p>
+然后，用git branch命令查看当前分支：
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-shell">$ git branch
+ *dev
+  master
+</pre>
+</div>
+
+<p>
+<b>git branch</b> 命令会列出所有分支，当前分支前面会标一个*号。
+</p>
+
+<p>
+然后，我们就可以在dev分支上做我们的操作了！
+</p>
+
+<p>
+然后我们删除这个分支。
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-shell">$ git branch -d dev
+Deleted branch dev (was fec145a).
 </pre>
 </div>
 </div>
