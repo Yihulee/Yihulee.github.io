@@ -39,9 +39,8 @@
 <li><a href="#orgheadline1">git clone</a></li>
 <li><a href="#orgheadline2">git remote</a></li>
 <li><a href="#orgheadline3">git fetch</a></li>
-<li><a href="#orgheadline4">master</a></li>
-<li><a href="#orgheadline5">git pull</a></li>
-<li><a href="#orgheadline6">git push</a></li>
+<li><a href="#orgheadline4">git pull</a></li>
+<li><a href="#orgheadline5">git push</a></li>
 </ul>
 </div>
 </div>
@@ -274,21 +273,15 @@ jQuery
 <b>git branch</b> 命令的 <b>-r</b> 选项，可以用来查看远程分支，*-a* 选项查看所有分支。
 </p>
 
-<p>
-#+BEGIN_SRC shell
-$ git branch -r
+<div class="org-src-container">
+
+<pre class="src src-shell">$ git branch -r
 origin/master
 $ git branch -a
-</p>
-</div>
-</div>
-<div id="outline-container-orgheadline4" class="outline-2">
-<h2 id="orgheadline4">master</h2>
-<div class="outline-text-2" id="text-orgheadline4">
-<p>
+\* master
   remotes/origin/master
-#+END_SRC
-</p>
+</pre>
+</div>
 
 <p>
 上面命令表示，本地主机的当前分支是master，远程分支是origin/master。
@@ -326,9 +319,9 @@ $ git checkout -b newBrach origin/master
 </div>
 </div>
 
-<div id="outline-container-orgheadline5" class="outline-2">
-<h2 id="orgheadline5">git pull</h2>
-<div class="outline-text-2" id="text-orgheadline5">
+<div id="outline-container-orgheadline4" class="outline-2">
+<h2 id="orgheadline4">git pull</h2>
+<div class="outline-text-2" id="text-orgheadline4">
 <p>
 <b>git pull</b> 命令的作用是，取回远程主机某个分支的更新，再与本地的指定分支合并。它的完整格式稍稍有点复杂。
 </p>
@@ -441,9 +434,9 @@ $ git fetch -p
 </div>
 </div>
 
-<div id="outline-container-orgheadline6" class="outline-2">
-<h2 id="orgheadline6">git push</h2>
-<div class="outline-text-2" id="text-orgheadline6">
+<div id="outline-container-orgheadline5" class="outline-2">
+<h2 id="orgheadline5">git push</h2>
+<div class="outline-text-2" id="text-orgheadline5">
 <p>
 <b>git push</b> 命令用于将本地分支的更新，推送到远程主机。它的格式与git pull命令相仿。
 </p>
