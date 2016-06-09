@@ -374,6 +374,14 @@ Deleted branch dev (was fec145a).
 #+END_SRC
 
 
+* git的撤销命令
+将你的head指针指向之前的一个提交，并且丢弃从那个提交之后的提交。
+#+BEGIN_SRC shell
+git reset --hard <commit>
+#+END_SRC
+这里的<commit>指的是提交的标志，你可以通过 *git log* 命令来查看。
+
+
 * 一些冷门但是很有用的git用法
 
 ** 创建一个空的分支
@@ -417,3 +425,4 @@ git commit -am "new branch for documentation"
 #+BEGIN_SRC shell
 git branch -a
 #+END_SRC
+
