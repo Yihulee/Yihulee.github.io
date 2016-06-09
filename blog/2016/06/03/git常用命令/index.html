@@ -46,9 +46,10 @@
 </ul>
 </li>
 <li><a href="#orgheadline7">2. git的分支命令(branch)</a></li>
-<li><a href="#orgheadline14">3. 一些冷门但是很有用的git用法</a>
+<li><a href="#orgheadline8">3. git的撤销命令</a></li>
+<li><a href="#orgheadline15">4. 一些冷门但是很有用的git用法</a>
 <ul>
-<li><a href="#orgheadline13">3.1. 创建一个空的分支</a></li>
+<li><a href="#orgheadline14">4.1. 创建一个空的分支</a></li>
 </ul>
 </li>
 </ul>
@@ -670,18 +671,36 @@ Deleted branch dev (was fec145a).
 </div>
 
 
-<div id="outline-container-orgheadline14" class="outline-2">
-<h2 id="orgheadline14"><span class="section-number-2">3</span> 一些冷门但是很有用的git用法</h2>
+<div id="outline-container-orgheadline8" class="outline-2">
+<h2 id="orgheadline8"><span class="section-number-2">3</span> git的撤销命令</h2>
 <div class="outline-text-2" id="text-3">
-</div><div id="outline-container-orgheadline13" class="outline-3">
-<h3 id="orgheadline13"><span class="section-number-3">3.1</span> 创建一个空的分支</h3>
-<div class="outline-text-3" id="text-3-1">
+<p>
+将你的head指针指向之前的一个提交，并且丢弃从那个提交之后的提交。<br  />
+</p>
+<div class="org-src-container">
+
+<pre class="src src-shell">git reset --hard &lt;commit&gt;
+</pre>
+</div>
+<p>
+这里的&lt;commit&gt;指的是提交的标志，你可以通过 <b>git log</b> 命令来查看。<br  />
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-orgheadline15" class="outline-2">
+<h2 id="orgheadline15"><span class="section-number-2">4</span> 一些冷门但是很有用的git用法</h2>
+<div class="outline-text-2" id="text-4">
+</div><div id="outline-container-orgheadline14" class="outline-3">
+<h3 id="orgheadline14"><span class="section-number-3">4.1</span> 创建一个空的分支</h3>
+<div class="outline-text-3" id="text-4-1">
 <p>
 本段内容来自<a href="https://segmentfault.com/a/1190000004931751"><a href="https://segmentfault.com/a/1190000004931751">https://segmentfault.com/a/1190000004931751</a></a><br  />
 </p>
 </div>
 
-<ol class="org-ol"><li><a id="orgheadline8"></a>问题描述<br  /><div class="outline-text-4" id="text-3-1-1">
+<ol class="org-ol"><li><a id="orgheadline9"></a>问题描述<br  /><div class="outline-text-4" id="text-4-1-1">
 <p>
 有时候我们需要在GIT里面创建一个空分支，该分支不继承任何提交，没有父节点，完全是一个干净的分支，例如我们需要在某个分支里存放项目文档。<br  />
 </p>
@@ -691,7 +710,7 @@ Deleted branch dev (was fec145a).
 </p>
 </div></li>
 
-<li><a id="orgheadline12"></a>解决方法<br  /><ol class="org-ol"><li><a id="orgheadline9"></a>创建分支<br  /><div class="outline-text-5" id="text-3-1-2-1">
+<li><a id="orgheadline13"></a>解决方法<br  /><ol class="org-ol"><li><a id="orgheadline10"></a>创建分支<br  /><div class="outline-text-5" id="text-4-1-2-1">
 <p>
 使用 <b>git checkout</b> 的 <b>&#x2013;orphan</b> 参数:<br  />
 </p>
@@ -718,7 +737,7 @@ Create a new orphan branch, named &lt;new<sub>branch</sub>&gt;, started from &lt
 </p>
 </div></li>
 
-<li><a id="orgheadline10"></a>删除所有内容<br  /><div class="outline-text-5" id="text-3-1-2-2">
+<li><a id="orgheadline11"></a>删除所有内容<br  /><div class="outline-text-5" id="text-4-1-2-2">
 <p>
 我们不想提交任何内容，所以我们需要把当前内容全部删除，用 <b>git</b> 命令：<br  />
 </p>
@@ -729,7 +748,7 @@ Create a new orphan branch, named &lt;new<sub>branch</sub>&gt;, started from &lt
 </div>
 </div></li>
 
-<li><a id="orgheadline11"></a>提交分支<br  /><div class="outline-text-5" id="text-3-1-2-3">
+<li><a id="orgheadline12"></a>提交分支<br  /><div class="outline-text-5" id="text-4-1-2-3">
 <p>
 使用 <b>commit</b> 命令来提交分支:<br  />
 </p>
