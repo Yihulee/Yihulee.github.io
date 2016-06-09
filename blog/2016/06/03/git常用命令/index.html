@@ -36,15 +36,28 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgheadline1">git clone</a></li>
-<li><a href="#orgheadline2">git remote</a></li>
-<li><a href="#orgheadline3">git fetch</a></li>
-<li><a href="#orgheadline4">git pull</a></li>
-<li><a href="#orgheadline5">git push</a></li>
-<li><a href="#orgheadline6">git branch</a></li>
+<li><a href="#orgheadline1">git 远程操作详解</a>
+<ul>
+<li><a href="#orgheadline2">git clone</a></li>
+<li><a href="#orgheadline3">git remote</a></li>
+<li><a href="#orgheadline4">git fetch</a></li>
+<li><a href="#orgheadline5">git pull</a></li>
+<li><a href="#orgheadline6">git push</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline7">git的分支命令(branch)</a></li>
+<li><a href="#orgheadline14">一些冷门但是很有用的git用法</a>
+<ul>
+<li><a href="#orgheadline8">创建一个空的分支</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
+
+<div id="outline-container-orgheadline1" class="outline-2">
+<h2 id="orgheadline1">git 远程操作详解</h2>
+<div class="outline-text-2" id="text-orgheadline1">
 <p>
 本文很大程度上取自<a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html">Git远程操作详解</a>, 做了一部分的修改！
 </p>
@@ -68,10 +81,11 @@ Git有很多优势，其中之一就是远程操作非常简便。本文详细�
 <p>
 本文针对初级用户，从最简单的讲起，但是需要读者对Git的基本用法有所了解。同时，本文覆盖了上面5个命令的几乎所有的常用用法，所以对于熟练用户也有参考价值。
 </p>
+</div>
 
-<div id="outline-container-orgheadline1" class="outline-2">
-<h2 id="orgheadline1">git clone</h2>
-<div class="outline-text-2" id="text-orgheadline1">
+<div id="outline-container-orgheadline2" class="outline-3">
+<h3 id="orgheadline2">git clone</h3>
+<div class="outline-text-3" id="text-orgheadline2">
 <p>
 远程操作的第一步，通常是从远程主机克隆一个版本库，这时就要用到 <b>git clone</b> 命令。
 </p>
@@ -134,9 +148,9 @@ SSH协议还有另一种写法。
 </div>
 </div>
 
-<div id="outline-container-orgheadline2" class="outline-2">
-<h2 id="orgheadline2">git remote</h2>
-<div class="outline-text-2" id="text-orgheadline2">
+<div id="outline-container-orgheadline3" class="outline-3">
+<h3 id="orgheadline3">git remote</h3>
+<div class="outline-text-3" id="text-orgheadline3">
 <p>
 为了便于管理，Git要求每个远程主机都必须指定一个主机名。*git remote* 命令就用于管理主机名。
 </p>
@@ -225,9 +239,9 @@ jQuery
 </div>
 </div>
 
-<div id="outline-container-orgheadline3" class="outline-2">
-<h2 id="orgheadline3">git fetch</h2>
-<div class="outline-text-2" id="text-orgheadline3">
+<div id="outline-container-orgheadline4" class="outline-3">
+<h3 id="orgheadline4">git fetch</h3>
+<div class="outline-text-3" id="text-orgheadline4">
 <p>
 一旦远程主机的版本库有了更新（Git术语叫做commit），需要将这些更新取回本地，这时就要用到 <b>git fetch</b> 命令。
 </p>
@@ -328,9 +342,9 @@ $ git branch -a
 </div>
 </div>
 
-<div id="outline-container-orgheadline4" class="outline-2">
-<h2 id="orgheadline4">git pull</h2>
-<div class="outline-text-2" id="text-orgheadline4">
+<div id="outline-container-orgheadline5" class="outline-3">
+<h3 id="orgheadline5">git pull</h3>
+<div class="outline-text-3" id="text-orgheadline5">
 <p>
 <b>git pull</b> 命令的作用是，取回远程主机某个分支的更新，再与本地的指定分支合并。它的完整格式稍稍有点复杂。
 </p>
@@ -443,9 +457,9 @@ $ git fetch -p
 </div>
 </div>
 
-<div id="outline-container-orgheadline5" class="outline-2">
-<h2 id="orgheadline5">git push</h2>
-<div class="outline-text-2" id="text-orgheadline5">
+<div id="outline-container-orgheadline6" class="outline-3">
+<h3 id="orgheadline6">git push</h3>
+<div class="outline-text-3" id="text-orgheadline6">
 <p>
 <b>git push</b> 命令用于将本地分支的更新，推送到远程主机。它的格式与git pull命令相仿。
 </p>
@@ -589,10 +603,12 @@ $ git fetch -p
 </div>
 </div>
 </div>
+</div>
 
-<div id="outline-container-orgheadline6" class="outline-2">
-<h2 id="orgheadline6">git branch</h2>
-<div class="outline-text-2" id="text-orgheadline6">
+
+<div id="outline-container-orgheadline7" class="outline-2">
+<h2 id="orgheadline7">git的分支命令(branch)</h2>
+<div class="outline-text-2" id="text-orgheadline7">
 <p>
 比较常用的 <b>git branch</b> 命令应该是删除分支吧！
 </p>
@@ -653,12 +669,97 @@ Deleted branch dev (was fec145a).
 </div>
 </div>
 
+
+<div id="outline-container-orgheadline14" class="outline-2">
+<h2 id="orgheadline14">一些冷门但是很有用的git用法</h2>
+<div class="outline-text-2" id="text-orgheadline14">
+</div><div id="outline-container-orgheadline8" class="outline-3">
+<h3 id="orgheadline8">创建一个空的分支</h3>
+<div class="outline-text-3" id="text-orgheadline8">
+<p>
+本段内容来自<a href="https://segmentfault.com/a/1190000004931751"><a href="https://segmentfault.com/a/1190000004931751">https://segmentfault.com/a/1190000004931751</a></a>
+</p>
+</div>
+
+<ul class="org-ul"><li><a id="orgheadline9"></a>问题描述<br  /><div class="outline-text-4" id="text-orgheadline9">
+<p>
+有时候我们需要在GIT里面创建一个空分支，该分支不继承任何提交，没有父节点，完全是一个干净的分支，例如我们需要在某个分支里存放项目文档。
+</p>
+
+<p>
+使用传统的*git checkout*命令创建的分支是有父节点的，意味着新*branch*包含了历史提交，所以我们无法直接使用该命令。
+</p>
+</div></li>
+
+<li><a id="orgheadline13"></a>解决方法<br  /><ul class="org-ul"><li><a id="orgheadline10"></a>创建分支<br  /><div class="outline-text-5" id="text-orgheadline10">
+<p>
+使用 <b>git checkout*的</b>--orphan*参数:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-shell">git checkout --orphan doc
+</pre>
+</div>
+<p>
+该命令会创建一个名为*doc*的分支，并且该分支下有前一个分支下的所有文件。
+</p>
+
+<p>
+查看*--orphan*的帮助：
+</p>
+<blockquote>
+<p>
+Create a new orphan branch, named &lt;new_branch&gt;, started from &lt;start point&gt; and switch to it. The first commit made on the new branch will have no parents and it will be the root of a new history totally disconnected from all the other branchs and commits.
+</p>
+</blockquote>
+
+<p>
+这里的*start point*指的是你执行*git checkout*命令时的那个分支，当然新的分支不会指向任何以前的提交，就是它没有历史，如果你提交当前内容，那么这次提交就是这个分支的首次提交。
+</p>
+</div></li>
+
+<li><a id="orgheadline11"></a>删除所有内容<br  /><div class="outline-text-5" id="text-orgheadline11">
+<p>
+我们不想提交任何内容，所以我们需要把当前内容全部删除，用*git*命令：
+</p>
+<div class="org-src-container">
+
+<pre class="src src-shell">git rm -rf .
+</pre>
+</div>
+</div></li>
+
+<li><a id="orgheadline12"></a>提交分支<br  /><div class="outline-text-5" id="text-orgheadline12">
+<p>
+使用*commit*命令来提交分支:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-shell">git commit -am "new branch for documentation"
+</pre>
+</div>
+<p>
+如果没有任何文件提交的话，分支是看不到的，可以创建一个新文件后再次提交则新创建的*branch*就会显示出来。
+</p>
+
+<p>
+使用*branch*来查看分支是否创建成功:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-shell">git branch -a
+</pre>
+</div>
+</div></li></ul></li></ul>
+</div>
+</div>
+
 </div>
 </div>
     <div>
       <div class="post-meta">
         <span title="post date" class="post-info">2016-06-03</span>
-        <span title="last modification date" class="post-info">2016-06-03</span>
+        <span title="last modification date" class="post-info">2016-06-09</span>
         <span title="tags" class="post-info"><a href="/tags/技巧/">技巧</a></span>
         <span title="author" class="post-info">Yihulee</span>
       </div>
