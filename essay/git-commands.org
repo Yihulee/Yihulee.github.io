@@ -6,7 +6,7 @@
 #+KEYWORDS:    git
 #+TAGS:        技巧
 #+LANGUAGE:    en
-#+OPTIONS:     H:2 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+OPTIONS:     H:2 num:t toc:t \n:nil ::t |:t ^:nil -:nil f:t *:nil <:t
 #+DESCRIPTION: 我在扯淡！
 
 * git 远程操作详解
@@ -383,37 +383,37 @@ Deleted branch dev (was fec145a).
 
 有时候我们需要在GIT里面创建一个空分支，该分支不继承任何提交，没有父节点，完全是一个干净的分支，例如我们需要在某个分支里存放项目文档。
 
-使用传统的*git checkout*命令创建的分支是有父节点的，意味着新*branch*包含了历史提交，所以我们无法直接使用该命令。
+使用传统的 *git checkout* 命令创建的分支是有父节点的，意味着新 *branch* 包含了历史提交，所以我们无法直接使用该命令。
 
 *** 解决方法
 **** 创建分支
-使用 *git checkout*的*--orphan*参数:
+使用 *git checkout* 的 *--orphan* 参数:
 #+BEGIN_SRC shell
 git checkout --orphan doc
 #+END_SRC
-该命令会创建一个名为*doc*的分支，并且该分支下有前一个分支下的所有文件。
+该命令会创建一个名为 *doc* 的分支，并且该分支下有前一个分支下的所有文件。
 
-查看*--orphan*的帮助：
+查看 *--orphan* 的帮助：
 #+BEGIN_QUOTE
 Create a new orphan branch, named <new_branch>, started from <start point> and switch to it. The first commit made on the new branch will have no parents and it will be the root of a new history totally disconnected from all the other branchs and commits.
 #+END_QUOTE
 
-这里的*start point*指的是你执行*git checkout*命令时的那个分支，当然新的分支不会指向任何以前的提交，就是它没有历史，如果你提交当前内容，那么这次提交就是这个分支的首次提交。
+这里的 *start point* 指的是你执行 *git checkout* 命令时的那个分支，当然新的分支不会指向任何以前的提交，就是它没有历史，如果你提交当前内容，那么这次提交就是这个分支的首次提交。
 
 **** 删除所有内容
-我们不想提交任何内容，所以我们需要把当前内容全部删除，用*git*命令：
+我们不想提交任何内容，所以我们需要把当前内容全部删除，用 *git* 命令：
 #+BEGIN_SRC shell
 git rm -rf .
 #+END_SRC
 
 **** 提交分支
-使用*commit*命令来提交分支:
+使用 *commit* 命令来提交分支:
 #+BEGIN_SRC shell
 git commit -am "new branch for documentation"
 #+END_SRC
-如果没有任何文件提交的话，分支是看不到的，可以创建一个新文件后再次提交则新创建的*branch*就会显示出来。
+如果没有任何文件提交的话，分支是看不到的，可以创建一个新文件后再次提交则新创建的 *branch* 就会显示出来。
 
-使用*branch*来查看分支是否创建成功:
+使用 *branch* 来查看分支是否创建成功:
 #+BEGIN_SRC shell
 git branch -a
 #+END_SRC
