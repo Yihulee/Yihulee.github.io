@@ -6,8 +6,10 @@
 #+KEYWORDS:    git
 #+TAGS:        技巧
 #+LANGUAGE:    en
-#+OPTIONS:     H:3 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+OPTIONS:     H:2 num:nil toc:t \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
 #+DESCRIPTION: 我在扯淡！
+
+* git 远程操作详解
 本文很大程度上取自[[http://www.ruanyifeng.com/blog/2014/06/git_remote.html][Git远程操作详解]], 做了一部分的修改！
 
 Git是目前最流行的版本管理系统，学会Git几乎成了开发者的必备技能。
@@ -22,7 +24,7 @@ Git有很多优势，其中之一就是远程操作非常简便。本文详细�
 
 本文针对初级用户，从最简单的讲起，但是需要读者对Git的基本用法有所了解。同时，本文覆盖了上面5个命令的几乎所有的常用用法，所以对于熟练用户也有参考价值。
 
-* git clone
+** git clone
 
 远程操作的第一步，通常是从远程主机克隆一个版本库，这时就要用到 *git clone* 命令。
 
@@ -62,7 +64,7 @@ $ git clone [user@]example.com:path/to/repo.git/
 
 通常来说，Git协议下载速度最快，SSH协议用于需要用户认证的场合。各种协议优劣的详细讨论请参考官方文档。
 
-* git remote
+** git remote
 
 为了便于管理，Git要求每个远程主机都必须指定一个主机名。*git remote* 命令就用于管理主机名。
 
@@ -116,7 +118,7 @@ $ git remote rm <主机名>
 $ git remote rename <原主机名> <新主机名>
 #+END_SRC
 
-* git fetch
+** git fetch
 
 一旦远程主机的版本库有了更新（Git术语叫做commit），需要将这些更新取回本地，这时就要用到 *git fetch* 命令。
 
@@ -176,7 +178,7 @@ $ git rebase origin/master
 
 上面命令表示在当前分支上，合并origin/master。
 
-* git pull
+** git pull
 
 *git pull* 命令的作用是，取回远程主机某个分支的更新，再与本地的指定分支合并。它的完整格式稍稍有点复杂。
 
@@ -246,7 +248,7 @@ $ git fetch --prune origin
 $ git fetch -p
 #+END_SRC
 
-* git push
+** git push
 
 *git push* 命令用于将本地分支的更新，推送到远程主机。它的格式与git pull命令相仿。
 
@@ -332,7 +334,8 @@ $ git push --force origin
 $ git push origin --tags
 #+END_SRC
 
-* git branch
+
+* git的分支命令(branch)
 
 比较常用的 *git branch* 命令应该是删除分支吧！
 
@@ -370,3 +373,47 @@ $ git branch -d dev
 Deleted branch dev (was fec145a).
 #+END_SRC
 
+
+* 一些冷门但是很有用的git用法
+
+** 创建一个空的分支
+本段内容来自[[https://segmentfault.com/a/1190000004931751][https://segmentfault.com/a/1190000004931751]]
+
+*** 问题描述
+
+有时候我们需要在GIT里面创建一个空分支，该分支不继承任何提交，没有父节点，完全是一个干净的分支，例如我们需要在某个分支里存放项目文档。
+
+使用传统的*git checkout*命令创建的分支是有父节点的，意味着新*branch*包含了历史提交，所以我们无法直接使用该命令。
+
+*** 解决方法
+**** 创建分支
+使用 *git checkout*的*--orphan*参数:
+#+BEGIN_SRC shell
+git checkout --orphan doc
+#+END_SRC
+该命令会创建一个名为*doc*的分支，并且该分支下有前一个分支下的所有文件。
+
+查看*--orphan*的帮助：
+#+BEGIN_QUOTE
+Create a new orphan branch, named <new_branch>, started from <start point> and switch to it. The first commit made on the new branch will have no parents and it will be the root of a new history totally disconnected from all the other branchs and commits.
+#+END_QUOTE
+
+这里的*start point*指的是你执行*git checkout*命令时的那个分支，当然新的分支不会指向任何以前的提交，就是它没有历史，如果你提交当前内容，那么这次提交就是这个分支的首次提交。
+
+**** 删除所有内容
+我们不想提交任何内容，所以我们需要把当前内容全部删除，用*git*命令：
+#+BEGIN_SRC shell
+git rm -rf .
+#+END_SRC
+
+**** 提交分支
+使用*commit*命令来提交分支:
+#+BEGIN_SRC shell
+git commit -am "new branch for documentation"
+#+END_SRC
+如果没有任何文件提交的话，分支是看不到的，可以创建一个新文件后再次提交则新创建的*branch*就会显示出来。
+
+使用*branch*来查看分支是否创建成功:
+#+BEGIN_SRC shell
+git branch -a
+#+END_SRC
