@@ -59,27 +59,27 @@
 <h2 id="orgheadline6"><span class="section-number-2">1</span> git 远程操作详解</h2>
 <div class="outline-text-2" id="text-1">
 <p>
-本文很大程度上取自<a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html">Git远程操作详解</a>, 做了一部分的修改！
+本文很大程度上取自<a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html">Git远程操作详解</a>, 做了一部分的修改！<br  />
 </p>
 
 <p>
-Git是目前最流行的版本管理系统，学会Git几乎成了开发者的必备技能。
+Git是目前最流行的版本管理系统，学会Git几乎成了开发者的必备技能。<br  />
 </p>
 
 <p>
-Git有很多优势，其中之一就是远程操作非常简便。本文详细介绍5个Git命令，它们的概念和用法，理解了这些内容，你就会完全掌握Git远程操作。
+Git有很多优势，其中之一就是远程操作非常简便。本文详细介绍5个Git命令，它们的概念和用法，理解了这些内容，你就会完全掌握Git远程操作。<br  />
 </p>
 
 <ul class="org-ul">
-<li>git clone</li>
-<li>git remote</li>
-<li>git fetch</li>
-<li>git pull</li>
-<li>git push</li>
+<li>git clone<br  /></li>
+<li>git remote<br  /></li>
+<li>git fetch<br  /></li>
+<li>git pull<br  /></li>
+<li>git push<br  /></li>
 </ul>
 
 <p>
-本文针对初级用户，从最简单的讲起，但是需要读者对Git的基本用法有所了解。同时，本文覆盖了上面5个命令的几乎所有的常用用法，所以对于熟练用户也有参考价值。
+本文针对初级用户，从最简单的讲起，但是需要读者对Git的基本用法有所了解。同时，本文覆盖了上面5个命令的几乎所有的常用用法，所以对于熟练用户也有参考价值。<br  />
 </p>
 </div>
 
@@ -87,7 +87,7 @@ Git有很多优势，其中之一就是远程操作非常简便。本文详细�
 <h3 id="orgheadline1"><span class="section-number-3">1.1</span> git clone</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
-远程操作的第一步，通常是从远程主机克隆一个版本库，这时就要用到 *git clone* 命令。
+远程操作的第一步，通常是从远程主机克隆一个版本库，这时就要用到 <b>git clone</b> 命令。<br  />
 </p>
 
 <div class="org-src-container">
@@ -97,7 +97,7 @@ Git有很多优势，其中之一就是远程操作非常简便。本文详细�
 </div>
 
 <p>
-比如，克隆jQuery的版本库。
+比如，克隆jQuery的版本库。<br  />
 </p>
 
 <div class="org-src-container">
@@ -107,7 +107,7 @@ Git有很多优势，其中之一就是远程操作非常简便。本文详细�
 </div>
 
 <p>
-该命令会在本地主机生成一个目录，与远程主机的版本库同名。如果要指定不同的目录名，可以将目录名作为git clone命令的第二个参数。
+该命令会在本地主机生成一个目录，与远程主机的版本库同名。如果要指定不同的目录名，可以将目录名作为git clone命令的第二个参数。<br  />
 </p>
 
 <div class="org-src-container">
@@ -117,7 +117,7 @@ Git有很多优势，其中之一就是远程操作非常简便。本文详细�
 </div>
 
 <p>
-*git clone* 支持多种协议，除了HTTP(s)以外，还支持SSH、Git、本地文件协议等，下面是一些例子。
+<b>git clone</b> 支持多种协议，除了HTTP(s)以外，还支持SSH、Git、本地文件协议等，下面是一些例子。<br  />
 </p>
 
 <div class="org-src-container">
@@ -133,7 +133,7 @@ $ git clone rsync://example.com/path/to/repo.git/
 </div>
 
 <p>
-SSH协议还有另一种写法。
+SSH协议还有另一种写法。<br  />
 </p>
 
 <div class="org-src-container">
@@ -143,7 +143,7 @@ SSH协议还有另一种写法。
 </div>
 
 <p>
-通常来说，Git协议下载速度最快，SSH协议用于需要用户认证的场合。各种协议优劣的详细讨论请参考官方文档。
+通常来说，Git协议下载速度最快，SSH协议用于需要用户认证的场合。各种协议优劣的详细讨论请参考官方文档。<br  />
 </p>
 </div>
 </div>
@@ -152,11 +152,11 @@ SSH协议还有另一种写法。
 <h3 id="orgheadline2"><span class="section-number-3">1.2</span> git remote</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
-为了便于管理，Git要求每个远程主机都必须指定一个主机名。*git remote* 命令就用于管理主机名。
+为了便于管理，Git要求每个远程主机都必须指定一个主机名。*git remote* 命令就用于管理主机名。<br  />
 </p>
 
 <p>
-不带选项的时候，*git remote* 命令列出所有远程主机。
+不带选项的时候，*git remote* 命令列出所有远程主机。<br  />
 </p>
 
 <div class="org-src-container">
@@ -167,7 +167,7 @@ origin
 </div>
 
 <p>
-使用 *-v* 选项，可以参看远程主机的网址。
+使用 <b>-v</b> 选项，可以参看远程主机的网址。<br  />
 </p>
 
 <div class="org-src-container">
@@ -178,11 +178,11 @@ origin  git@github.com:jquery/jquery.git (push)
 </pre>
 </div>
 <p>
-上面命令表示，当前只有一台远程主机，叫做origin，以及它的网址。
+上面命令表示，当前只有一台远程主机，叫做origin，以及它的网址。<br  />
 </p>
 
 <p>
-克隆版本库的时候，所使用的远程主机自动被Git命名为origin。如果想用其他的主机名，需要用 ** -ogit clone* 命令的 *选项指定。
+克隆版本库的时候，所使用的远程主机自动被Git命名为origin。如果想用其他的主机名，需要用 <b>git clone</b> 命令的 <b>-o</b> 选项指定。<br  />
 </p>
 
 <div class="org-src-container">
@@ -194,11 +194,11 @@ jQuery
 </div>
 
 <p>
-上面命令表示，克隆的时候，指定远程主机叫做jQuery。
+上面命令表示，克隆的时候，指定远程主机叫做jQuery。<br  />
 </p>
 
 <p>
-*git remote show* 命令加上主机名，可以查看该主机的详细信息。
+<b>git remote show</b> 命令加上主机名，可以查看该主机的详细信息。<br  />
 </p>
 
 <div class="org-src-container">
@@ -208,7 +208,7 @@ jQuery
 </div>
 
 <p>
-*git remote add* 命令用于添加远程主机。
+<b>git remote add</b> 命令用于添加远程主机。<br  />
 </p>
 
 <div class="org-src-container">
@@ -218,7 +218,7 @@ jQuery
 </div>
 
 <p>
-*git remote rm* 命令用于删除远程主机。
+<b>git remote rm</b> 命令用于删除远程主机。<br  />
 </p>
 
 <div class="org-src-container">
@@ -228,7 +228,7 @@ jQuery
 </div>
 
 <p>
-*git remote rename* 命令用于远程主机的改名。
+<b>git remote rename</b> 命令用于远程主机的改名。<br  />
 </p>
 
 <div class="org-src-container">
@@ -243,7 +243,7 @@ jQuery
 <h3 id="orgheadline3"><span class="section-number-3">1.3</span> git fetch</h3>
 <div class="outline-text-3" id="text-1-3">
 <p>
-一旦远程主机的版本库有了更新（Git术语叫做commit），需要将这些更新取回本地，这时就要用到 *git fetch* 命令。
+一旦远程主机的版本库有了更新（Git术语叫做commit），需要将这些更新取回本地，这时就要用到 <b>git fetch</b> 命令。<br  />
 </p>
 
 <div class="org-src-container">
@@ -253,15 +253,15 @@ jQuery
 </div>
 
 <p>
-上面命令将某个远程主机的更新，全部取回本地。
+上面命令将某个远程主机的更新，全部取回本地。<br  />
 </p>
 
 <p>
-*git fetch* 命令通常用来查看其他人的进程，因为它取回的代码对你本地的开发代码没有影响。
+<b>git fetch</b> 命令通常用来查看其他人的进程，因为它取回的代码对你本地的开发代码没有影响。<br  />
 </p>
 
 <p>
-默认情况下， *git fetch* 取回所有分支（branch）的更新。如果只想取回特定分支的更新，可以指定分支名。
+默认情况下， <b>git fetch</b> 取回所有分支（branch）的更新。如果只想取回特定分支的更新，可以指定分支名。<br  />
 </p>
 
 <div class="org-src-container">
@@ -271,7 +271,7 @@ jQuery
 </div>
 
 <p>
-比如，取回origin主机的master分支。
+比如，取回origin主机的master分支。<br  />
 </p>
 
 <div class="org-src-container">
@@ -281,11 +281,11 @@ jQuery
 </div>
 
 <p>
-所取回的更新，在本地主机上要用"远程主机名/分支名"的形式读取。比如origin主机的master，就要用origin/master读取。
+所取回的更新，在本地主机上要用"远程主机名/分支名"的形式读取。比如origin主机的master，就要用origin/master读取。<br  />
 </p>
 
 <p>
-** -rgit branch* 命令的 *选项，可以用来查看远程分支，*-a* 选项查看所有分支。
+<b>git branch</b> 命令的 <b>-r</b> 选项，可以用来查看远程分支，*-a* 选项查看所有分支。<br  />
 </p>
 
 <div class="org-src-container">
@@ -299,11 +299,11 @@ $ git branch -a
 </div>
 
 <p>
-上面命令表示，本地主机的当前分支是master，远程分支是origin/master。
+上面命令表示，本地主机的当前分支是master，远程分支是origin/master。<br  />
 </p>
 
 <p>
-取回远程主机的更新以后，可以在它的基础上，使用 *git checkout* 命令创建一个新的分支。
+取回远程主机的更新以后，可以在它的基础上，使用 <b>git checkout</b> 命令创建一个新的分支。<br  />
 </p>
 
 <div class="org-src-container">
@@ -313,11 +313,11 @@ $ git branch -a
 </div>
 
 <p>
-上面命令表示，在origin/master的基础上，创建一个新分支。
+上面命令表示，在origin/master的基础上，创建一个新分支。<br  />
 </p>
 
 <p>
-此外，也可以使用 ** git rebasegit merge* 命令或者 *命令，在本地分支上合并远程分支。
+此外，也可以使用 <b>git merge</b> 命令或者 <b>git rebase</b> 命令，在本地分支上合并远程分支。<br  />
 </p>
 
 <div class="org-src-container">
@@ -327,7 +327,7 @@ $ git branch -a
 </div>
 
 <p>
-或者
+或者<br  />
 </p>
 
 <div class="org-src-container">
@@ -337,7 +337,7 @@ $ git branch -a
 </div>
 
 <p>
-上面命令表示在当前分支上，合并origin/master。
+上面命令表示在当前分支上，合并origin/master。<br  />
 </p>
 </div>
 </div>
@@ -346,7 +346,7 @@ $ git branch -a
 <h3 id="orgheadline4"><span class="section-number-3">1.4</span> git pull</h3>
 <div class="outline-text-3" id="text-1-4">
 <p>
-*git pull* 命令的作用是，取回远程主机某个分支的更新，再与本地的指定分支合并。它的完整格式稍稍有点复杂。
+<b>git pull</b> 命令的作用是，取回远程主机某个分支的更新，再与本地的指定分支合并。它的完整格式稍稍有点复杂。<br  />
 </p>
 
 <div class="org-src-container">
@@ -356,7 +356,7 @@ $ git branch -a
 </div>
 
 <p>
-比如，取回origin主机的next分支，与本地的master分支合并，需要写成下面这样。
+比如，取回origin主机的next分支，与本地的master分支合并，需要写成下面这样。<br  />
 </p>
 
 <div class="org-src-container">
@@ -366,7 +366,7 @@ $ git branch -a
 </div>
 
 <p>
-如果远程分支是与当前分支合并，则冒号后面的部分可以省略。
+如果远程分支是与当前分支合并，则冒号后面的部分可以省略。<br  />
 </p>
 
 <div class="org-src-container">
@@ -376,7 +376,7 @@ $ git branch -a
 </div>
 
 <p>
-上面命令表示，取回origin/next分支，再与当前分支合并。实质上，这等同于先做git fetch，再做git merge。
+上面命令表示，取回origin/next分支，再与当前分支合并。实质上，这等同于先做git fetch，再做git merge。<br  />
 </p>
 
 <div class="org-src-container">
@@ -387,8 +387,8 @@ $ git merge origin/next
 </div>
 
 <p>
-在某些场合，Git会自动在本地分支与远程分支之间，建立一种追踪关系（tracking）。比如，在git clone的时候，所有本地分支默认与远程主机的同名分支，建立追踪关系，也就是说，本地的master分支自动"追踪"origin/master分支。
-Git也允许手动建立追踪关系。
+在某些场合，Git会自动在本地分支与远程分支之间，建立一种追踪关系（tracking）。比如，在git clone的时候，所有本地分支默认与远程主机的同名分支，建立追踪关系，也就是说，本地的master分支自动"追踪"origin/master分支。<br  />
+Git也允许手动建立追踪关系。<br  />
 </p>
 
 <div class="org-src-container">
@@ -398,8 +398,8 @@ Git也允许手动建立追踪关系。
 </div>
 
 <p>
-上面命令指定master分支追踪origin/next分支。
-如果当前分支与远程分支存在追踪关系，git pull就可以省略远程分支名。
+上面命令指定master分支追踪origin/next分支。<br  />
+如果当前分支与远程分支存在追踪关系，git pull就可以省略远程分支名。<br  />
 </p>
 
 <div class="org-src-container">
@@ -409,8 +409,8 @@ Git也允许手动建立追踪关系。
 </div>
 
 <p>
-上面命令表示，本地的当前分支自动与对应的origin主机"追踪分支"（remote-tracking branch）进行合并。
-如果当前分支只有一个追踪分支，连远程主机名都可以省略。
+上面命令表示，本地的当前分支自动与对应的origin主机"追踪分支"（remote-tracking branch）进行合并。<br  />
+如果当前分支只有一个追踪分支，连远程主机名都可以省略。<br  />
 </p>
 
 <div class="org-src-container">
@@ -420,8 +420,8 @@ Git也允许手动建立追踪关系。
 </div>
 
 <p>
-上面命令表示，当前分支自动与唯一一个追踪分支进行合并。
-如果合并需要采用rebase模式，可以使用--rebase选项。
+上面命令表示，当前分支自动与唯一一个追踪分支进行合并。<br  />
+如果合并需要采用rebase模式，可以使用&#x2013;rebase选项。<br  />
 </p>
 
 <div class="org-src-container">
@@ -431,11 +431,11 @@ Git也允许手动建立追踪关系。
 </div>
 
 <p>
-如果远程主机删除了某个分支，默认情况下，git pull 不会在拉取远程分支的时候，删除对应的本地分支。这是为了防止，由于其他人操作了远程主机，导致git pull不知不觉删除了本地分支。
+如果远程主机删除了某个分支，默认情况下，git pull 不会在拉取远程分支的时候，删除对应的本地分支。这是为了防止，由于其他人操作了远程主机，导致git pull不知不觉删除了本地分支。<br  />
 </p>
 
 <p>
-但是，你可以改变这个行为，加上参数 -p 就会在本地删除远程已经删除的分支。
+但是，你可以改变这个行为，加上参数 -p 就会在本地删除远程已经删除的分支。<br  />
 </p>
 
 <div class="org-src-container">
@@ -445,7 +445,7 @@ Git也允许手动建立追踪关系。
 </div>
 
 <p>
-等同于下面的命令
+等同于下面的命令<br  />
 </p>
 
 <div class="org-src-container">
@@ -461,7 +461,7 @@ $ git fetch -p
 <h3 id="orgheadline5"><span class="section-number-3">1.5</span> git push</h3>
 <div class="outline-text-3" id="text-1-5">
 <p>
-*git push* 命令用于将本地分支的更新，推送到远程主机。它的格式与git pull命令相仿。
+<b>git push</b> 命令用于将本地分支的更新，推送到远程主机。它的格式与git pull命令相仿。<br  />
 </p>
 
 <div class="org-src-container">
@@ -471,11 +471,11 @@ $ git fetch -p
 </div>
 
 <p>
-注意，分支推送顺序的写法是&lt;来源地&gt;:&lt;目的地&gt;，所以git pull是&lt;远程分支&gt;:&lt;本地分支&gt;，而git push是&lt;本地分支&gt;:&lt;远程分支&gt;。
+注意，分支推送顺序的写法是&lt;来源地&gt;:&lt;目的地&gt;，所以git pull是&lt;远程分支&gt;:&lt;本地分支&gt;，而git push是&lt;本地分支&gt;:&lt;远程分支&gt;。<br  />
 </p>
 
 <p>
-如果省略远程分支名，则表示将本地分支推送与之存在"追踪关系"的远程分支（通常两者同名），如果该远程分支不存在，则会被新建。
+如果省略远程分支名，则表示将本地分支推送与之存在"追踪关系"的远程分支（通常两者同名），如果该远程分支不存在，则会被新建。<br  />
 </p>
 
 <div class="org-src-container">
@@ -485,8 +485,8 @@ $ git fetch -p
 </div>
 
 <p>
-上面命令表示，将本地的master分支推送到origin主机的master分支。如果后者不存在，则会被新建。
-如果省略本地分支名，则表示删除指定的远程分支，因为这等同于推送一个空的本地分支到远程分支。
+上面命令表示，将本地的master分支推送到origin主机的master分支。如果后者不存在，则会被新建。<br  />
+如果省略本地分支名，则表示删除指定的远程分支，因为这等同于推送一个空的本地分支到远程分支。<br  />
 </p>
 
 <div class="org-src-container">
@@ -496,7 +496,7 @@ $ git fetch -p
 </div>
 
 <p>
-等同于
+等同于<br  />
 </p>
 
 <div class="org-src-container">
@@ -506,8 +506,8 @@ $ git fetch -p
 </div>
 
 <p>
-上面命令表示删除origin主机的master分支。
-如果当前分支与远程分支之间存在追踪关系，则本地分支和远程分支都可以省略。
+上面命令表示删除origin主机的master分支。<br  />
+如果当前分支与远程分支之间存在追踪关系，则本地分支和远程分支都可以省略。<br  />
 </p>
 
 <div class="org-src-container">
@@ -517,11 +517,11 @@ $ git fetch -p
 </div>
 
 <p>
-上面命令表示，将当前分支推送到origin主机的对应分支。
+上面命令表示，将当前分支推送到origin主机的对应分支。<br  />
 </p>
 
 <p>
-如果当前分支只有一个追踪分支，那么主机名都可以省略。
+如果当前分支只有一个追踪分支，那么主机名都可以省略。<br  />
 </p>
 
 <div class="org-src-container">
@@ -531,7 +531,7 @@ $ git fetch -p
 </div>
 
 <p>
-如果当前分支与多个主机存在追踪关系，则可以使用-u选项指定一个默认主机，这样后面就可以不加任何参数使用git push。
+如果当前分支与多个主机存在追踪关系，则可以使用-u选项指定一个默认主机，这样后面就可以不加任何参数使用git push。<br  />
 </p>
 
 <div class="org-src-container">
@@ -541,11 +541,11 @@ $ git fetch -p
 </div>
 
 <p>
-上面命令将本地的master分支推送到origin主机，同时指定origin为默认主机，后面就可以不加任何参数使用git push了。
+上面命令将本地的master分支推送到origin主机，同时指定origin为默认主机，后面就可以不加任何参数使用git push了。<br  />
 </p>
 
 <p>
-不带任何参数的git push，默认只推送当前分支，这叫做simple方式。此外，还有一种matching方式，会推送所有有对应的远程分支的本地分支。Git 2.0版本之前，默认采用matching方法，现在改为默认采用simple方式。如果要修改这个设置，可以采用git config命令。
+不带任何参数的git push，默认只推送当前分支，这叫做simple方式。此外，还有一种matching方式，会推送所有有对应的远程分支的本地分支。Git 2.0版本之前，默认采用matching方法，现在改为默认采用simple方式。如果要修改这个设置，可以采用git config命令。<br  />
 </p>
 
 <div class="org-src-container">
@@ -555,7 +555,7 @@ $ git fetch -p
 </div>
 
 <p>
-或者
+或者<br  />
 </p>
 
 <div class="org-src-container">
@@ -565,7 +565,7 @@ $ git fetch -p
 </div>
 
 <p>
-还有一种情况，就是不管是否存在对应的远程分支，将本地的所有分支都推送到远程主机，这时需要使用--all选项。
+还有一种情况，就是不管是否存在对应的远程分支，将本地的所有分支都推送到远程主机，这时需要使用&#x2013;all选项。<br  />
 </p>
 
 <div class="org-src-container">
@@ -575,11 +575,11 @@ $ git fetch -p
 </div>
 
 <p>
-上面命令表示，将所有本地分支都推送到origin主机。
+上面命令表示，将所有本地分支都推送到origin主机。<br  />
 </p>
 
 <p>
-如果远程主机的版本比本地版本更新，推送时Git会报错，要求先在本地做git pull合并差异，然后再推送到远程主机。这时，如果你一定要推送，可以使用--force选项。
+如果远程主机的版本比本地版本更新，推送时Git会报错，要求先在本地做git pull合并差异，然后再推送到远程主机。这时，如果你一定要推送，可以使用&#x2013;force选项。<br  />
 </p>
 
 <div class="org-src-container">
@@ -589,11 +589,11 @@ $ git fetch -p
 </div>
 
 <p>
-上面命令使用--force选项，结果导致远程主机上更新的版本被覆盖。除非你很确定要这样做，否则应该尽量避免使用--force选项。
+上面命令使用&#x2013;force选项，结果导致远程主机上更新的版本被覆盖。除非你很确定要这样做，否则应该尽量避免使用&#x2013;force选项。<br  />
 </p>
 
 <p>
-最后，*git push* 不会推送标签（tag），除非使用 *--tags* 选项。
+最后，*git push* 不会推送标签（tag），除非使用 <b>&#x2013;tags</b> 选项。<br  />
 </p>
 
 <div class="org-src-container">
@@ -610,11 +610,11 @@ $ git fetch -p
 <h2 id="orgheadline7"><span class="section-number-2">2</span> git的分支命令(branch)</h2>
 <div class="outline-text-2" id="text-2">
 <p>
-比较常用的 *git branch* 命令应该是删除分支吧！
+比较常用的 <b>git branch</b> 命令应该是删除分支吧！<br  />
 </p>
 
 <p>
-假设我们已经建立了一个分支。
+假设我们已经建立了一个分支。<br  />
 </p>
 
 <div class="org-src-container">
@@ -625,7 +625,7 @@ Switched to a new branch 'dev'
 </div>
 
 <p>
-*git checkout* 命令加上-b参数表示创建并切换，相当于以下两条命令：
+<b>git checkout</b> 命令加上-b参数表示创建并切换，相当于以下两条命令：<br  />
 </p>
 
 <div class="org-src-container">
@@ -637,7 +637,7 @@ Switched to branch 'dev'
 </div>
 
 <p>
-然后，用git branch命令查看当前分支：
+然后，用git branch命令查看当前分支：<br  />
 </p>
 
 <div class="org-src-container">
@@ -649,15 +649,15 @@ Switched to branch 'dev'
 </div>
 
 <p>
-*git branch* 命令会列出所有分支，当前分支前面会标一个*号。
+<b>git branch</b> 命令会列出所有分支，当前分支前面会标一个*号。<br  />
 </p>
 
 <p>
-然后，我们就可以在dev分支上做我们的操作了！
+然后，我们就可以在dev分支上做我们的操作了！<br  />
 </p>
 
 <p>
-然后我们删除这个分支。
+然后我们删除这个分支。<br  />
 </p>
 
 <div class="org-src-container">
@@ -677,23 +677,23 @@ Deleted branch dev (was fec145a).
 <h3 id="orgheadline13"><span class="section-number-3">3.1</span> 创建一个空的分支</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
-本段内容来自<a href="https://segmentfault.com/a/1190000004931751"><a href="https://segmentfault.com/a/1190000004931751">https://segmentfault.com/a/1190000004931751</a></a>
+本段内容来自<a href="https://segmentfault.com/a/1190000004931751"><a href="https://segmentfault.com/a/1190000004931751">https://segmentfault.com/a/1190000004931751</a></a><br  />
 </p>
 </div>
 
 <ol class="org-ol"><li><a id="orgheadline8"></a>问题描述<br  /><div class="outline-text-4" id="text-3-1-1">
 <p>
-有时候我们需要在GIT里面创建一个空分支，该分支不继承任何提交，没有父节点，完全是一个干净的分支，例如我们需要在某个分支里存放项目文档。
+有时候我们需要在GIT里面创建一个空分支，该分支不继承任何提交，没有父节点，完全是一个干净的分支，例如我们需要在某个分支里存放项目文档。<br  />
 </p>
 
 <p>
-使用传统的 ** branchgit checkout* 命令创建的分支是有父节点的，意味着新 *包含了历史提交，所以我们无法直接使用该命令。
+使用传统的 <b>git checkout</b> 命令创建的分支是有父节点的，意味着新 <b>branch</b> 包含了历史提交，所以我们无法直接使用该命令。<br  />
 </p>
 </div></li>
 
 <li><a id="orgheadline12"></a>解决方法<br  /><ol class="org-ol"><li><a id="orgheadline9"></a>创建分支<br  /><div class="outline-text-5" id="text-3-1-2-1">
 <p>
-使用 ** --orphangit checkout* 的 *参数:
+使用 <b>git checkout</b> 的 <b>&#x2013;orphan</b> 参数:<br  />
 </p>
 <div class="org-src-container">
 
@@ -701,26 +701,26 @@ Deleted branch dev (was fec145a).
 </pre>
 </div>
 <p>
-该命令会创建一个名为 *doc* 的分支，并且该分支下有前一个分支下的所有文件。
+该命令会创建一个名为 <b>doc</b> 的分支，并且该分支下有前一个分支下的所有文件。<br  />
 </p>
 
 <p>
-查看 *--orphan* 的帮助：
+查看 <b>&#x2013;orphan</b> 的帮助：<br  />
 </p>
 <blockquote>
 <p>
-Create a new orphan branch, named &lt;new_branch&gt;, started from &lt;start point&gt; and switch to it. The first commit made on the new branch will have no parents and it will be the root of a new history totally disconnected from all the other branchs and commits.
+Create a new orphan branch, named &lt;new<sub>branch</sub>&gt;, started from &lt;start point&gt; and switch to it. The first commit made on the new branch will have no parents and it will be the root of a new history totally disconnected from all the other branchs and commits.<br  />
 </p>
 </blockquote>
 
 <p>
-这里的 ** git checkoutstart point* 指的是你执行 *命令时的那个分支，当然新的分支不会指向任何以前的提交，就是它没有历史，如果你提交当前内容，那么这次提交就是这个分支的首次提交。
+这里的 <b>start point</b> 指的是你执行 <b>git checkout</b> 命令时的那个分支，当然新的分支不会指向任何以前的提交，就是它没有历史，如果你提交当前内容，那么这次提交就是这个分支的首次提交。<br  />
 </p>
 </div></li>
 
 <li><a id="orgheadline10"></a>删除所有内容<br  /><div class="outline-text-5" id="text-3-1-2-2">
 <p>
-我们不想提交任何内容，所以我们需要把当前内容全部删除，用 *git* 命令：
+我们不想提交任何内容，所以我们需要把当前内容全部删除，用 <b>git</b> 命令：<br  />
 </p>
 <div class="org-src-container">
 
@@ -731,7 +731,7 @@ Create a new orphan branch, named &lt;new_branch&gt;, started from &lt;start poi
 
 <li><a id="orgheadline11"></a>提交分支<br  /><div class="outline-text-5" id="text-3-1-2-3">
 <p>
-使用 *commit* 命令来提交分支:
+使用 <b>commit</b> 命令来提交分支:<br  />
 </p>
 <div class="org-src-container">
 
@@ -739,11 +739,11 @@ Create a new orphan branch, named &lt;new_branch&gt;, started from &lt;start poi
 </pre>
 </div>
 <p>
-如果没有任何文件提交的话，分支是看不到的，可以创建一个新文件后再次提交则新创建的 *branch* 就会显示出来。
+如果没有任何文件提交的话，分支是看不到的，可以创建一个新文件后再次提交则新创建的 <b>branch</b> 就会显示出来。<br  />
 </p>
 
 <p>
-使用 *branch* 来查看分支是否创建成功:
+使用 <b>branch</b> 来查看分支是否创建成功:<br  />
 </p>
 <div class="org-src-container">
 
