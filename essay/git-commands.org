@@ -6,7 +6,7 @@
 #+KEYWORDS:    git
 #+TAGS:        技巧
 #+LANGUAGE:    en
-#+OPTIONS:     H:2 num:t toc:t \n:nil ::t |:t ^:nil -:nil f:t *:nil <:t
+#+OPTIONS:     H:2 num:t toc:t \n:t ::t |:t ^:t -:t f:t *:t <:t
 #+DESCRIPTION: 我在扯淡！
 
 * git 远程操作详解
