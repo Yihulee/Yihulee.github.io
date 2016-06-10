@@ -1,0 +1,14 @@
+#+TITLE:       软件设计模式笔记
+#+AUTHOR:      Yihulee
+#+EMAIL:       lishuhuakai@gmail.com
+#+DATE:        2016-06-10 周五
+#+URI:         /blog/%y/%m/%d/软件设计模式笔记
+#+KEYWORDS:    Design pattern
+#+TAGS:        无题
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: 我在扯淡！
+
+| 要点                 | 网址                                                    |
+|----------------------+---------------------------------------------------------|
+| MVC，MVP和MVVM的图示 | http://www.ruanyifeng.com/blog/2015/02/mvcmvp_mvvm.html |
