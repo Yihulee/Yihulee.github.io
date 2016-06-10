@@ -4,10 +4,17 @@
     <title>Yihulee&#39;s world!</title>
     <link>http://Yihulee.github.io</link>
     <description>========&gt;易燃又美味！</description>
-    <pubDate>周四, 09 六月 2016 16:56:05 中国标准时间</pubDate>
-    <lastBuildDate>周四, 09 六月 2016 16:56:05 中国标准时间</lastBuildDate>
+    <pubDate>周五, 10 六月 2016 15:06:20 中国标准时间</pubDate>
+    <lastBuildDate>周五, 10 六月 2016 15:06:20 中国标准时间</lastBuildDate>
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>Org-page static site generator (https://github.com/kelvinh/org-page)</generator>
+    <item>
+      <title>软件设计模式笔记</title>
+      <link>http://Yihulee.github.io/blog/2016/06/10/软件设计模式笔记</link>
+      <description><![CDATA[我在扯淡！]]></description>
+      <pubDate>2016-06-10</pubDate>
+      <guid>http://Yihulee.github.io/blog/2016/06/10/软件设计模式笔记</guid>
+    </item>
     <item>
       <title>由语法糖想到的...</title>
       <link>http://Yihulee.github.io/blog/2016/05/09/a-little-thinking-01</link>
@@ -70,13 +77,6 @@
       <description><![CDATA[解题报告]]></description>
       <pubDate>2016-06-09</pubDate>
       <guid>http://Yihulee.github.io/blog/2016/02/24/programming-language-解题报告</guid>
-    </item>
-    <item>
-      <title>Hi</title>
-      <link>http://Yihulee.github.io/blog/2016/01/30/hi</link>
-      <description><![CDATA[Hello]]></description>
-      <pubDate>2016-06-09</pubDate>
-      <guid>http://Yihulee.github.io/blog/2016/01/30/hi</guid>
     </item>
   </channel>
 </rss>
