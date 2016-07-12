@@ -4,10 +4,17 @@
     <title>Yihulee&#39;s world!</title>
     <link>http://Yihulee.github.io</link>
     <description>========&gt;易燃又美味！</description>
-    <pubDate>周二, 12 七月 2016 20:08:11 中国标准时间</pubDate>
-    <lastBuildDate>周二, 12 七月 2016 20:08:11 中国标准时间</lastBuildDate>
+    <pubDate>周二, 12 七月 2016 20:11:48 中国标准时间</pubDate>
+    <lastBuildDate>周二, 12 七月 2016 20:11:48 中国标准时间</lastBuildDate>
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>Org-page static site generator (https://github.com/kelvinh/org-page)</generator>
+    <item>
+      <title>关于编译器</title>
+      <link>http://Yihulee.github.io/blog/2016/07/12/关于编译器</link>
+      <description><![CDATA[当然，我在扯淡！]]></description>
+      <pubDate>2016-07-12</pubDate>
+      <guid>http://Yihulee.github.io/blog/2016/07/12/关于编译器</guid>
+    </item>
     <item>
       <title>关于消息的传达</title>
       <link>http://Yihulee.github.io/blog/2016/06/14/关于消息的传达</link>
@@ -70,13 +77,6 @@
       <description><![CDATA[美味]]></description>
       <pubDate>2016-05-11</pubDate>
       <guid>http://Yihulee.github.io/blog/2016/05/09/a-little-thinking-01</guid>
-    </item>
-    <item>
-      <title>零碎集</title>
-      <link>http://Yihulee.github.io/blog/2016/04/23/零碎集</link>
-      <description><![CDATA[零零碎碎的一些感想]]></description>
-      <pubDate>2016-04-23</pubDate>
-      <guid>http://Yihulee.github.io/blog/2016/04/23/零碎集</guid>
     </item>
   </channel>
 </rss>
